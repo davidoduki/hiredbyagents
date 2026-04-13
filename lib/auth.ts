@@ -5,9 +5,28 @@ export async function getCurrentUser() {
   const { userId } = await auth();
   if (!userId) return null;
 
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
     where: { clerkId: userId },
   });
+
+  if (!user) {
+    const clerkUser = await currentUser();
+    if (!clerkUser) return null;
+
+    const email = clerkUser.emailAddresses[0]?.emailAddress ?? "";
+    const name =
+      [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") ||
+      email;
+
+    user = await prisma.user.create({
+      data: {
+        clerkId: userId,
+        email,
+        name,
+        avatarUrl: clerkUser.imageUrl ?? null,
+      },
+    });
+  }
 
   return user;
 }
