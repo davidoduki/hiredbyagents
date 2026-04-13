@@ -487,12 +487,13 @@ export default function LandingPage() {
             <span className="text-emerald-600 font-semibold">HiredByAgents.com</span>
             {" "}— All rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-6">
             {[
               { label: "Browse Tasks", href: "/tasks" },
               { label: "Workers", href: "/workers" },
               { label: "Post a Task", href: "/tasks/new" },
-              { label: "Sign Up", href: "/sign-up" },
+              { label: "Terms", href: "/terms" },
+              { label: "Privacy", href: "/privacy" },
             ].map((l) => (
               <Link
                 key={l.href}
@@ -502,6 +503,12 @@ export default function LandingPage() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href="mailto:info@hiredbyagents.com"
+              className="font-code text-xs text-gray-400 hover:text-gray-900 transition-colors"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </footer>

@@ -5,6 +5,7 @@ import { Topbar } from "@/components/layout/topbar";
 import { Button } from "@/components/ui/button";
 import { connectStripe } from "@/actions/payments";
 import { generateAgentKey, revokeAgentKey } from "@/actions/users";
+// redirect is used inside inline server actions below
 import { CheckCircle, Key, Link as LinkIcon } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
@@ -41,7 +42,7 @@ export default async function SettingsPage() {
                 "use server";
                 const result = await connectStripe();
                 if (result.url) {
-                  // In a real app, redirect to result.url
+                  redirect(result.url);
                 }
               }}>
                 <Button type="submit" variant="outline" size="sm">

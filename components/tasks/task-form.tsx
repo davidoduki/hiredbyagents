@@ -13,12 +13,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SkillTag } from "@/components/ui/skill-tag";
 import { X } from "lucide-react";
-import { createTask } from "@/actions/tasks";
+import { createTask, updateTask } from "@/actions/tasks";
 
-export function TaskForm() {
-  const [skills, setSkills] = React.useState<string[]>([]);
+interface TaskFormProps {
+  /** When provided, the form operates in edit mode */
+  taskId?: string;
+  initialValues?: {
+    title?: string;
+    description?: string;
+    requiredSkills?: string[];
+    preferredWorker?: string;
+    budget?: number;
+    webhookUrl?: string;
+  };
+}
+
+export function TaskForm({ taskId, initialValues }: TaskFormProps) {
+  const isEditMode = Boolean(taskId);
+  const [skills, setSkills] = React.useState<string[]>(initialValues?.requiredSkills ?? []);
   const [skillInput, setSkillInput] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -47,22 +60,41 @@ export function TaskForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    const result = await createTask({
-      title: data.get("title") as string,
-      description: data.get("description") as string,
-      requiredSkills: skills,
-      preferredWorker: data.get("preferredWorker") as string,
-      budget: parseFloat(data.get("budget") as string),
-      deadlineHours: data.get("deadlineHours") ? parseInt(data.get("deadlineHours") as string) : undefined,
-      webhookUrl: data.get("webhookUrl") as string || undefined,
-    });
+    if (isEditMode && taskId) {
+      const result = await updateTask(taskId, {
+        title: data.get("title") as string,
+        description: data.get("description") as string,
+        requiredSkills: skills,
+        preferredWorker: data.get("preferredWorker") as string,
+        budget: parseFloat(data.get("budget") as string),
+      });
 
-    setLoading(false);
-
-    if (result.error) {
-      setError(result.error);
+      setLoading(false);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        router.push(`/tasks/${taskId}`);
+        router.refresh();
+      }
     } else {
-      router.push(`/tasks/${result.taskId}`);
+      const result = await createTask({
+        title: data.get("title") as string,
+        description: data.get("description") as string,
+        requiredSkills: skills,
+        preferredWorker: data.get("preferredWorker") as string,
+        budget: parseFloat(data.get("budget") as string),
+        deadlineHours: data.get("deadlineHours")
+          ? parseInt(data.get("deadlineHours") as string)
+          : undefined,
+        webhookUrl: (data.get("webhookUrl") as string) || undefined,
+      });
+
+      setLoading(false);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        router.push(`/tasks/${result.taskId}`);
+      }
     }
   }
 
@@ -76,6 +108,7 @@ export function TaskForm() {
           placeholder="e.g. Build a REST API for user authentication"
           required
           maxLength={120}
+          defaultValue={initialValues?.title ?? ""}
         />
       </div>
 
@@ -87,6 +120,7 @@ export function TaskForm() {
           rows={6}
           placeholder="Describe exactly what you need done, deliverables, acceptance criteria..."
           required
+          defaultValue={initialValues?.description ?? ""}
         />
       </div>
 
@@ -94,9 +128,16 @@ export function TaskForm() {
         <Label>Required Skills</Label>
         <div className="flex flex-wrap gap-1.5 mb-2">
           {skills.map((skill) => (
-            <span key={skill} className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">
+            <span
+              key={skill}
+              className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700"
+            >
               {skill}
-              <button type="button" onClick={() => removeSkill(skill)} className="hover:text-red-500">
+              <button
+                type="button"
+                onClick={() => removeSkill(skill)}
+                className="hover:text-red-500"
+              >
                 <X className="h-3 w-3" />
               </button>
             </span>
@@ -122,24 +163,30 @@ export function TaskForm() {
             step="0.01"
             placeholder="e.g. 250.00"
             required
+            defaultValue={initialValues?.budget ?? ""}
           />
         </div>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="deadlineHours">Deadline (hours from now)</Label>
-          <Input
-            id="deadlineHours"
-            name="deadlineHours"
-            type="number"
-            min="1"
-            placeholder="e.g. 72 (3 days)"
-          />
-        </div>
+        {!isEditMode && (
+          <div className="space-y-1.5">
+            <Label htmlFor="deadlineHours">Deadline (hours from now)</Label>
+            <Input
+              id="deadlineHours"
+              name="deadlineHours"
+              type="number"
+              min="1"
+              placeholder="e.g. 72 (3 days)"
+            />
+          </div>
+        )}
       </div>
 
       <div className="space-y-1.5">
         <Label htmlFor="preferredWorker">Preferred Worker Type</Label>
-        <Select name="preferredWorker" defaultValue="ANY">
+        <Select
+          name="preferredWorker"
+          defaultValue={initialValues?.preferredWorker ?? "ANY"}
+        >
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -151,16 +198,21 @@ export function TaskForm() {
         </Select>
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="webhookUrl">Webhook URL (optional)</Label>
-        <Input
-          id="webhookUrl"
-          name="webhookUrl"
-          type="url"
-          placeholder="https://myagent.com/hooks/task-done"
-        />
-        <p className="text-xs text-gray-500">Receive callbacks when the task status changes</p>
-      </div>
+      {!isEditMode && (
+        <div className="space-y-1.5">
+          <Label htmlFor="webhookUrl">Webhook URL (optional)</Label>
+          <Input
+            id="webhookUrl"
+            name="webhookUrl"
+            type="url"
+            placeholder="https://myagent.com/hooks/task-done"
+            defaultValue={initialValues?.webhookUrl ?? ""}
+          />
+          <p className="text-xs text-gray-500">
+            Receive callbacks when the task status changes
+          </p>
+        </div>
+      )}
 
       {error && (
         <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
@@ -170,7 +222,7 @@ export function TaskForm() {
 
       <div className="flex gap-3">
         <Button type="submit" disabled={loading} className="flex-1 sm:flex-none">
-          {loading ? "Posting..." : "Post Task"}
+          {loading ? (isEditMode ? "Saving..." : "Posting...") : isEditMode ? "Save Changes" : "Post Task"}
         </Button>
         <Button type="button" variant="ghost" onClick={() => router.back()}>
           Cancel
