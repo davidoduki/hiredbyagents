@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  POSTER
+  WORKER
+  BOTH
+}
+
+enum WorkerType {
+  HUMAN
+  AGENT
+}
+
+enum TaskStatus {
+  OPEN
+  ASSIGNED
+  IN_PROGRESS
+  REVIEW
+  COMPLETE
+  DISPUTED
+  CANCELLED
+}
+
+enum PreferredWorker {
+  HUMAN
+  AGENT
+  ANY
+}
+
+enum PaymentStatus {
+  HELD
+  RELEASED
+  REFUNDED
+}
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id               String      @id @default(cuid())
+  clerkId          String      @unique
+  email            String      @unique
+  name             String
+  avatarUrl        String?
+  role             UserRole    @default(BOTH)
+  workerType       WorkerType?
+  bio              String?
+  skills           String[]
+  hourlyRate       Decimal?
+  apiEndpoint      String?
+  rating           Decimal     @default(0)
+  completedTasks   Int         @default(0)
+  stripeAccountId  String?
+  stripeCustomerId String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  postedTasks     Task[]           @relation("PosterTasks")
+  assignedTasks   Task[]           @relation("WorkerTasks")
+  bids            Bid[]
+  submissions     TaskSubmission[]
+  reviewsGiven    Review[]         @relation("ReviewsGiven")
+  reviewsReceived Review[]         @relation("ReviewsReceived")
+  agentKeys       AgentKey[]
+  paymentsOut     Payment[]        @relation("PaymentsOut")
+  paymentsIn      Payment[]        @relation("PaymentsIn")
+}
+
+model Task {
+  id              String          @id @default(cuid())
+  posterId        String
+  poster          User            @relation("PosterTasks", fields: [posterId], references: [id])
+  posterType      WorkerType      @default(HUMAN)
+  title           String
+  description     String
+  requiredSkills  String[]
+  preferredWorker PreferredWorker @default(ANY)
+  budget          Decimal
+  status          TaskStatus      @default(OPEN)
+  deadline        DateTime?
+  assignedToId    String?
+  assignedTo      User?           @relation("WorkerTasks", fields: [assignedToId], references: [id])
+  assignedAt      DateTime?
+  submittedAt     DateTime?
+  completedAt     DateTime?
+  webhookUrl      String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  bids        Bid[]
+  submissions TaskSubmission[]
+  payment     Payment?
+  reviews     Review[]
+}
+
+model Bid {
+  id           String   @id @default(cuid())
+  taskId       String
+  task         Task     @relation(fields: [taskId], references: [id])
+  workerId     String
+  worker       User     @relation(fields: [workerId], references: [id])
+  proposedRate Decimal
+  message      String
+  createdAt    DateTime @default(now())
+
+  @@unique([taskId, workerId])
+}
+
+model TaskSubmission {
+  id          String           @id @default(cuid())
+  taskId      String
+  task        Task             @relation(fields: [taskId], references: [id])
+  workerId    String
+  worker      User             @relation(fields: [workerId], references: [id])
+  content     String
+  attachments Json             @default("[]")
+  notes       String?
+  status      SubmissionStatus @default(PENDING)
+  feedback    String?
+  submittedAt DateTime         @default(now())
+}
+
+model Payment {
+  id                  String        @id @default(cuid())
+  taskId              String        @unique
+  task                Task          @relation(fields: [taskId], references: [id])
+  payerId             String
+  payer               User          @relation("PaymentsOut", fields: [payerId], references: [id])
+  payeeId             String
+  payee               User          @relation("PaymentsIn", fields: [payeeId], references: [id])
+  amount              Decimal
+  platformFee         Decimal
+  stripePaymentIntent String?
+  stripeTransferId    String?
+  status              PaymentStatus @default(HELD)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  taskId     String
+  task       Task     @relation(fields: [taskId], references: [id])
+  reviewerId String
+  reviewer   User     @relation("ReviewsGiven", fields: [reviewerId], references: [id])
+  revieweeId String
+  reviewee   User     @relation("ReviewsReceived", fields: [revieweeId], references: [id])
+  rating     Int
+  comment    String?
+  createdAt  DateTime @default(now())
+}
+
+model AgentKey {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  keyHash   String    @unique
+  name      String
+  lastUsed  DateTime?
+  createdAt DateTime  @default(now())
+}
