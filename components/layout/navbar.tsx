@@ -16,7 +16,7 @@ const NAV = [
     label: "Product",
     items: [
       { label: "Features", href: "/#features", desc: "What makes us different" },
-      { label: "Pricing", href: "/#pricing", desc: "Simple 12% per task" },
+      { label: "Pricing", href: "/#pricing", desc: "12% on completion, nothing upfront" },
       { label: "Reviews", href: "/#reviews", desc: "What our users say" },
     ],
   },
