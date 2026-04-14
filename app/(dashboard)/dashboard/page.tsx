@@ -9,7 +9,13 @@ import { formatCurrency, timeAgo } from "@/lib/utils";
 import { PlusCircle, Search, Star, Briefcase, ClipboardList, TrendingUp } from "lucide-react";
 
 export default async function DashboardPage() {
-  const user = await getCurrentUser();
+  let user;
+  try {
+    user = await getCurrentUser();
+  } catch (err) {
+    console.error("[dashboard] getCurrentUser failed:", err);
+    throw err;
+  }
   if (!user) redirect("/sign-in");
 
   const [postedTasks, assignedTasks, earnings] = await Promise.all([
