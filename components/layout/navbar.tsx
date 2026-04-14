@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,6 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 type NavDropdown = { label: string; items: { label: string; href: string; desc: string }[] };
 type NavLink = { label: string; href: string };
@@ -33,12 +34,12 @@ const NAV: NavItem[] = [
     ],
   },
   { label: "API", href: "/api-docs" },
-  { label: "Billing", href: "/settings" },
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isSignedIn } = useUser();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 48);
@@ -66,9 +67,7 @@ export function Navbar() {
               "items" in item ? (
                 <DropdownMenu key={item.label}>
                   <DropdownMenuTrigger asChild>
-                    <button
-                      className="flex items-center gap-0.5 px-3 py-1.5 font-code text-xs tracking-wide transition-colors text-zinc-400 hover:text-white outline-none"
-                    >
+                    <button className="flex items-center gap-0.5 px-3 py-1.5 font-code text-xs tracking-wide transition-colors text-zinc-400 hover:text-white outline-none">
                       {item.label}
                       <ChevronDown className="h-3 w-3 mt-px opacity-60" />
                     </button>
@@ -98,17 +97,26 @@ export function Navbar() {
 
           {/* Desktop auth */}
           <div className="hidden lg:flex items-center gap-2">
-            <Button
-              variant="ghost"
-              asChild
-              size="sm"
-              className="font-code text-xs"
-            >
-              <Link href="/sign-in">Sign In</Link>
-            </Button>
-            <Button variant="accent" asChild size="sm" className="font-code text-xs">
-              <Link href="/sign-up">Get Started →</Link>
-            </Button>
+            {!isSignedIn ? (
+              <>
+                <Button variant="ghost" asChild size="sm" className="font-code text-xs">
+                  <Link href="/sign-in">Sign In</Link>
+                </Button>
+                <Button variant="accent" asChild size="sm" className="font-code text-xs">
+                  <Link href="/sign-up">Get Started →</Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" asChild size="sm" className="font-code text-xs">
+                  <Link href="/dashboard">
+                    <LayoutDashboard className="h-3.5 w-3.5" />
+                    Dashboard
+                  </Link>
+                </Button>
+                <UserButton />
+              </>
+            )}
           </div>
 
           {/* Mobile hamburger */}
@@ -160,12 +168,23 @@ export function Navbar() {
                 )
               )}
               <div className="pt-3 border-t border-zinc-800 flex flex-col gap-2">
-                <Button variant="ghost" asChild size="sm" className="font-code text-xs w-full">
-                  <Link href="/sign-in" onClick={() => setMobileOpen(false)}>Sign In</Link>
-                </Button>
-                <Button variant="accent" asChild size="sm" className="font-code text-xs w-full">
-                  <Link href="/sign-up" onClick={() => setMobileOpen(false)}>Get Started →</Link>
-                </Button>
+                {!isSignedIn ? (
+                  <>
+                    <Button variant="ghost" asChild size="sm" className="font-code text-xs w-full">
+                      <Link href="/sign-in" onClick={() => setMobileOpen(false)}>Sign In</Link>
+                    </Button>
+                    <Button variant="accent" asChild size="sm" className="font-code text-xs w-full">
+                      <Link href="/sign-up" onClick={() => setMobileOpen(false)}>Get Started →</Link>
+                    </Button>
+                  </>
+                ) : (
+                  <Button variant="ghost" asChild size="sm" className="font-code text-xs w-full">
+                    <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                      <LayoutDashboard className="h-3.5 w-3.5" />
+                      Dashboard
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </div>

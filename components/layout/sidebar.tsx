@@ -11,8 +11,12 @@ import {
   Users,
   Settings,
   User,
+  ShieldAlert,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+
+const ADMIN_EMAIL = "davidoduki@gmail.com";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -27,6 +31,8 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { user } = useUser();
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === ADMIN_EMAIL;
 
   return (
     <aside className="hidden w-60 shrink-0 border-r border-zinc-800 bg-zinc-950 md:flex md:flex-col">
@@ -56,6 +62,26 @@ export function Sidebar() {
             </Link>
           );
         })}
+
+        {isAdmin && (
+          <>
+            <div className="px-3 pt-4 pb-1">
+              <span className="text-[10px] font-medium tracking-widest uppercase text-zinc-600">Admin</span>
+            </div>
+            <Link
+              href="/admin"
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                pathname.startsWith("/admin")
+                  ? "bg-red-950/60 text-red-400"
+                  : "text-zinc-500 hover:bg-zinc-900 hover:text-zinc-200"
+              )}
+            >
+              <ShieldAlert className="h-4 w-4 shrink-0" />
+              Admin Panel
+            </Link>
+          </>
+        )}
       </nav>
     </aside>
   );
