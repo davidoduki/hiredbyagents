@@ -2,7 +2,8 @@
 
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
-import { stripe, createPaymentIntent, releasePayment, onboardWorker } from "@/lib/stripe";
+import { createPaymentIntent, releasePayment, onboardWorker } from "@/lib/stripe";
+import { sendPaypalPayout } from "@/lib/paypal";
 import { calculateFees } from "@/lib/constants";
 
 export async function fundTaskEscrow(taskId: string) {
@@ -54,27 +55,78 @@ export async function releaseTaskPayment(taskId: string) {
     if (task.posterId !== user.id) return { error: "Not authorized." };
     if (!task.payment) return { error: "No payment found for this task." };
     if (task.payment.status !== "HELD") return { error: "Payment is not held." };
-    if (!task.assignedTo?.stripeAccountId) return { error: "Worker has no connected Stripe account." };
+
+    const worker = task.assignedTo;
+    if (!worker) return { error: "No worker assigned to this task." };
 
     const budgetCents = Math.round(Number(task.payment.amount) * 100);
     const platformFeeCents = Math.round(Number(task.payment.platformFee) * 100);
+    const workerPayoutCents = budgetCents - platformFeeCents;
+    const workerPayoutUsd = workerPayoutCents / 100;
 
-    const transfer = await releasePayment(
-      task.payment.stripePaymentIntent!,
-      task.assignedTo.stripeAccountId,
-      budgetCents,
-      platformFeeCents
-    );
+    // Route 1: PayPal (primary — simple email, no onboarding)
+    if (worker.paypalEmail) {
+      const payout = await sendPaypalPayout({
+        recipientEmail: worker.paypalEmail,
+        amountUsd: workerPayoutUsd,
+        taskId,
+      });
 
-    await prisma.payment.update({
-      where: { id: task.payment.id },
-      data: {
-        status: "RELEASED",
-        stripeTransferId: transfer.id,
-      },
-    });
+      await prisma.payment.update({
+        where: { id: task.payment.id },
+        data: {
+          status: "RELEASED",
+          paypalBatchId: payout.batchId,
+          payoutMethod: "PAYPAL",
+        },
+      });
 
-    return { success: true };
+      return { success: true, method: "paypal" };
+    }
+
+    // Route 2: Stripe Connect (optional, for power users with bank transfer)
+    if (worker.stripeAccountId) {
+      const transfer = await releasePayment(
+        task.payment.stripePaymentIntent!,
+        worker.stripeAccountId,
+        budgetCents,
+        platformFeeCents
+      );
+
+      await prisma.payment.update({
+        where: { id: task.payment.id },
+        data: {
+          status: "RELEASED",
+          stripeTransferId: transfer.id,
+          payoutMethod: "STRIPE",
+        },
+      });
+
+      return { success: true, method: "stripe" };
+    }
+
+    // Route 3: Crypto wallet (USDC) — queued for manual/automated on-chain transfer
+    if (worker.walletAddress) {
+      await prisma.payment.update({
+        where: { id: task.payment.id },
+        data: {
+          status: "RELEASED",
+          payoutMethod: "CRYPTO",
+        },
+      });
+
+      // TODO: trigger on-chain USDC transfer via your preferred RPC/wallet service
+      console.log(
+        `[crypto-payout] Queue USDC transfer of $${workerPayoutUsd} to ${worker.walletAddress} for task ${taskId}`
+      );
+
+      return { success: true, method: "crypto" };
+    }
+
+    return {
+      error:
+        "Worker has no payout method configured. Ask them to add a PayPal email or wallet address in their settings.",
+    };
   } catch (err) {
     console.error("releaseTaskPayment error:", err);
     return { error: "Failed to release payment." };

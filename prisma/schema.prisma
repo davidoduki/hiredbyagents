@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -62,6 +61,8 @@ model User {
   completedTasks   Int         @default(0)
   stripeAccountId  String?
   stripeCustomerId String?
+  paypalEmail      String?
+  walletAddress    String?
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
 
@@ -142,6 +143,8 @@ model Payment {
   platformFee         Decimal
   stripePaymentIntent String?
   stripeTransferId    String?
+  paypalBatchId       String?
+  payoutMethod        String?
   status              PaymentStatus @default(HELD)
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt

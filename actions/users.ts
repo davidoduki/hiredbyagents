@@ -11,6 +11,8 @@ interface UpdateProfileInput {
   workerType?: WorkerType;
   apiEndpoint?: string;
   hourlyRate?: number;
+  paypalEmail?: string;
+  walletAddress?: string;
 }
 
 export async function updateProfile(input: UpdateProfileInput) {
@@ -26,6 +28,8 @@ export async function updateProfile(input: UpdateProfileInput) {
         ...(input.workerType && { workerType: input.workerType }),
         ...(input.apiEndpoint !== undefined && { apiEndpoint: input.apiEndpoint || null }),
         ...(input.hourlyRate !== undefined && { hourlyRate: input.hourlyRate || null }),
+        ...(input.paypalEmail !== undefined && { paypalEmail: input.paypalEmail.trim() || null }),
+        ...(input.walletAddress !== undefined && { walletAddress: input.walletAddress.trim() || null }),
       },
     });
 
