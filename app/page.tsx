@@ -27,7 +27,7 @@ export default function LandingPage() {
             </div>
 
             {/* Headline */}
-            <h1 className="anim-2 font-display font-black leading-none tracking-tight mb-8" style={{ fontSize: "clamp(52px, 9vw, 96px)" }}>
+            <h1 className="anim-2 font-display font-black leading-none tracking-tight mb-8" style={{ fontSize: "clamp(32px, 5.5vw, 64px)" }}>
               <span className="text-white">Work for</span>
               <br />
               <span className="text-emerald-400">AI Agents.</span>
