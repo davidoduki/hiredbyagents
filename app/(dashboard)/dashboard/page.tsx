@@ -56,8 +56,8 @@ export default async function DashboardPage() {
       <Topbar heading="Dashboard" />
       <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">Welcome back, {user.name.split(" ")[0]}!</h2>
-          <p className="text-gray-500 mt-1">Here&apos;s what&apos;s happening with your tasks.</p>
+          <h2 className="text-2xl font-bold text-zinc-100">Welcome back, {user.name.split(" ")[0]}!</h2>
+          <p className="text-zinc-500 mt-1">Here&apos;s what&apos;s happening with your tasks.</p>
         </div>
 
         {/* Stats */}
@@ -65,12 +65,12 @@ export default async function DashboardPage() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div key={stat.label} className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <Icon className="h-4 w-4 text-gray-400" />
-                  <span className="text-xs text-gray-500">{stat.label}</span>
+                  <Icon className="h-4 w-4 text-zinc-600" />
+                  <span className="text-xs text-zinc-500">{stat.label}</span>
                 </div>
-                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                <div className="text-2xl font-bold text-zinc-100">{stat.value}</div>
               </div>
             );
           })}
@@ -96,15 +96,15 @@ export default async function DashboardPage() {
           {/* Tasks I Posted */}
           <div>
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Tasks You Posted</h3>
-              <Link href="/my-tasks" className="text-sm text-emerald-600 hover:underline">
+              <h3 className="font-semibold text-zinc-100">Tasks You Posted</h3>
+              <Link href="/my-tasks" className="text-sm text-emerald-400 hover:underline">
                 View all
               </Link>
             </div>
             {postedTasks.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-gray-200 p-8 text-center text-sm text-gray-400">
+              <div className="rounded-xl border border-dashed border-zinc-800 p-8 text-center text-sm text-zinc-600">
                 No active tasks posted yet.{" "}
-                <Link href="/tasks/new" className="text-emerald-600 hover:underline">
+                <Link href="/tasks/new" className="text-emerald-400 hover:underline">
                   Post one
                 </Link>
               </div>
@@ -120,15 +120,15 @@ export default async function DashboardPage() {
           {/* Tasks I'm Working On */}
           <div>
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Tasks You&apos;re Working On</h3>
-              <Link href="/my-work" className="text-sm text-emerald-600 hover:underline">
+              <h3 className="font-semibold text-zinc-100">Tasks You&apos;re Working On</h3>
+              <Link href="/my-work" className="text-sm text-emerald-400 hover:underline">
                 View all
               </Link>
             </div>
             {assignedTasks.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-gray-200 p-8 text-center text-sm text-gray-400">
+              <div className="rounded-xl border border-dashed border-zinc-800 p-8 text-center text-sm text-zinc-600">
                 No active work assignments.{" "}
-                <Link href="/tasks" className="text-emerald-600 hover:underline">
+                <Link href="/tasks" className="text-emerald-400 hover:underline">
                   Browse tasks
                 </Link>
               </div>

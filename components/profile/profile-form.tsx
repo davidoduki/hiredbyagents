@@ -130,7 +130,7 @@ export function ProfileForm({ initialValues }: ProfileFormProps) {
           {skills.map((skill) => (
             <span
               key={skill}
-              className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700"
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs font-medium text-zinc-300"
             >
               {skill}
               <button
@@ -165,12 +165,12 @@ export function ProfileForm({ initialValues }: ProfileFormProps) {
       </div>
 
       {success && (
-        <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 text-sm text-emerald-700">
+        <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/30 p-3 text-sm text-emerald-400">
           Profile updated successfully.
         </div>
       )}
       {error && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400">
           {error}
         </div>
       )}

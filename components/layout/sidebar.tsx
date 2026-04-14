@@ -29,16 +29,14 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-gray-200 bg-white md:flex md:flex-col">
-      <div className="flex h-16 items-center border-b border-gray-200 px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-lg font-bold text-gray-900">
-            Hired<span className="text-emerald-500">By</span>Agents
-          </span>
+    <aside className="hidden w-60 shrink-0 border-r border-zinc-800 bg-zinc-950 md:flex md:flex-col">
+      <div className="flex h-14 items-center border-b border-zinc-800 px-5">
+        <Link href="/" className="font-code text-sm font-bold tracking-tight text-white">
+          hired<span className="text-emerald-400">by</span>agents<span className="text-emerald-400">.com</span>
         </Link>
       </div>
 
-      <nav className="flex-1 space-y-1 px-3 py-4">
+      <nav className="flex-1 space-y-0.5 px-2 py-3">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
@@ -49,8 +47,8 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                  ? "bg-zinc-800 text-white"
+                  : "text-zinc-500 hover:bg-zinc-900 hover:text-zinc-200"
               )}
             >
               <Icon className="h-4 w-4 shrink-0" />

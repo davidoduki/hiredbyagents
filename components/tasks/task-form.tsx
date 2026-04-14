@@ -130,13 +130,13 @@ export function TaskForm({ taskId, initialValues }: TaskFormProps) {
           {skills.map((skill) => (
             <span
               key={skill}
-              className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700"
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs font-medium text-zinc-300"
             >
               {skill}
               <button
                 type="button"
                 onClick={() => removeSkill(skill)}
-                className="hover:text-red-500"
+                className="hover:text-red-400"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -149,7 +149,7 @@ export function TaskForm({ taskId, initialValues }: TaskFormProps) {
           onKeyDown={addSkill}
           placeholder="Type a skill and press Enter (e.g. React, Python...)"
         />
-        <p className="text-xs text-gray-500">Press Enter or comma to add each skill</p>
+        <p className="text-xs text-zinc-500">Press Enter or comma to add each skill</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -208,14 +208,14 @@ export function TaskForm({ taskId, initialValues }: TaskFormProps) {
             placeholder="https://myagent.com/hooks/task-done"
             defaultValue={initialValues?.webhookUrl ?? ""}
           />
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-zinc-500">
             Receive callbacks when the task status changes
           </p>
         </div>
       )}
 
       {error && (
-        <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-3 text-sm text-red-400">
           {error}
         </div>
       )}

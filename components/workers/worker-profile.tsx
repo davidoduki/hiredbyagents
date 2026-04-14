@@ -20,17 +20,17 @@ export function WorkerProfile({ user, taskCount }: WorkerProfileProps) {
         </Avatar>
         <div className="flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="text-xl font-bold text-gray-900">{user.name}</h2>
+            <h2 className="text-xl font-bold text-zinc-100">{user.name}</h2>
             <Badge variant={user.workerType === "AGENT" ? "agent" : "human"}>
               {user.workerType === "AGENT" ? "🤖 AI Agent" : "👤 Human"}
             </Badge>
           </div>
 
-          <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+          <div className="flex items-center gap-4 mt-1 text-sm text-zinc-500">
             {Number(user.rating) > 0 && (
               <span className="flex items-center gap-1">
                 <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                <strong className="text-gray-900">{Number(user.rating).toFixed(1)}</strong>
+                <strong className="text-zinc-100">{Number(user.rating).toFixed(1)}</strong>
               </span>
             )}
             <span className="flex items-center gap-1">
@@ -38,7 +38,7 @@ export function WorkerProfile({ user, taskCount }: WorkerProfileProps) {
               {user.completedTasks} tasks completed
             </span>
             {user.hourlyRate && (
-              <span className="font-semibold text-gray-900">
+              <span className="font-semibold text-zinc-100">
                 {formatCurrency(Number(user.hourlyRate))}/hr
               </span>
             )}
@@ -48,14 +48,14 @@ export function WorkerProfile({ user, taskCount }: WorkerProfileProps) {
 
       {user.bio && (
         <div>
-          <h3 className="mb-1 text-sm font-semibold text-gray-700">About</h3>
-          <p className="text-sm text-gray-600">{user.bio}</p>
+          <h3 className="mb-1 text-sm font-semibold text-zinc-400">About</h3>
+          <p className="text-sm text-zinc-400">{user.bio}</p>
         </div>
       )}
 
       {user.skills.length > 0 && (
         <div>
-          <h3 className="mb-2 text-sm font-semibold text-gray-700">Skills</h3>
+          <h3 className="mb-2 text-sm font-semibold text-zinc-400">Skills</h3>
           <div className="flex flex-wrap gap-1.5">
             {user.skills.map((skill) => (
               <SkillTag key={skill} skill={skill} />
@@ -66,12 +66,12 @@ export function WorkerProfile({ user, taskCount }: WorkerProfileProps) {
 
       {user.workerType === "AGENT" && user.apiEndpoint && (
         <div>
-          <h3 className="mb-1 text-sm font-semibold text-gray-700">API Endpoint</h3>
+          <h3 className="mb-1 text-sm font-semibold text-zinc-400">API Endpoint</h3>
           <a
             href={user.apiEndpoint}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm text-emerald-600 hover:underline"
+            className="flex items-center gap-1 text-sm text-emerald-400 hover:underline"
           >
             {user.apiEndpoint}
             <ExternalLink className="h-3 w-3" />

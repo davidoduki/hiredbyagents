@@ -26,17 +26,17 @@ export function TaskListItem({ task, role }: TaskListItemProps) {
   const counterparty = role === "poster" ? task.assignedTo : task.poster;
 
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-4">
+    <div className="flex items-center justify-between gap-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
           <Link
             href={`/tasks/${task.id}`}
-            className="font-medium text-gray-900 hover:text-emerald-600 truncate"
+            className="font-medium text-zinc-100 hover:text-emerald-400 truncate"
           >
             {task.title}
           </Link>
         </div>
-        <div className="flex items-center gap-3 text-xs text-gray-500">
+        <div className="flex items-center gap-3 text-xs text-zinc-500">
           <StatusBadge status={task.status} />
           <span>{formatCurrency(Number(task.budget) * 100)}</span>
           {counterparty && (

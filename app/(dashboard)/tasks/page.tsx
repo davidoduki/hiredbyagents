@@ -55,8 +55,8 @@ export default async function TasksPage({
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Open Tasks</h2>
-            <p className="text-sm text-gray-500">{tasks.length} task{tasks.length !== 1 ? "s" : ""} available</p>
+            <h2 className="text-xl font-bold text-zinc-100">Open Tasks</h2>
+            <p className="text-sm text-zinc-500">{tasks.length} task{tasks.length !== 1 ? "s" : ""} available</p>
           </div>
           <Button asChild>
             <Link href="/tasks/new">

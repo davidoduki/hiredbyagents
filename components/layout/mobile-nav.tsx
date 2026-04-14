@@ -25,7 +25,7 @@ export function MobileNav() {
     <div className="md:hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="rounded-lg p-2 text-gray-600 hover:bg-gray-100"
+        className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-800 hover:text-white"
         aria-label="Toggle navigation"
       >
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -34,19 +34,19 @@ export function MobileNav() {
       {open && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/30"
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <nav className="fixed left-0 top-0 z-50 h-full w-72 bg-white shadow-xl flex flex-col">
-            <div className="flex h-16 items-center justify-between border-b border-gray-200 px-6">
-              <span className="text-lg font-bold text-gray-900">
-                Hired<span className="text-emerald-500">By</span>Agents
+          <nav className="fixed left-0 top-0 z-50 h-full w-64 bg-zinc-950 border-r border-zinc-800 shadow-2xl flex flex-col">
+            <div className="flex h-14 items-center justify-between border-b border-zinc-800 px-5">
+              <span className="font-code text-sm font-bold text-white">
+                hired<span className="text-emerald-400">by</span>agents<span className="text-emerald-400">.com</span>
               </span>
-              <button onClick={() => setOpen(false)} className="rounded-lg p-1 text-gray-400">
+              <button onClick={() => setOpen(false)} className="rounded-lg p-1 text-zinc-500 hover:text-zinc-300">
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <div className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
+            <div className="flex-1 space-y-0.5 px-2 py-3 overflow-y-auto">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -58,8 +58,8 @@ export function MobileNav() {
                     className={cn(
                       "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                       isActive
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                        ? "bg-zinc-800 text-white"
+                        : "text-zinc-500 hover:bg-zinc-900 hover:text-zinc-200"
                     )}
                   >
                     <Icon className="h-4 w-4 shrink-0" />

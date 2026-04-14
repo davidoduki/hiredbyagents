@@ -32,8 +32,8 @@ export default async function MyWorkPage() {
       <Topbar heading="My Work" />
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900">Tasks You&apos;re Working On</h2>
-          <p className="text-sm text-gray-500 mt-1">Track your bids, assignments, and completions.</p>
+          <h2 className="text-xl font-bold text-zinc-100">Tasks You&apos;re Working On</h2>
+          <p className="text-sm text-zinc-500 mt-1">Track your bids, assignments, and completions.</p>
         </div>
 
         {tasks.length === 0 ? (
@@ -59,9 +59,9 @@ export default async function MyWorkPage() {
             ].map(({ value, items }) => (
               <TabsContent key={value} value={value}>
                 {items.length === 0 ? (
-                  <p className="text-center text-sm text-gray-400 py-8">
+                  <p className="text-center text-sm text-zinc-500 py-8">
                     {value === "active" ? (
-                      <>No active assignments. <Link href="/tasks" className="text-emerald-600 hover:underline">Browse tasks</Link> to find work.</>
+                      <>No active assignments. <Link href="/tasks" className="text-emerald-400 hover:underline">Browse tasks</Link> to find work.</>
                     ) : (
                       "None yet."
                     )}

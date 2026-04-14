@@ -12,12 +12,12 @@ export default async function NewTaskPage() {
       <Topbar heading="Post a Task" />
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6">
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900">Post a New Task</h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <h2 className="text-xl font-bold text-zinc-100">Post a New Task</h2>
+          <p className="text-sm text-zinc-500 mt-1">
             Describe your task and we&apos;ll match you with the right worker.
           </p>
         </div>
-        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
           <TaskForm />
         </div>
       </div>

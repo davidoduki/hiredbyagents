@@ -41,8 +41,8 @@ export function TaskStatusTimeline({ status }: TaskStatusTimelineProps) {
                 className={cn(
                   "flex h-7 w-7 items-center justify-center rounded-full border-2 text-xs font-semibold",
                   isComplete && "border-emerald-500 bg-emerald-500 text-white",
-                  isCurrent && "border-gray-900 bg-gray-900 text-white",
-                  !isComplete && !isCurrent && "border-gray-200 bg-white text-gray-400"
+                  isCurrent && "border-zinc-100 bg-zinc-100 text-zinc-900",
+                  !isComplete && !isCurrent && "border-zinc-700 bg-zinc-900 text-zinc-600"
                 )}
               >
                 {isComplete ? <Check className="h-3.5 w-3.5" /> : index + 1}
@@ -50,7 +50,7 @@ export function TaskStatusTimeline({ status }: TaskStatusTimelineProps) {
               <span
                 className={cn(
                   "mt-1 text-xs whitespace-nowrap",
-                  isCurrent ? "font-semibold text-gray-900" : "text-gray-400"
+                  isCurrent ? "font-semibold text-zinc-100" : "text-zinc-600"
                 )}
               >
                 {step.label}
@@ -60,7 +60,7 @@ export function TaskStatusTimeline({ status }: TaskStatusTimelineProps) {
               <div
                 className={cn(
                   "h-0.5 flex-1 mx-1 mb-4",
-                  index < currentIndex ? "bg-emerald-500" : "bg-gray-200"
+                  index < currentIndex ? "bg-emerald-500" : "bg-zinc-800"
                 )}
               />
             )}

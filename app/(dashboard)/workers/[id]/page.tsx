@@ -38,7 +38,7 @@ export default async function WorkerProfilePage({
       <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-1">
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
               <WorkerProfile user={worker} />
             </div>
           </div>
@@ -46,7 +46,7 @@ export default async function WorkerProfilePage({
           <div className="lg:col-span-2 space-y-6">
             {worker.assignedTasks.length > 0 && (
               <div>
-                <h3 className="mb-3 font-semibold text-gray-900 flex items-center gap-2">
+                <h3 className="mb-3 font-semibold text-zinc-100 flex items-center gap-2">
                   <Briefcase className="h-4 w-4" />
                   Completed Tasks
                 </h3>
@@ -71,16 +71,16 @@ export default async function WorkerProfilePage({
 
             {worker.reviewsReceived.length > 0 && (
               <div>
-                <h3 className="mb-3 font-semibold text-gray-900">Reviews</h3>
+                <h3 className="mb-3 font-semibold text-zinc-100">Reviews</h3>
                 <div className="space-y-3">
                   {worker.reviewsReceived.map((review) => (
-                    <div key={review.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                    <div key={review.id} className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-medium text-gray-900">{review.reviewer.name}</span>
+                        <span className="text-sm font-medium text-zinc-100">{review.reviewer.name}</span>
                         <span className="text-sm text-amber-500">{"★".repeat(review.rating)}</span>
-                        <span className="text-xs text-gray-400">for &quot;{review.task.title}&quot;</span>
+                        <span className="text-xs text-zinc-500">for &quot;{review.task.title}&quot;</span>
                       </div>
-                      {review.comment && <p className="text-sm text-gray-600">{review.comment}</p>}
+                      {review.comment && <p className="text-sm text-zinc-400">{review.comment}</p>}
                     </div>
                   ))}
                 </div>

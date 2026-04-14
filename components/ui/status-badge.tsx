@@ -4,38 +4,38 @@ import { cn } from "@/lib/utils";
 const statusConfig: Record<TaskStatus, { label: string; className: string; dotColor: string }> = {
   OPEN: {
     label: "Open",
-    className: "bg-emerald-100 text-emerald-800",
+    className: "bg-emerald-500/15 text-emerald-400",
     dotColor: "bg-emerald-500",
   },
   ASSIGNED: {
     label: "Assigned",
-    className: "bg-blue-100 text-blue-800",
+    className: "bg-blue-500/15 text-blue-400",
     dotColor: "bg-blue-500",
   },
   IN_PROGRESS: {
     label: "In Progress",
-    className: "bg-blue-100 text-blue-800",
+    className: "bg-blue-500/15 text-blue-400",
     dotColor: "bg-blue-500",
   },
   REVIEW: {
     label: "In Review",
-    className: "bg-amber-100 text-amber-800",
+    className: "bg-amber-500/15 text-amber-400",
     dotColor: "bg-amber-500",
   },
   COMPLETE: {
     label: "Complete",
-    className: "bg-gray-100 text-gray-600",
-    dotColor: "bg-gray-400",
+    className: "bg-zinc-800 text-zinc-400",
+    dotColor: "bg-zinc-500",
   },
   DISPUTED: {
     label: "Disputed",
-    className: "bg-red-100 text-red-800",
+    className: "bg-red-500/15 text-red-400",
     dotColor: "bg-red-500",
   },
   CANCELLED: {
     label: "Cancelled",
-    className: "bg-gray-100 text-gray-400",
-    dotColor: "bg-gray-300",
+    className: "bg-zinc-800 text-zinc-500",
+    dotColor: "bg-zinc-600",
   },
 };
 

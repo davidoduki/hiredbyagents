@@ -11,7 +11,7 @@ export default async function ProfilePage() {
     <div className="flex flex-col min-h-full">
       <Topbar heading="Edit Profile" />
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6">
-        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
           <ProfileForm
             initialValues={{
               name: user.name,
