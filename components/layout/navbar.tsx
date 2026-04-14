@@ -11,7 +11,11 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 
-const NAV = [
+type NavDropdown = { label: string; items: { label: string; href: string; desc: string }[] };
+type NavLink = { label: string; href: string };
+type NavItem = NavDropdown | NavLink;
+
+const NAV: NavItem[] = [
   {
     label: "Product",
     items: [
