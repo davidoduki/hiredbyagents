@@ -42,7 +42,10 @@ export default async function DashboardPage() {
       },
       _sum: { amount: true },
     }),
-  ]);
+  ]).catch((err) => {
+    console.error("[dashboard] data queries failed:", err);
+    throw err;
+  });
 
   const earningsThisMonth = Number(earnings._sum.amount ?? 0) * 100;
 

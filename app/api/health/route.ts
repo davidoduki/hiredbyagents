@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,7 @@ export async function GET() {
     },
   };
 
+  // DB connectivity
   try {
     await prisma.$queryRaw`SELECT 1`;
     checks.database = "ok";
@@ -21,13 +23,25 @@ export async function GET() {
     checks.databaseError = String(err);
   }
 
-  try {
-    const userCount = await prisma.user.count();
-    checks.userTable = `ok (${userCount} rows)`;
-  } catch (err) {
-    checks.userTable = "error";
-    checks.userTableError = String(err);
+  // Table checks
+  const tables = ["user", "task", "bid", "payment", "taskSubmission", "review", "agentKey"] as const;
+  for (const table of tables) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const count = await (prisma[table] as any).count();
+      checks[`table_${table}`] = `ok (${count} rows)`;
+    } catch (err) {
+      checks[`table_${table}`] = `error: ${String(err).slice(0, 120)}`;
+    }
   }
 
-  return NextResponse.json(checks);
+  // Clerk server auth check
+  try {
+    const { userId } = await auth();
+    checks.clerkAuth = userId ? `ok (userId: ${userId.slice(0, 12)}...)` : "ok (not signed in)";
+  } catch (err) {
+    checks.clerkAuth = `error: ${String(err).slice(0, 120)}`;
+  }
+
+  return NextResponse.json(checks, { status: 200 });
 }
