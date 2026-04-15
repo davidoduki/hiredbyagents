@@ -265,33 +265,37 @@ export async function openDispute(taskId: string, reason: string) {
 
     if (!reason?.trim()) return { error: "Please describe the reason for the dispute." };
 
+    // Core DB writes — these must succeed
     await prisma.task.update({
       where: { id: taskId },
       data: { status: TaskStatus.DISPUTED, disputeReason: reason.trim() },
     });
 
-    // Record the opening message in the dispute thread
-    await prisma.disputeMessage.create({
-      data: {
-        taskId,
-        senderId: user.id,
-        message: reason.trim(),
-        isAdmin: false,
-      },
-    });
+    try {
+      await prisma.disputeMessage.create({
+        data: { taskId, senderId: user.id, message: reason.trim(), isAdmin: false },
+      });
+    } catch (msgErr) {
+      console.error("openDispute: failed to create dispute message (non-fatal):", msgErr);
+    }
 
+    // Email — non-fatal
     const emailTargets = [task.poster, task.assignedTo].filter(Boolean) as { email: string; name: string }[];
     for (const target of emailTargets) {
-      await sendEmail({
-        to: target.email,
-        subject: `A dispute has been opened for: ${task.title}`,
-        textBody: `A dispute has been opened for "${task.title}".\n\nReason: ${reason.trim()}\n\nOur team will review and reach out shortly.\n\nHiredByAgents`,
-        htmlBody: buildEmailHtml(
-          `<h2>Dispute Opened</h2><p>A dispute has been opened for <strong>${task.title}</strong>.</p><blockquote style="border-left:3px solid #e5e7eb;padding-left:12px;color:#6b7280;">${reason.trim()}</blockquote><p>Our team will review and reach out shortly.</p>`,
-          "View Task",
-          `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
-        ),
-      });
+      try {
+        await sendEmail({
+          to: target.email,
+          subject: `A dispute has been opened for: ${task.title}`,
+          textBody: `A dispute has been opened for "${task.title}".\n\nReason: ${reason.trim()}\n\nOur team will review and reach out shortly.\n\nHiredByAgents`,
+          htmlBody: buildEmailHtml(
+            `<h2>Dispute Opened</h2><p>A dispute has been opened for <strong>${task.title}</strong>.</p><blockquote style="border-left:3px solid #e5e7eb;padding-left:12px;color:#6b7280;">${reason.trim()}</blockquote><p>Our team will review and reach out shortly.</p>`,
+            "View Task",
+            `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
+          ),
+        });
+      } catch (emailErr) {
+        console.error("openDispute: email failed (non-fatal):", emailErr);
+      }
     }
 
     return { success: true };
@@ -321,18 +325,23 @@ export async function resolveDispute(taskId: string, resolution: "IN_PROGRESS" |
       data: { status: newStatus, ...(resolution === "COMPLETE" ? { completedAt: new Date() } : {}) },
     });
 
+    // Email — non-fatal
     const emailTargets = [task.poster, task.assignedTo].filter(Boolean) as { email: string; name: string }[];
     for (const target of emailTargets) {
-      await sendEmail({
-        to: target.email,
-        subject: `Dispute resolved: ${task.title}`,
-        textBody: `The dispute for "${task.title}" has been resolved. The task is now ${newStatus === "COMPLETE" ? "complete" : "back in progress"}.\n\nHiredByAgents`,
-        htmlBody: buildEmailHtml(
-          `<h2>Dispute Resolved</h2><p>The dispute for <strong>${task.title}</strong> has been resolved. The task is now <strong>${newStatus === "COMPLETE" ? "complete" : "back in progress"}</strong>.</p>`,
-          "View Task",
-          `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
-        ),
-      });
+      try {
+        await sendEmail({
+          to: target.email,
+          subject: `Dispute resolved: ${task.title}`,
+          textBody: `The dispute for "${task.title}" has been resolved. The task is now ${newStatus === "COMPLETE" ? "complete" : "back in progress"}.\n\nHiredByAgents`,
+          htmlBody: buildEmailHtml(
+            `<h2>Dispute Resolved</h2><p>The dispute for <strong>${task.title}</strong> has been resolved. The task is now <strong>${newStatus === "COMPLETE" ? "complete" : "back in progress"}</strong>.</p>`,
+            "View Task",
+            `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
+          ),
+        });
+      } catch (emailErr) {
+        console.error("resolveDispute: email failed (non-fatal):", emailErr);
+      }
     }
 
     return { success: true };
@@ -357,37 +366,36 @@ export async function sendDisputeMessage(taskId: string, message: string) {
     if (!isAdmin && !isInvolved) return { error: "Not authorized." };
     if (!message?.trim()) return { error: "Message cannot be empty." };
 
+    // Core write — must succeed
     await prisma.disputeMessage.create({
-      data: {
-        taskId,
-        senderId: user.id,
-        message: message.trim(),
-        isAdmin,
-      },
+      data: { taskId, senderId: user.id, message: message.trim(), isAdmin },
     });
 
-    // Notify the other parties
+    // Email — non-fatal
     const notifyTargets: { email: string; name: string }[] = [];
     if (isAdmin) {
       if (task.poster) notifyTargets.push(task.poster);
       if (task.assignedTo) notifyTargets.push(task.assignedTo);
     } else {
-      // Notify the other party and admin
       const otherParty = task.posterId === user.id ? task.assignedTo : task.poster;
       if (otherParty) notifyTargets.push(otherParty);
     }
 
     for (const target of notifyTargets) {
-      await sendEmail({
-        to: target.email,
-        subject: `New message in dispute: ${task.title}`,
-        textBody: `${isAdmin ? "The HiredByAgents team" : user.name} sent a message regarding the dispute for "${task.title}":\n\n"${message.trim()}"\n\nLog in to respond.\n\nHiredByAgents`,
-        htmlBody: buildEmailHtml(
-          `<h2>Dispute Message</h2><p><strong>${isAdmin ? "The HiredByAgents team" : user.name}</strong> sent a message regarding the dispute for <strong>${task.title}</strong>:</p><blockquote style="border-left:3px solid #e5e7eb;padding-left:12px;color:#6b7280;">${message.trim()}</blockquote>`,
-          "View Dispute",
-          `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
-        ),
-      });
+      try {
+        await sendEmail({
+          to: target.email,
+          subject: `New message in dispute: ${task.title}`,
+          textBody: `${isAdmin ? "The HiredByAgents team" : user.name} sent a message regarding the dispute for "${task.title}":\n\n"${message.trim()}"\n\nLog in to respond.\n\nHiredByAgents`,
+          htmlBody: buildEmailHtml(
+            `<h2>Dispute Message</h2><p><strong>${isAdmin ? "The HiredByAgents team" : user.name}</strong> sent a message regarding the dispute for <strong>${task.title}</strong>:</p><blockquote style="border-left:3px solid #e5e7eb;padding-left:12px;color:#6b7280;">${message.trim()}</blockquote>`,
+            "View Dispute",
+            `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
+          ),
+        });
+      } catch (emailErr) {
+        console.error("sendDisputeMessage: email failed (non-fatal):", emailErr);
+      }
     }
 
     return { success: true };
