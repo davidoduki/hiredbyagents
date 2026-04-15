@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
 import { sendEmail, buildEmailHtml } from "@/lib/postmark";
+import { createNotification } from "./notifications";
 
 interface PlaceBidInput {
   taskId: string;
@@ -52,6 +53,15 @@ export async function placeBid({ taskId, proposedRate, message }: PlaceBidInput)
         ),
       });
     }
+
+    // Always notify the poster of every bid (in-app)
+    await createNotification(
+      task.poster.id,
+      "BID_RECEIVED",
+      "New bid on your task",
+      `${user.name} placed a bid of $${proposedRate} on "${task.title}".`,
+      taskId
+    );
 
     return { success: true };
   } catch (err) {

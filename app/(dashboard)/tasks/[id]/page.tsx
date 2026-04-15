@@ -9,10 +9,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SkillTag } from "@/components/ui/skill-tag";
 import { BidForm } from "@/components/tasks/bid-form";
 import { SubmitForm } from "@/components/tasks/submit-form";
+import { DisputeForm } from "@/components/tasks/dispute-form";
+import { DisputeMessageForm } from "@/components/tasks/dispute-message-form";
 import { TaskStatusTimeline } from "@/components/tasks/task-status-timeline";
 import { formatCurrency, formatDate, timeAgo } from "@/lib/utils";
-import { Calendar, DollarSign, Star } from "lucide-react";
-import { approveSubmission, rejectSubmission, assignTask, openDispute } from "@/actions/tasks";
+import { Calendar, DollarSign, Star, MessageSquareWarning } from "lucide-react";
+import { approveSubmission, rejectSubmission, assignTask } from "@/actions/tasks";
 import Link from "next/link";
 
 export default async function TaskDetailPage({
@@ -31,6 +33,7 @@ export default async function TaskDetailPage({
         submissions: { include: { worker: true }, orderBy: { submittedAt: "desc" } },
         reviews: { include: { reviewer: true } },
         payment: true,
+        disputeMessages: { include: { sender: true }, orderBy: { createdAt: "asc" } },
       },
     }),
     getCurrentUser(),
@@ -190,6 +193,48 @@ export default async function TaskDetailPage({
               </div>
             )}
 
+            {/* Dispute thread */}
+            {task.status === "DISPUTED" && (isPoster || isWorker) && (
+              <div className="rounded-xl border border-red-900/40 bg-red-950/10 p-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <MessageSquareWarning className="h-4 w-4 text-red-400" />
+                  <h2 className="text-base font-semibold text-zinc-100">Dispute</h2>
+                </div>
+                {task.disputeReason && (
+                  <p className="text-sm text-zinc-400 mb-4 border-l-2 border-red-500/40 pl-3">
+                    <span className="text-xs text-zinc-500 block mb-0.5">Opened because:</span>
+                    {task.disputeReason}
+                  </p>
+                )}
+
+                {task.disputeMessages.length > 0 && (
+                  <div className="space-y-3 mb-4">
+                    {task.disputeMessages.map((msg) => {
+                      const isMe = msg.senderId === currentUser?.id;
+                      return (
+                        <div key={msg.id} className={`flex gap-2 ${isMe ? "flex-row-reverse" : ""}`}>
+                          <div className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
+                            msg.isAdmin
+                              ? "bg-amber-900/30 border border-amber-700/30 text-amber-200"
+                              : isMe
+                              ? "bg-zinc-800 text-zinc-100"
+                              : "bg-zinc-900 border border-zinc-800 text-zinc-300"
+                          }`}>
+                            <span className="text-[10px] font-medium block mb-0.5 text-zinc-500">
+                              {msg.isAdmin ? "HiredByAgents Support" : msg.sender.name} · {timeAgo(msg.createdAt)}
+                            </span>
+                            {msg.message}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                <DisputeMessageForm taskId={task.id} />
+              </div>
+            )}
+
             {/* Reviews */}
             {task.reviews.length > 0 && (
               <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
@@ -263,16 +308,7 @@ export default async function TaskDetailPage({
                   <SubmitForm taskId={task.id} />
                 )}
                 {(isPoster || isWorker) && !["COMPLETE", "CANCELLED", "DISPUTED"].includes(task.status) && (
-                  <form
-                    action={async () => {
-                      "use server";
-                      await openDispute(task.id);
-                    }}
-                  >
-                    <Button variant="destructive" size="sm" className="w-full" type="submit">
-                      Open Dispute
-                    </Button>
-                  </form>
+                  <DisputeForm taskId={task.id} />
                 )}
                 {isPoster && task.status === "OPEN" && (
                   <Button variant="ghost" size="sm" className="w-full" asChild>

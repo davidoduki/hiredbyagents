@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Topbar } from "@/components/layout/topbar";
 import { formatCurrency, timeAgo } from "@/lib/utils";
+import { AdminDisputeCard } from "@/components/admin/dispute-card";
 import {
   Users,
   ClipboardList,
@@ -51,7 +53,11 @@ export default async function AdminPage() {
       where: { status: "DISPUTED" },
       orderBy: { updatedAt: "desc" },
       take: 10,
-      include: { poster: { select: { name: true, email: true } }, assignedTo: { select: { name: true, email: true } } },
+      include: {
+        poster: { select: { id: true, name: true, email: true } },
+        assignedTo: { select: { id: true, name: true, email: true } },
+        disputeMessages: { include: { sender: { select: { id: true, name: true } } }, orderBy: { createdAt: "asc" } },
+      },
     }),
     prisma.payment.findMany({
       where: { status: "RELEASED" },
@@ -103,36 +109,29 @@ export default async function AdminPage() {
           })}
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-          {/* Disputes */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <AlertTriangle className="h-4 w-4 text-red-400" />
-              <h3 className="font-semibold text-zinc-100">Open Disputes</h3>
-              {disputedTasks > 0 && (
-                <span className="ml-auto rounded-full bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
-                  {disputedTasks} active
-                </span>
-              )}
-            </div>
-            {recentDisputes.length === 0 ? (
-              <p className="text-sm text-zinc-600 text-center py-6">No disputes — all clear.</p>
-            ) : (
-              <div className="space-y-3">
-                {recentDisputes.map((task) => (
-                  <div key={task.id} className="rounded-lg border border-zinc-800 p-3">
-                    <div className="text-sm font-medium text-zinc-200 mb-1">{task.title}</div>
-                    <div className="text-xs text-zinc-500">
-                      Poster: {task.poster.name} · Worker: {task.assignedTo?.name ?? "unassigned"}
-                    </div>
-                    <div className="text-xs text-zinc-600 mt-0.5">{timeAgo(task.updatedAt)}</div>
-                  </div>
-                ))}
-              </div>
+        {/* Disputes */}
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <div className="flex items-center gap-2 mb-5">
+            <AlertTriangle className="h-4 w-4 text-red-400" />
+            <h3 className="font-semibold text-zinc-100">Open Disputes</h3>
+            {disputedTasks > 0 && (
+              <span className="ml-auto rounded-full bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
+                {disputedTasks} active
+              </span>
             )}
           </div>
+          {recentDisputes.length === 0 ? (
+            <p className="text-sm text-zinc-600 text-center py-6">No disputes — all clear.</p>
+          ) : (
+            <div className="space-y-4">
+              {recentDisputes.map((task) => (
+                <AdminDisputeCard key={task.id} task={task} />
+              ))}
+            </div>
+          )}
+        </div>
 
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Recent payments */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
             <div className="flex items-center gap-2 mb-4">
@@ -160,7 +159,7 @@ export default async function AdminPage() {
           </div>
 
           {/* Recent signups */}
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 lg:col-span-2">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
             <div className="flex items-center gap-2 mb-4">
               <UserCheck className="h-4 w-4 text-blue-400" />
               <h3 className="font-semibold text-zinc-100">Recent Sign-ups</h3>
@@ -172,7 +171,6 @@ export default async function AdminPage() {
                     <th className="pb-2 font-medium">Name</th>
                     <th className="pb-2 font-medium">Email</th>
                     <th className="pb-2 font-medium">Type</th>
-                    <th className="pb-2 font-medium">Role</th>
                     <th className="pb-2 font-medium">Joined</th>
                   </tr>
                 </thead>
@@ -194,7 +192,6 @@ export default async function AdminPage() {
                           <span className="text-xs text-zinc-600">—</span>
                         )}
                       </td>
-                      <td className="py-2.5 text-xs text-zinc-500">{u.role}</td>
                       <td className="py-2.5 text-xs text-zinc-600">{timeAgo(u.createdAt)}</td>
                     </tr>
                   ))}
@@ -202,8 +199,8 @@ export default async function AdminPage() {
               </table>
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
   );

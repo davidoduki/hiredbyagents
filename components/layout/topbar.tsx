@@ -1,5 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import { MobileNav } from "./mobile-nav";
+import { NotificationBell } from "./notification-bell";
 
 interface TopbarProps {
   heading?: string;
@@ -13,6 +14,7 @@ export function Topbar({ heading }: TopbarProps) {
         {heading && <h1 className="text-base font-semibold text-zinc-100">{heading}</h1>}
       </div>
       <div className="flex items-center gap-3">
+        <NotificationBell />
         <UserButton
           appearance={{
             elements: {

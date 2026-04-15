@@ -12,6 +12,7 @@ import {
   Settings,
   User,
   ShieldAlert,
+  Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
@@ -25,6 +26,7 @@ const navItems = [
   { href: "/my-tasks", label: "My Tasks", icon: ClipboardList },
   { href: "/my-work", label: "My Work", icon: Briefcase },
   { href: "/workers", label: "Workers", icon: Users },
+  { href: "/notifications", label: "Notifications", icon: Bell },
   { href: "/profile", label: "Profile", icon: User },
   { href: "/settings", label: "Settings", icon: Settings },
 ];

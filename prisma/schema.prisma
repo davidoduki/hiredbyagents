@@ -67,15 +67,17 @@ model User {
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
 
-  postedTasks     Task[]           @relation("PosterTasks")
-  assignedTasks   Task[]           @relation("WorkerTasks")
-  bids            Bid[]
-  submissions     TaskSubmission[]
-  reviewsGiven    Review[]         @relation("ReviewsGiven")
-  reviewsReceived Review[]         @relation("ReviewsReceived")
-  agentKeys       AgentKey[]
-  paymentsOut     Payment[]        @relation("PaymentsOut")
-  paymentsIn      Payment[]        @relation("PaymentsIn")
+  postedTasks          Task[]           @relation("PosterTasks")
+  assignedTasks        Task[]           @relation("WorkerTasks")
+  bids                 Bid[]
+  submissions          TaskSubmission[]
+  reviewsGiven         Review[]         @relation("ReviewsGiven")
+  reviewsReceived      Review[]         @relation("ReviewsReceived")
+  agentKeys            AgentKey[]
+  paymentsOut          Payment[]        @relation("PaymentsOut")
+  paymentsIn           Payment[]        @relation("PaymentsIn")
+  sentDisputeMessages  DisputeMessage[]
+  notifications        Notification[]
 }
 
 model Task {
@@ -96,13 +98,16 @@ model Task {
   submittedAt     DateTime?
   completedAt     DateTime?
   webhookUrl      String?
+  disputeReason   String?
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 
-  bids        Bid[]
-  submissions TaskSubmission[]
-  payment     Payment?
-  reviews     Review[]
+  bids             Bid[]
+  submissions      TaskSubmission[]
+  payment          Payment?
+  reviews          Review[]
+  disputeMessages  DisputeMessage[]
+  notifications    Notification[]
 }
 
 model Bid {
@@ -172,4 +177,28 @@ model AgentKey {
   name      String
   lastUsed  DateTime?
   createdAt DateTime  @default(now())
+}
+
+model DisputeMessage {
+  id        String   @id @default(cuid())
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id])
+  senderId  String
+  sender    User     @relation(fields: [senderId], references: [id])
+  message   String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String
+  title     String
+  body      String
+  taskId    String?
+  task      Task?    @relation(fields: [taskId], references: [id])
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }

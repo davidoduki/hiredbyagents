@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
 import { PreferredWorker, TaskStatus } from "@prisma/client";
 import { sendEmail, buildEmailHtml } from "@/lib/postmark";
+import { createNotification } from "./notifications";
 
 interface CreateTaskInput {
   title: string;
@@ -119,6 +120,14 @@ export async function assignTask(taskId: string, workerId: string) {
       ),
     });
 
+    await createNotification(
+      workerId,
+      "TASK_ASSIGNED",
+      "You've been assigned a task",
+      `You've been assigned to "${task.title}". Get started now.`,
+      taskId
+    );
+
     return { success: true };
   } catch (err) {
     console.error("assignTask error:", err);
@@ -163,7 +172,23 @@ export async function approveSubmission(taskId: string, submissionId: string) {
           `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
         ),
       });
+      await createNotification(
+        task.assignedTo.id,
+        "SUBMISSION_APPROVED",
+        "Work approved!",
+        `Your submission for "${task.title}" was approved. Payment is being processed.`,
+        taskId
+      );
     }
+
+    // Notify poster too
+    await createNotification(
+      task.posterId,
+      "TASK_COMPLETE",
+      "Task complete",
+      `"${task.title}" is now complete.`,
+      taskId
+    );
 
     return { success: true };
   } catch (err) {
@@ -209,6 +234,13 @@ export async function rejectSubmission(
           `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
         ),
       });
+      await createNotification(
+        task.assignedTo.id,
+        "SUBMISSION_REJECTED",
+        "Changes requested",
+        `The poster requested changes to your submission for "${task.title}".`,
+        taskId
+      );
     }
 
     return { success: true };
@@ -218,7 +250,7 @@ export async function rejectSubmission(
   }
 }
 
-export async function openDispute(taskId: string) {
+export async function openDispute(taskId: string, reason: string) {
   try {
     const user = await requireUser();
 
@@ -231,9 +263,21 @@ export async function openDispute(taskId: string) {
     const isInvolved = task.posterId === user.id || task.assignedToId === user.id;
     if (!isInvolved) return { error: "Not authorized." };
 
+    if (!reason?.trim()) return { error: "Please describe the reason for the dispute." };
+
     await prisma.task.update({
       where: { id: taskId },
-      data: { status: TaskStatus.DISPUTED },
+      data: { status: TaskStatus.DISPUTED, disputeReason: reason.trim() },
+    });
+
+    // Record the opening message in the dispute thread
+    await prisma.disputeMessage.create({
+      data: {
+        taskId,
+        senderId: user.id,
+        message: reason.trim(),
+        isAdmin: false,
+      },
     });
 
     const emailTargets = [task.poster, task.assignedTo].filter(Boolean) as { email: string; name: string }[];
@@ -241,9 +285,9 @@ export async function openDispute(taskId: string) {
       await sendEmail({
         to: target.email,
         subject: `A dispute has been opened for: ${task.title}`,
-        textBody: `A dispute has been opened for the task "${task.title}". Our team will review and reach out shortly.\n\nHiredByAgents`,
+        textBody: `A dispute has been opened for "${task.title}".\n\nReason: ${reason.trim()}\n\nOur team will review and reach out shortly.\n\nHiredByAgents`,
         htmlBody: buildEmailHtml(
-          `<h2>Dispute Opened</h2><p>A dispute has been opened for <strong>${task.title}</strong>. Our team will review and reach out shortly.</p>`,
+          `<h2>Dispute Opened</h2><p>A dispute has been opened for <strong>${task.title}</strong>.</p><blockquote style="border-left:3px solid #e5e7eb;padding-left:12px;color:#6b7280;">${reason.trim()}</blockquote><p>Our team will review and reach out shortly.</p>`,
           "View Task",
           `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
         ),
@@ -254,5 +298,101 @@ export async function openDispute(taskId: string) {
   } catch (err) {
     console.error("openDispute error:", err);
     return { error: "Failed to open dispute." };
+  }
+}
+
+const ADMIN_EMAIL = "davidoduki@gmail.com";
+
+export async function resolveDispute(taskId: string, resolution: "IN_PROGRESS" | "COMPLETE") {
+  try {
+    const user = await requireUser();
+    if (user.email !== ADMIN_EMAIL) return { error: "Not authorized." };
+
+    const task = await prisma.task.findUnique({
+      where: { id: taskId },
+      include: { poster: true, assignedTo: true },
+    });
+    if (!task) return { error: "Task not found." };
+    if (task.status !== "DISPUTED") return { error: "Task is not disputed." };
+
+    const newStatus = resolution === "COMPLETE" ? TaskStatus.COMPLETE : TaskStatus.IN_PROGRESS;
+    await prisma.task.update({
+      where: { id: taskId },
+      data: { status: newStatus, ...(resolution === "COMPLETE" ? { completedAt: new Date() } : {}) },
+    });
+
+    const emailTargets = [task.poster, task.assignedTo].filter(Boolean) as { email: string; name: string }[];
+    for (const target of emailTargets) {
+      await sendEmail({
+        to: target.email,
+        subject: `Dispute resolved: ${task.title}`,
+        textBody: `The dispute for "${task.title}" has been resolved. The task is now ${newStatus === "COMPLETE" ? "complete" : "back in progress"}.\n\nHiredByAgents`,
+        htmlBody: buildEmailHtml(
+          `<h2>Dispute Resolved</h2><p>The dispute for <strong>${task.title}</strong> has been resolved. The task is now <strong>${newStatus === "COMPLETE" ? "complete" : "back in progress"}</strong>.</p>`,
+          "View Task",
+          `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
+        ),
+      });
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error("resolveDispute error:", err);
+    return { error: "Failed to resolve dispute." };
+  }
+}
+
+export async function sendDisputeMessage(taskId: string, message: string) {
+  try {
+    const user = await requireUser();
+
+    const task = await prisma.task.findUnique({
+      where: { id: taskId },
+      include: { poster: true, assignedTo: true },
+    });
+    if (!task) return { error: "Task not found." };
+
+    const isAdmin = user.email === ADMIN_EMAIL;
+    const isInvolved = task.posterId === user.id || task.assignedToId === user.id;
+    if (!isAdmin && !isInvolved) return { error: "Not authorized." };
+    if (!message?.trim()) return { error: "Message cannot be empty." };
+
+    await prisma.disputeMessage.create({
+      data: {
+        taskId,
+        senderId: user.id,
+        message: message.trim(),
+        isAdmin,
+      },
+    });
+
+    // Notify the other parties
+    const notifyTargets: { email: string; name: string }[] = [];
+    if (isAdmin) {
+      if (task.poster) notifyTargets.push(task.poster);
+      if (task.assignedTo) notifyTargets.push(task.assignedTo);
+    } else {
+      // Notify the other party and admin
+      const otherParty = task.posterId === user.id ? task.assignedTo : task.poster;
+      if (otherParty) notifyTargets.push(otherParty);
+    }
+
+    for (const target of notifyTargets) {
+      await sendEmail({
+        to: target.email,
+        subject: `New message in dispute: ${task.title}`,
+        textBody: `${isAdmin ? "The HiredByAgents team" : user.name} sent a message regarding the dispute for "${task.title}":\n\n"${message.trim()}"\n\nLog in to respond.\n\nHiredByAgents`,
+        htmlBody: buildEmailHtml(
+          `<h2>Dispute Message</h2><p><strong>${isAdmin ? "The HiredByAgents team" : user.name}</strong> sent a message regarding the dispute for <strong>${task.title}</strong>:</p><blockquote style="border-left:3px solid #e5e7eb;padding-left:12px;color:#6b7280;">${message.trim()}</blockquote>`,
+          "View Dispute",
+          `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
+        ),
+      });
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error("sendDisputeMessage error:", err);
+    return { error: "Failed to send message." };
   }
 }
