@@ -7,9 +7,14 @@ export async function NotificationBell() {
   const user = await getCurrentUser();
   if (!user) return null;
 
-  const unreadCount = await prisma.notification.count({
-    where: { userId: user.id, read: false },
-  });
+  let unreadCount = 0;
+  try {
+    unreadCount = await prisma.notification.count({
+      where: { userId: user.id, read: false },
+    });
+  } catch {
+    // Table may not exist yet during first deploy — show bell with no badge
+  }
 
   return (
     <Link
