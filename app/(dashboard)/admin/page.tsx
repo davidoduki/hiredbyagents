@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getPlatformUsdcBalance } from "@/lib/usdc";
 import { Topbar } from "@/components/layout/topbar";
 import { formatCurrency, timeAgo } from "@/lib/utils";
 import { AdminDisputeCard } from "@/components/admin/dispute-card";
@@ -14,6 +15,7 @@ import {
   Bot,
   UserCheck,
   CheckCircle2,
+  Wallet,
 } from "lucide-react";
 
 const ADMIN_EMAIL = "davidoduki@gmail.com";
@@ -35,6 +37,7 @@ export default async function AdminPage() {
     recentDisputes,
     recentPayments,
     platformRevenue,
+    platformUsdcBalance,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { workerType: "HUMAN" } }),
@@ -73,6 +76,7 @@ export default async function AdminPage() {
       where: { status: "RELEASED" },
       _sum: { platformFee: true, amount: true },
     }),
+    getPlatformUsdcBalance(),
   ]);
 
   const totalRevenue = Number(platformRevenue._sum.platformFee ?? 0);
@@ -85,6 +89,13 @@ export default async function AdminPage() {
     { label: "Disputes", value: disputedTasks, sub: disputedTasks > 0 ? "Needs attention" : "All clear", icon: AlertTriangle, color: disputedTasks > 0 ? "text-red-400" : "text-zinc-500" },
     { label: "Payments Released", value: totalPayments, sub: "Successful payouts", icon: CheckCircle2, color: "text-emerald-400" },
     { label: "GMV", value: `$${totalVolume.toFixed(0)}`, sub: "Gross marketplace volume", icon: TrendingUp, color: "text-purple-400" },
+    {
+      label: "USDC Pool Balance",
+      value: `$${platformUsdcBalance.toFixed(2)}`,
+      sub: platformUsdcBalance < 10 ? "Low — top up wallet" : "Circle platform wallet",
+      icon: Wallet,
+      color: platformUsdcBalance < 10 ? "text-amber-400" : "text-cyan-400",
+    },
   ];
 
   return (
@@ -93,7 +104,7 @@ export default async function AdminPage() {
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 space-y-8">
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (

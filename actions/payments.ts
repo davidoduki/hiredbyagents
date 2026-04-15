@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
 import { createPaymentIntent, releasePayment, onboardWorker } from "@/lib/stripe";
 import { sendPaypalPayout } from "@/lib/paypal";
+import { sendUsdcPayout } from "@/lib/usdc";
 import { calculateFees } from "@/lib/constants";
 
 export async function fundTaskEscrow(taskId: string) {
@@ -105,20 +106,22 @@ export async function releaseTaskPayment(taskId: string) {
       return { success: true, method: "stripe" };
     }
 
-    // Route 3: Crypto wallet (USDC) — queued for manual/automated on-chain transfer
+    // Route 3: USDC on-chain via Circle Programmable Wallets
     if (worker.walletAddress) {
+      const payout = await sendUsdcPayout({
+        recipientAddress: worker.walletAddress,
+        amountUsd: workerPayoutUsd,
+        taskId,
+      });
+
       await prisma.payment.update({
         where: { id: task.payment.id },
         data: {
           status: "RELEASED",
           payoutMethod: "CRYPTO",
+          cryptoTxId: payout.transactionId,
         },
       });
-
-      // TODO: trigger on-chain USDC transfer via your preferred RPC/wallet service
-      console.log(
-        `[crypto-payout] Queue USDC transfer of $${workerPayoutUsd} to ${worker.walletAddress} for task ${taskId}`
-      );
 
       return { success: true, method: "crypto" };
     }

@@ -151,6 +151,7 @@ model Payment {
   stripeTransferId    String?
   paypalBatchId       String?
   payoutMethod        String?
+  cryptoTxId          String?
   status              PaymentStatus @default(HELD)
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
