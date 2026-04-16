@@ -74,6 +74,20 @@ export async function sendUsdcPayout(opts: {
   return { transactionId: tx.id, state: tx.state ?? "INITIATED" };
 }
 
+/** Returns the platform wallet's on-chain address (empty string on error). */
+export async function getPlatformWalletAddress(): Promise<string> {
+  try {
+    const client = getClient();
+    const walletId = process.env.CIRCLE_PLATFORM_WALLET_ID;
+    if (!walletId) return "";
+    const res = await client.getWallet({ id: walletId });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return ((res.data as any)?.wallet?.address as string) ?? "";
+  } catch {
+    return "";
+  }
+}
+
 /** Returns the platform wallet's USDC balance (0 if wallet is unfunded or Circle creds are missing). */
 export async function getPlatformUsdcBalance(): Promise<number> {
   try {

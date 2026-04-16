@@ -2,11 +2,11 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getPlatformUsdcBalance } from "@/lib/usdc";
+import { getPlatformUsdcBalance, getPlatformWalletAddress } from "@/lib/usdc";
 import { Topbar } from "@/components/layout/topbar";
 import { formatCurrency, timeAgo } from "@/lib/utils";
 import { AdminDisputeCard } from "@/components/admin/dispute-card";
-import { TestnetFaucetButton } from "@/components/admin/testnet-faucet-button";
+import { CopyWalletAddress } from "@/components/admin/copy-wallet-address";
 import {
   Users,
   ClipboardList,
@@ -39,6 +39,7 @@ export default async function AdminPage() {
     recentPayments,
     platformRevenue,
     platformUsdcBalance,
+    platformWalletAddress,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { workerType: "HUMAN" } }),
@@ -78,6 +79,7 @@ export default async function AdminPage() {
       _sum: { platformFee: true, amount: true },
     }),
     getPlatformUsdcBalance(),
+    getPlatformWalletAddress(),
   ]);
 
   const totalRevenue = Number(platformRevenue._sum.platformFee ?? 0);
@@ -121,15 +123,20 @@ export default async function AdminPage() {
           })}
         </div>
 
-        {/* USDC wallet controls */}
+        {/* USDC wallet */}
         <div className="rounded-xl border border-cyan-900/30 bg-zinc-900 p-5 flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <p className="text-sm font-medium text-zinc-200">Platform USDC Pool</p>
+          <div className="min-w-0">
+            <p className="text-sm font-medium text-zinc-200">Platform USDC Pool · Base Network</p>
             <p className="text-xs text-zinc-500 mt-0.5">
-              {platformUsdcBalance.toFixed(2)} USDC available{process.env.CIRCLE_PLATFORM_WALLET_ID ? ` · wallet …${process.env.CIRCLE_PLATFORM_WALLET_ID.slice(-6)}` : ""}
+              {platformUsdcBalance > 0
+                ? `${platformUsdcBalance.toFixed(2)} USDC available`
+                : "Not yet funded — send USDC on Base to the address below"}
             </p>
+            {platformWalletAddress && (
+              <p className="text-xs font-mono text-zinc-400 mt-1 truncate">{platformWalletAddress}</p>
+            )}
           </div>
-          <TestnetFaucetButton />
+          {platformWalletAddress && <CopyWalletAddress address={platformWalletAddress} />}
         </div>
 
         {/* Disputes */}
