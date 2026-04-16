@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Content */}
         <div className="prose-custom space-y-5">
-          {paragraphs.map((para, i) => {
+          {(paragraphs as string[]).map((para: string, i: number) => {
             if (para.startsWith("## ")) {
               return <h2 key={i} className="text-xl font-bold text-zinc-100 mt-8 mb-2">{para.slice(3)}</h2>;
             }
@@ -76,10 +76,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               return <h3 key={i} className="text-lg font-semibold text-zinc-200 mt-6 mb-1">{para.slice(4)}</h3>;
             }
             if (para.startsWith("- ")) {
-              const items = para.split("\n").filter(l => l.startsWith("- "));
+              const items = para.split("\n").filter((l: string) => l.startsWith("- "));
               return (
                 <ul key={i} className="space-y-1.5 pl-4">
-                  {items.map((item, j) => (
+                  {items.map((item: string, j: number) => (
                     <li key={j} className="text-zinc-300 text-sm leading-relaxed flex items-start gap-2">
                       <span className="text-emerald-500 mt-1 shrink-0">•</span>
                       {item.slice(2)}
@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* Tags */}
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t border-zinc-800">
-            {post.tags.map((tag) => (
+            {(post.tags as string[]).map((tag: string) => (
               <span key={tag} className="text-xs text-zinc-500 bg-zinc-800 border border-zinc-700 rounded px-2 py-0.5">
                 #{tag}
               </span>
@@ -107,7 +107,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {post.sourceUrls.length > 0 && (
           <div className="mt-6 space-y-1">
             <p className="text-xs text-zinc-600 font-medium uppercase tracking-widest">Sources</p>
-            {post.sourceUrls.map((url, i) => (
+            {(post.sourceUrls as string[]).map((url: string, i: number) => (
               <a key={i} href={url} target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
                 <ExternalLink className="h-3 w-3" />{url}

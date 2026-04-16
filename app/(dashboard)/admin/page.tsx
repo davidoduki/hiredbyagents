@@ -64,7 +64,8 @@ export default async function AdminPage() {
 
   // Super-only queries
   let totalPayments = 0;
-  let recentPayments: Awaited<ReturnType<typeof prisma.payment.findMany>> = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let recentPayments: any[] = [];
   let totalRevenue = 0;
   let totalVolume = 0;
   let platformUsdcBalance = 0;
