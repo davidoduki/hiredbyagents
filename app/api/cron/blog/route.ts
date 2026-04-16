@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import Anthropic from "@anthropic-ai/sdk";
 import { prisma } from "@/lib/prisma";
 
@@ -136,33 +137,32 @@ export async function GET(req: NextRequest) {
 
   // Generate article with Claude
   const client = new Anthropic();
-  const prompt = `You are a senior tech journalist writing for HiredByAgents.com — a marketplace where AI agents hire humans and vice versa.
+  const prompt = `You are writing a blog article for HiredByAgents.com in the voice and style of Nick Foulkes — the British cultural journalist and author known for his work in The Wall Street Journal, Harper's Bazaar, and Esquire. His hallmarks: elegant, leisurely sentences that meander pleasurably before arriving somewhere sharp; a light, dry wit deployed without fanfare; unexpected cultural and historical digressions (a Victorian inventor, a line from Proust, a half-remembered film) that illuminate rather than decorate; concrete sensory detail over abstraction; no moralising, no cheerleading — only wry, informed observation.
 
-Based on these recent news headlines, write a single cohesive, original 800-word blog article:
+Apply this voice to a technology-and-work subject drawn from these recent news headlines:
 
 ${headlineText}
 
-Requirements:
-- Exactly 800 words (±50 words)
-- Title: punchy, SEO-friendly, under 70 characters
-- Excerpt: 1–2 sentence summary under 160 characters (for meta description)
-- Body: 4–6 sections with ## headings
-- Angle: what this means for people working alongside AI agents, task marketplaces, the future of work
-- Tone: informed, clear, slightly optimistic — not hype, not alarmist
-- End with a forward-looking conclusion
-- Do NOT mention HiredByAgents in the body text — it will be added as a CTA widget
+Write a single original, cohesive article of exactly 800 words (±30 words). The article must:
+- Have a punchy, SEO-friendly title under 70 characters
+- Open with a scene, paradox, or historical aside — not a news summary
+- Use 4–6 sections with ## headings (section titles may be wry or literary)
+- Address what the AI agent economy means for people who work, hire, and get paid — without being breathless or alarmist
+- Close with a quietly forward-looking observation, not a call to action
+- Rewrite all information from the source headlines in original prose — no direct quotes, no plagiarism
+- Do NOT mention HiredByAgents in the body (a CTA will be appended separately)
 
-Return ONLY valid JSON in this exact shape:
+Return ONLY valid JSON — no markdown fences, no commentary before or after:
 {
   "title": "...",
-  "excerpt": "...",
+  "excerpt": "One or two sentence summary, under 160 characters, for the meta description.",
   "category": "AI & Work",
-  "content": "full article body with ## headings and paragraph breaks separated by \\n\\n"
+  "content": "Full 800-word article body. Use ## for section headings. Separate all paragraphs and headings with a blank line (\\n\\n). No HTML tags."
 }`;
 
   const message = await client.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 1800,
+    model: "claude-sonnet-4-6",
+    max_tokens: 3000,
     messages: [{ role: "user", content: prompt }],
   });
 
@@ -201,5 +201,23 @@ Return ONLY valid JSON in this exact shape:
     },
   });
 
+  revalidatePath("/blog");
+
   return NextResponse.json({ success: true, slug: post.slug, title: post.title });
+}
+
+// DELETE — remove the most recently generated post (admin cleanup)
+export async function DELETE(req: NextRequest) {
+  const secret = req.nextUrl.searchParams.get("secret") || req.headers.get("x-cron-secret");
+  if (process.env.CRON_SECRET && secret !== process.env.CRON_SECRET) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const latest = await prisma.blogPost.findFirst({ orderBy: { createdAt: "desc" } });
+  if (!latest) return NextResponse.json({ deleted: null });
+
+  await prisma.blogPost.delete({ where: { id: latest.id } });
+  revalidatePath("/blog");
+
+  return NextResponse.json({ deleted: latest.title });
 }

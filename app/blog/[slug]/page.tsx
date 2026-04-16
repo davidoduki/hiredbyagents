@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { prisma } from "@/lib/prisma";
 import { Clock, ArrowLeft, ExternalLink } from "lucide-react";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   try {

@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { timeAgo } from "@/lib/utils";
 import { BookOpen, Clock, Tag } from "lucide-react";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   let posts: { id: string; slug: string; title: string; excerpt: string; category: string; tags: string[]; readingMins: number; createdAt: Date }[] = [];
