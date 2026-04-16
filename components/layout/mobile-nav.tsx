@@ -25,7 +25,9 @@ export function MobileNav() {
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
   const { user } = useUser();
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === ADMIN_EMAIL;
+  const email = user?.primaryEmailAddress?.emailAddress;
+  const role = user?.publicMetadata?.adminRole as string | undefined;
+  const isAdmin = email === ADMIN_EMAIL || role === "SUPER" || role === "MODERATOR";
 
   return (
     <div className="md:hidden">

@@ -13,6 +13,12 @@ enum UserRole {
   BOTH
 }
 
+enum AdminRole {
+  NONE
+  MODERATOR
+  SUPER
+}
+
 enum WorkerType {
   HUMAN
   AGENT
@@ -64,6 +70,7 @@ model User {
   stripeCustomerId String?
   paypalEmail      String?
   walletAddress    String?
+  adminRole        AdminRole   @default(NONE)
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
 

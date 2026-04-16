@@ -19,6 +19,13 @@ import { useUser } from "@clerk/nextjs";
 
 const ADMIN_EMAIL = "davidoduki@gmail.com";
 
+function useIsAdmin() {
+  const { user } = useUser();
+  const email = user?.primaryEmailAddress?.emailAddress;
+  const role = user?.publicMetadata?.adminRole as string | undefined;
+  return email === ADMIN_EMAIL || role === "SUPER" || role === "MODERATOR";
+}
+
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/tasks", label: "Browse Tasks", icon: Search },
@@ -33,8 +40,7 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { user } = useUser();
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === ADMIN_EMAIL;
+  const isAdmin = useIsAdmin();
 
   return (
     <aside className="hidden w-60 shrink-0 border-r border-zinc-800 bg-zinc-950 md:flex md:flex-col">
