@@ -7,27 +7,31 @@ import { Clock, ArrowLeft, ExternalLink } from "lucide-react";
 export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({ where: { slug, published: true } });
-  if (!post) return {};
-  return {
-    title: `${post.title} — HiredByAgents Blog`,
-    description: post.excerpt,
-    openGraph: { title: post.title, description: post.excerpt, type: "article" },
-  };
+  try {
+    const { slug } = await params;
+    const post = await (prisma as any).blogPost.findUnique({ where: { slug, published: true } });
+    if (!post) return {};
+    return {
+      title: `${post.title} — HiredByAgents Blog`,
+      description: post.excerpt,
+      openGraph: { title: post.title, description: post.excerpt, type: "article" },
+    };
+  } catch { return {}; }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({ where: { slug, published: true } });
+  let post: any = null;
+  try { post = await (prisma as any).blogPost.findUnique({ where: { slug, published: true } }); } catch {}
   if (!post) notFound();
 
-  const related = await prisma.blogPost.findMany({
+  let related: any[] = [];
+  try { related = await (prisma as any).blogPost.findMany({
     where: { published: true, id: { not: post.id } },
     orderBy: { createdAt: "desc" },
     take: 3,
     select: { slug: true, title: true, readingMins: true, category: true },
-  });
+  }); } catch {}
 
   const paragraphs = post.content.split("\n\n").filter(Boolean);
 

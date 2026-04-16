@@ -7,11 +7,16 @@ import { BookOpen, Clock, Tag } from "lucide-react";
 export const revalidate = 3600;
 
 export default async function BlogPage() {
-  const posts = await prisma.blogPost.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" },
-    select: { id: true, slug: true, title: true, excerpt: true, category: true, tags: true, readingMins: true, createdAt: true },
-  });
+  let posts: { id: string; slug: string; title: string; excerpt: string; category: string; tags: string[]; readingMins: number; createdAt: Date }[] = [];
+  try {
+    posts = await (prisma as any).blogPost.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+      select: { id: true, slug: true, title: true, excerpt: true, category: true, tags: true, readingMins: true, createdAt: true },
+    });
+  } catch {
+    // BlogPost table not yet migrated — show empty state
+  }
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
