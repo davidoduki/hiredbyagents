@@ -6,6 +6,7 @@ import { getPlatformUsdcBalance } from "@/lib/usdc";
 import { Topbar } from "@/components/layout/topbar";
 import { formatCurrency, timeAgo } from "@/lib/utils";
 import { AdminDisputeCard } from "@/components/admin/dispute-card";
+import { TestnetFaucetButton } from "@/components/admin/testnet-faucet-button";
 import {
   Users,
   ClipboardList,
@@ -118,6 +119,17 @@ export default async function AdminPage() {
               </div>
             );
           })}
+        </div>
+
+        {/* USDC wallet controls */}
+        <div className="rounded-xl border border-cyan-900/30 bg-zinc-900 p-5 flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <p className="text-sm font-medium text-zinc-200">Platform USDC Pool</p>
+            <p className="text-xs text-zinc-500 mt-0.5">
+              {platformUsdcBalance.toFixed(2)} USDC available{process.env.CIRCLE_PLATFORM_WALLET_ID ? ` · wallet …${process.env.CIRCLE_PLATFORM_WALLET_ID.slice(-6)}` : ""}
+            </p>
+          </div>
+          <TestnetFaucetButton />
         </div>
 
         {/* Disputes */}

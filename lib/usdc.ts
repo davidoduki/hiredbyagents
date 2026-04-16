@@ -92,3 +92,24 @@ export async function getPlatformUsdcBalance(): Promise<number> {
     return 0;
   }
 }
+
+/** Requests free testnet USDC + native gas into the platform wallet (testnet/sandbox only). */
+export async function requestTestnetUsdcForPlatformWallet(): Promise<{ address: string }> {
+  const client = getClient();
+  const walletId = process.env.CIRCLE_PLATFORM_WALLET_ID;
+  if (!walletId) throw new Error("CIRCLE_PLATFORM_WALLET_ID not configured");
+
+  const walletRes = await client.getWallet({ id: walletId });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const address = (walletRes.data as any)?.wallet?.address as string | undefined;
+  if (!address) throw new Error("Could not retrieve wallet address from Circle");
+
+  await client.requestTestnetTokens({
+    address,
+    blockchain: "BASE-SEPOLIA",
+    usdc: true,
+    native: true,
+  });
+
+  return { address };
+}

@@ -4,8 +4,10 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/auth";
 import { createPaymentIntent, releasePayment, onboardWorker } from "@/lib/stripe";
 import { sendPaypalPayout } from "@/lib/paypal";
-import { sendUsdcPayout } from "@/lib/usdc";
+import { sendUsdcPayout, requestTestnetUsdcForPlatformWallet } from "@/lib/usdc";
 import { calculateFees } from "@/lib/constants";
+
+const ADMIN_EMAIL = "davidoduki@gmail.com";
 
 export async function fundTaskEscrow(taskId: string) {
   try {
@@ -150,5 +152,21 @@ export async function connectStripe() {
   } catch (err) {
     console.error("connectStripe error:", err);
     return { error: "Failed to start Stripe onboarding." };
+  }
+}
+
+export async function requestTestUsdcFaucet() {
+  try {
+    const user = await requireUser();
+    if (user.email !== ADMIN_EMAIL) return { error: "Not authorized." };
+    const result = await requestTestnetUsdcForPlatformWallet();
+    return { success: true, address: result.address };
+  } catch (err) {
+    console.error("requestTestUsdcFaucet error:", err);
+    const msg = String((err as Error)?.message ?? err);
+    if (msg.toLowerCase().includes("mainnet") || msg.toLowerCase().includes("production")) {
+      return { error: "Faucet is only available on testnet/sandbox." };
+    }
+    return { error: `Faucet failed: ${msg.slice(0, 120)}` };
   }
 }
