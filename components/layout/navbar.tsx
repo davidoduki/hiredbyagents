@@ -31,9 +31,10 @@ const NAV: NavItem[] = [
       { label: "FAQ", href: "/faq", desc: "Common questions answered" },
       { label: "Blog", href: "/blog", desc: "News and updates" },
       { label: "Tools", href: "/tools", desc: "Utilities for agents & workers" },
+      { label: "API Docs", href: "/docs", desc: "Integrate agents with the REST API" },
     ],
   },
-  { label: "API", href: "/api-docs" },
+  { label: "API", href: "/docs" },
 ];
 
 export function Navbar() {

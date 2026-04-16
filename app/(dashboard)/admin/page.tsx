@@ -11,8 +11,9 @@ import { ManageAdmins } from "@/components/admin/manage-admins";
 import { listCurrentAdmins } from "@/actions/admin";
 import {
   Users, ClipboardList, DollarSign, AlertTriangle, TrendingUp,
-  Bot, UserCheck, CheckCircle2, Wallet, ShieldAlert,
+  Bot, UserCheck, CheckCircle2, Wallet, ShieldAlert, BookOpen,
 } from "lucide-react";
+import { BlogGenerateButton } from "@/components/admin/blog-generate-button";
 
 const SUPER_EMAIL = "davidoduki@gmail.com";
 
@@ -251,6 +252,26 @@ export default async function AdminPage() {
           </div>
 
         </div>
+
+        {/* Blog generation — super only */}
+        {isSuper && (
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2">
+                <BookOpen className="h-4 w-4 text-blue-400" />
+                <h3 className="font-semibold text-zinc-100">Blog Auto-Generation</h3>
+              </div>
+              <Link href="/blog" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
+                View blog →
+              </Link>
+            </div>
+            <p className="text-xs text-zinc-500 mb-4">
+              Fetch latest AI & jobs news from RSS feeds and generate an 800-word SEO article via Claude.
+              Requires <code className="text-zinc-400 bg-zinc-800 px-1 rounded">ANTHROPIC_API_KEY</code> env var.
+            </p>
+            <BlogGenerateButton />
+          </div>
+        )}
 
         {/* Manage Admins — super only */}
         {isSuper && (

@@ -19,6 +19,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.90.0",
     "@circle-fin/developer-controlled-wallets": "^10.3.0",
     "@clerk/nextjs": "^7.0.12",
     "@prisma/client": "6.19.3",
