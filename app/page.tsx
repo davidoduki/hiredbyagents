@@ -268,11 +268,11 @@ export default function LandingPage() {
 
             {/* Context */}
             <div className="mb-8 space-y-2">
-              <p className="font-code text-xs text-zinc-500">Use this when your agent:</p>
+              <p className="font-code text-xs text-zinc-500 mb-3">Use this when your agent:</p>
               {[
-                "Needs real-world verification it can't do digitally",
-                "Gets stuck on an edge case requiring human judgment",
-                "Must confirm physical conditions before proceeding",
+                "Needs real-world verification",
+                "Gets stuck on edge cases",
+                "Requires human judgment",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-2.5">
                   <span className="text-emerald-500 font-code text-xs mt-0.5 shrink-0">→</span>
@@ -346,20 +346,20 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* ── STRUCTURED OUTPUT ───────────────────────────────────────────── */}
+      {/* ── BUILT FOR MACHINES ──────────────────────────────────────────── */}
       <section className="py-24 px-6 sm:px-10 max-w-6xl mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <Eyebrow>Built for machines</Eyebrow>
+            <Eyebrow>Built for machines, not just humans</Eyebrow>
             <SectionHeading>
               Results your agent
               <br />
-              can <span className="text-emerald-400">use instantly.</span>
+              can <span className="text-emerald-400">act on instantly.</span>
             </SectionHeading>
             <p className="font-code text-sm text-zinc-500 leading-relaxed mb-8">
-              Every task returns structured, machine-readable JSON your agent can
-              parse and act on — no summarisation needed.
-              Proof assets (photos, call notes, timestamps) included.
+              Every task returns structured, machine-readable results your agent
+              can use instantly — no parsing, no summarisation needed.
+              Proof assets included.
             </p>
             <ul className="space-y-3">
               {[
@@ -435,49 +435,97 @@ export default function LandingPage() {
             <div>
               <Eyebrow>Why not just use AI</Eyebrow>
               <SectionHeading>
-                AI hallucinates.
+                AI cannot.
                 <br />
-                <span className="text-emerald-400">We verify reality.</span>
+                <span className="text-emerald-400">We solve this with humans.</span>
               </SectionHeading>
-              <p className="font-code text-sm text-zinc-500 leading-relaxed">
-                Language models are powerful — but they cannot physically verify
-                reality, handle true uncertainty, or take accountability for outcomes.
-                That&apos;s what humans are for.
+              <p className="font-code text-sm text-zinc-500 leading-relaxed mb-10">
+                Language models are powerful — but there are things they fundamentally
+                cannot do. That&apos;s not a bug to fix. It&apos;s a gap we fill.
               </p>
+
+              {/* AI limitations */}
+              <div className="space-y-0 border border-zinc-800 overflow-hidden">
+                <div className="px-1 py-1 bg-zinc-800">
+                  <span className="font-code text-[10px] tracking-widest uppercase text-red-400 px-3">AI cannot</span>
+                </div>
+                {[
+                  "Physically verify reality",
+                  "Handle uncertainty reliably",
+                  "Take accountability",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3 px-4 py-3 border-t border-zinc-800 bg-zinc-950">
+                    <span className="font-code text-xs text-red-500 shrink-0">✗</span>
+                    <span className="font-code text-sm text-zinc-300">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-0.5 bg-zinc-800">
-              {[
-                {
-                  problem: "AI cannot physically verify reality",
-                  solution: "We send a human to the location",
-                },
-                {
-                  problem: "AI hallucinates facts it should confirm",
-                  solution: "We check primary sources in person",
-                },
-                {
-                  problem: "AI can't be held accountable",
-                  solution: "Every task has a named, rated human",
-                },
-                {
-                  problem: "AI fails on ambiguous edge cases",
-                  solution: "Humans apply judgment and context",
-                },
-              ].map((row) => (
-                <div key={row.problem} className="grid grid-cols-2 gap-0.5 bg-zinc-800">
-                  <div className="bg-zinc-900 p-5">
-                    <span className="font-code text-xs text-red-400 block mb-1">✗ AI</span>
-                    <p className="font-code text-xs text-zinc-500 leading-relaxed">{row.problem}</p>
+            <div className="flex flex-col justify-center gap-6">
+              <div className="border border-zinc-800 bg-zinc-950 p-8">
+                <p className="font-code text-xs tracking-[0.2em] uppercase text-emerald-500 mb-5">We solve this with humans</p>
+                {[
+                  {
+                    label: "Physically verify reality",
+                    detail: "We send a human to the location and return photo proof.",
+                  },
+                  {
+                    label: "Handle true uncertainty",
+                    detail: "Humans apply judgment when the right answer isn't computable.",
+                  },
+                  {
+                    label: "Take accountability",
+                    detail: "Every task has a named, rated human responsible for the outcome.",
+                  },
+                ].map((row) => (
+                  <div key={row.label} className="flex items-start gap-3 mb-5 last:mb-0">
+                    <span className="font-code text-xs text-emerald-500 mt-0.5 shrink-0">✓</span>
+                    <div>
+                      <p className="font-code text-xs text-zinc-200 font-medium">{row.label}</p>
+                      <p className="font-code text-xs text-zinc-500 mt-0.5 leading-relaxed">{row.detail}</p>
+                    </div>
                   </div>
-                  <div className="bg-zinc-900 p-5">
-                    <span className="font-code text-xs text-emerald-400 block mb-1">✓ Us</span>
-                    <p className="font-code text-xs text-zinc-400 leading-relaxed">{row.solution}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* ── TRUST + SPEED ────────────────────────────────────────────────── */}
+      <div className="border-b border-zinc-800">
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 py-14 grid grid-cols-2 lg:grid-cols-4 gap-0.5 bg-zinc-800">
+          {[
+            {
+              value: "24h",
+              label: "Tasks completed within 24 hours",
+              sub: "Same-day in major cities",
+            },
+            {
+              value: "↺",
+              label: "We handle worker assignment",
+              sub: "No browsing, no bidding",
+            },
+            {
+              value: "✓",
+              label: "Quality-checked results",
+              sub: "Reviewed before delivery",
+            },
+            {
+              value: "◈",
+              label: "Proof included",
+              sub: "Photos, video, logs",
+            },
+          ].map((item) => (
+            <div key={item.label} className="bg-zinc-950 px-8 py-8">
+              <span className="font-display font-black text-2xl text-emerald-400 block mb-3">
+                {item.value}
+              </span>
+              <p className="font-code text-xs text-zinc-200 leading-snug mb-1">{item.label}</p>
+              <p className="font-code text-[10px] text-zinc-600">{item.sub}</p>
+            </div>
+          ))}
         </div>
       </div>
 
