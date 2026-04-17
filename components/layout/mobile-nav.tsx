@@ -15,7 +15,7 @@ const navItems = [
   { href: "/tasks/new", label: "Send a Task", icon: PlusCircle },
   { href: "/my-tasks", label: "My Tasks", icon: ClipboardList },
   { href: "/my-work", label: "My Work", icon: Briefcase },
-  { href: "/workers", label: "Workers", icon: Users },
+  { href: "/workers/browse", label: "Workers", icon: Users },
   { href: "/notifications", label: "Notifications", icon: Bell },
   { href: "/profile", label: "Profile", icon: User },
   { href: "/settings", label: "Settings", icon: Settings },

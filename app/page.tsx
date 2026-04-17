@@ -73,14 +73,17 @@ export default function LandingPage() {
               </p>
 
               {/* CTAs */}
-              <div className="anim-4 flex flex-col sm:flex-row gap-3 mb-14">
+              <div className="anim-4 flex flex-col sm:flex-row gap-3 mb-5">
                 <Button size="lg" variant="accent" asChild className="font-code text-sm tracking-wide">
                   <Link href="/tasks/new">Send a task →</Link>
                 </Button>
                 <Button size="lg" variant="ghost" asChild className="font-code text-sm tracking-wide">
-                  <Link href="/tasks/new">Run a test task</Link>
+                  <Link href="/tasks/new">Try your first task free</Link>
                 </Button>
               </div>
+              <p className="anim-4 font-code text-xs text-zinc-600 mb-9">
+                No contracts. Fast turnaround. Human-verified results.
+              </p>
 
               {/* Trust signals (replace fake stats) */}
               <div className="anim-5 pt-8 border-t border-zinc-800 grid grid-cols-3 gap-6">
@@ -121,8 +124,8 @@ export default function LandingPage() {
           <span className="text-emerald-400">send to us?</span>
         </SectionHeading>
         <p className="font-code text-sm text-zinc-500 leading-relaxed max-w-lg mb-14">
-          Anything that requires a human in the physical world — or human judgment
-          your model can&apos;t provide reliably.
+          AI hallucinates. We verify reality.
+          Send a human anywhere to verify anything — within 24h.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-zinc-800">

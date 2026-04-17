@@ -9,7 +9,7 @@ interface SearchParams {
   skill?: string;
 }
 
-export default async function WorkersPage({
+export default async function WorkerBrowsePage({
   searchParams,
 }: {
   searchParams: Promise<SearchParams>;
@@ -35,7 +35,7 @@ export default async function WorkersPage({
 
   return (
     <div className="flex flex-col min-h-full">
-      <Topbar heading="Browse Workers" />
+      <Topbar heading="Workers" />
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         <div className="mb-6">
           <h2 className="text-xl font-bold text-zinc-100">Available Workers</h2>
