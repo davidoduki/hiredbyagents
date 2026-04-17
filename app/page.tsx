@@ -112,50 +112,50 @@ export default function LandingPage() {
       {/* ── TICKER ──────────────────────────────────────────────────────── */}
       <TaskTicker />
 
-      {/* ── USE CASES ───────────────────────────────────────────────────── */}
+      {/* ── WHAT TASKS DO AGENTS SEND? ──────────────────────────────────── */}
       <section id="use-cases" className="py-24 px-6 sm:px-10 max-w-6xl mx-auto w-full">
-        <Eyebrow>What can you do with us</Eyebrow>
+        <Eyebrow>Use cases</Eyebrow>
         <SectionHeading>
-          Send a human anywhere
+          What tasks do agents
           <br />
-          to <span className="text-emerald-400">verify anything.</span>
+          <span className="text-emerald-400">send to us?</span>
         </SectionHeading>
         <p className="font-code text-sm text-zinc-500 leading-relaxed max-w-lg mb-14">
-          AI hallucinates. We verify reality. Tasks your agent can&apos;t complete
-          alone — we execute them in the physical world and return proof.
+          Anything that requires a human in the physical world — or human judgment
+          your model can&apos;t provide reliably.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-zinc-800">
           {[
             {
               glyph: "◈",
-              title: "Verify a business exists",
-              body: "Confirm a company is real, trading, and at the address listed. Photo evidence included.",
+              title: "Verify if a business is open",
+              body: "Confirm trading hours, physical presence, and legitimacy. Photo evidence returned.",
             },
             {
               glyph: "⬡",
-              title: "Inspect any location",
-              body: "Send a human to photograph, assess, and report on a property, site, or venue.",
+              title: "Visit a location and take photos",
+              body: "Send a human to photograph, assess conditions, and document any site or venue.",
             },
             {
               glyph: "◉",
-              title: "Check inventory",
-              body: "Physically count stock, verify SKUs, and confirm warehouse conditions.",
+              title: "Confirm inventory or conditions",
+              body: "Physically count stock, verify SKUs, and check warehouse or property state.",
             },
             {
               glyph: "▲",
-              title: "Call a business",
-              body: "Have a human place a call, ask specific questions, and return a structured transcript.",
+              title: "Call a business and ask questions",
+              body: "Human places the call, asks your specific questions, returns a structured transcript.",
             },
             {
               glyph: "●",
-              title: "Review AI outputs",
-              body: "Human eyes on AI-generated content — fact-check, quality-assess, flag hallucinations.",
+              title: "Review AI-generated outputs",
+              body: "Human eyes on your model&apos;s work — fact-check, quality-assess, flag hallucinations.",
             },
             {
               glyph: "→",
-              title: "Handle edge cases",
-              body: "When your agent hits an exception it can&apos;t resolve, we step in and get it done.",
+              title: "Handle edge-case requests",
+              body: "When your agent hits a wall it can&apos;t get past, we step in and get it done.",
             },
           ].map((uc) => (
             <div
@@ -189,62 +189,71 @@ export default function LandingPage() {
       </section>
 
       {/* ── HOW IT WORKS ────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="py-24 px-6 sm:px-10 max-w-6xl mx-auto w-full">
-        <Eyebrow>How it works</Eyebrow>
-        <SectionHeading>
-          From API call
-          <br />
-          to <span className="text-emerald-400">verified result.</span>
-        </SectionHeading>
-        <p className="font-code text-sm text-zinc-500 leading-relaxed max-w-md mb-16">
-          We handle assignment, execution, and delivery internally.
-          You send a request. We return structured proof.
-        </p>
+      <div className="bg-zinc-900 border-y border-zinc-800">
+        <section id="how-it-works" className="py-24 px-6 sm:px-10 max-w-6xl mx-auto w-full">
+          <Eyebrow>How it works</Eyebrow>
+          <SectionHeading>
+            Four steps,
+            <br />
+            <span className="text-emerald-400">fully handled.</span>
+          </SectionHeading>
+          <p className="font-code text-sm text-zinc-500 leading-relaxed max-w-md mb-16">
+            You send a request. We handle everything in between.
+            Your agent gets structured results it can act on.
+          </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-0.5 bg-zinc-800">
-          {[
-            {
-              icon: "⬡",
-              num: "01 / SUBMIT",
-              title: "Submit task",
-              body: "Your agent sends a request via REST API or dashboard — description, budget, deadline, and an optional webhook URL.",
-            },
-            {
-              icon: "◈",
-              num: "02 / ASSIGN",
-              title: "We assign a human",
-              body: "Platform dispatches internally. You don't browse workers or wait for bids. We handle it.",
-            },
-            {
-              icon: "◉",
-              num: "03 / EXECUTE",
-              title: "Human executes",
-              body: "A verified human carries out the task in the real world — physically, on a call, or at a location.",
-            },
-            {
-              icon: "▲",
-              num: "04 / RESULT",
-              title: "Structured result",
-              body: "JSON + proof (photos, notes, timestamps) returned via webhook. Your agent picks up where it left off.",
-            },
-          ].map((step) => (
-            <div
-              key={step.num}
-              className="relative group bg-zinc-900 border border-zinc-800 p-8 overflow-hidden transition-colors hover:border-emerald-500/50"
-            >
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-emerald-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-              <span className="block text-2xl mb-5 select-none">{step.icon}</span>
-              <span className="font-code text-xs tracking-[0.15em] uppercase text-emerald-500 mb-4 block">
-                {step.num}
-              </span>
-              <h3 className="font-display font-black text-lg tracking-tight text-zinc-100 mb-3">
-                {step.title}
-              </h3>
-              <p className="font-code text-xs text-zinc-500 leading-[1.9]">{step.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-0.5 bg-zinc-800">
+            {[
+              {
+                icon: "⬡",
+                num: "01",
+                title: "Submit task",
+                sub: "Agent sends request via API or dashboard",
+                body: "Include a description, budget, deadline, and an optional webhook URL for result delivery.",
+              },
+              {
+                icon: "◈",
+                num: "02",
+                title: "We assign a human",
+                sub: "Platform handles dispatch internally",
+                body: "No browsing workers, no waiting for bids. We match and route to the right human automatically.",
+              },
+              {
+                icon: "◉",
+                num: "03",
+                title: "Task completed",
+                sub: "Human executes task",
+                body: "A verified human carries out the work — on-site, on a call, or reviewing your AI's output.",
+              },
+              {
+                icon: "▲",
+                num: "04",
+                title: "Get structured result",
+                sub: "Returned via webhook (JSON + proof)",
+                body: "Photos, notes, timestamps, and a verified outcome. Your agent picks up where it left off.",
+              },
+            ].map((step) => (
+              <div
+                key={step.num}
+                className="relative group bg-zinc-950 border border-zinc-800 p-8 overflow-hidden transition-colors hover:border-emerald-500/50"
+              >
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-emerald-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                <span className="block text-2xl mb-5 select-none text-zinc-600 group-hover:text-emerald-500 transition-colors">{step.icon}</span>
+                <span className="font-code text-[10px] tracking-[0.2em] uppercase text-emerald-500 mb-3 block">
+                  {step.num}
+                </span>
+                <h3 className="font-display font-black text-lg tracking-tight text-zinc-100 mb-1">
+                  {step.title}
+                </h3>
+                <p className="font-code text-xs text-emerald-400/80 mb-3 leading-relaxed">
+                  {step.sub}
+                </p>
+                <p className="font-code text-xs text-zinc-500 leading-[1.9]">{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* ── API SECTION ─────────────────────────────────────────────────── */}
       <div className="bg-zinc-900 border-y border-zinc-800">
