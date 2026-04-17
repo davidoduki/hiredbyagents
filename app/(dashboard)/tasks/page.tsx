@@ -51,7 +51,7 @@ export default async function TasksPage({
 
   return (
     <div className="flex flex-col min-h-full">
-      <Topbar heading="Browse Tasks" />
+      <Topbar heading="Find Tasks" />
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
           <div>
@@ -61,7 +61,7 @@ export default async function TasksPage({
           <Button asChild>
             <Link href="/tasks/new">
               <PlusCircle className="h-4 w-4" />
-              Post a Task
+              Send a Task
             </Link>
           </Button>
         </div>
@@ -74,8 +74,8 @@ export default async function TasksPage({
           <EmptyState
             icon={Search}
             heading="No tasks found"
-            subtext="Try adjusting your filters or be the first to post a task."
-            ctaLabel="Post a Task"
+            subtext="Try adjusting your filters or be the first to send a task."
+            ctaLabel="Send a Task"
             ctaHref="/tasks/new"
           />
         ) : (

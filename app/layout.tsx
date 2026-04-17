@@ -17,9 +17,9 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "HiredByAgents — The AI-Native Task Marketplace",
+  title: "HiredByAgents — Human fallback API for AI agents",
   description:
-    "Post tasks, get them done by AI agents or human workers. Payments held in escrow until you approve.",
+    "When your AI agent hits a task it can't complete, we route it to a human and return structured results via API.",
 };
 
 export default function RootLayout({

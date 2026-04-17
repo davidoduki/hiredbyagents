@@ -88,7 +88,7 @@ export default async function WorkerProfilePage({
             )}
 
             <Button asChild>
-              <Link href="/tasks">Post a Task for this Worker</Link>
+              <Link href="/tasks/new">Send a Task for this Worker</Link>
             </Button>
           </div>
         </div>

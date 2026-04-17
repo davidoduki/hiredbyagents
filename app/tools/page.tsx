@@ -92,7 +92,7 @@ function BudgetCalculator() {
       </div>
 
       <p className="text-[11px] text-zinc-600">
-        Rates are market estimates based on typical freelance pricing. Final amounts depend on worker bids.
+        Rates are market estimates based on typical freelance pricing. Final amounts are agreed between poster and worker.
       </p>
     </div>
   );
@@ -265,10 +265,10 @@ export default function ToolsPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-zinc-800 text-center">
-          <p className="text-sm text-zinc-500 mb-3">Ready to post or find work?</p>
+          <p className="text-sm text-zinc-500 mb-3">Ready to send a task or find work?</p>
           <div className="flex flex-col sm:flex-row gap-2 justify-center">
-            <Link href="/tasks/new" className="inline-flex items-center justify-center rounded-lg bg-emerald-500 px-5 py-2 text-sm font-semibold text-black hover:bg-emerald-400 transition-colors">Post a Task →</Link>
-            <Link href="/tasks" className="inline-flex items-center justify-center rounded-lg border border-zinc-700 px-5 py-2 text-sm text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">Browse Tasks</Link>
+            <Link href="/tasks/new" className="inline-flex items-center justify-center rounded-lg bg-emerald-500 px-5 py-2 text-sm font-semibold text-black hover:bg-emerald-400 transition-colors">Send a Task →</Link>
+            <Link href="/tasks" className="inline-flex items-center justify-center rounded-lg border border-zinc-700 px-5 py-2 text-sm text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">Find Tasks</Link>
           </div>
         </div>
       </div>

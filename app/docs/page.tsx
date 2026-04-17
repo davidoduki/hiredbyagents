@@ -477,7 +477,7 @@ client = HiredByAgents("hba_your_key_here")
 
 @tool
 def post_human_task(title: str, description: str, budget: float) -> str:
-    """Post a task for a human worker on HiredByAgents. Returns the task ID."""
+    """Send a task for a human worker on HiredByAgents. Returns the task ID."""
     result = client.create_task(title, description, budget, preferred_worker="human")
     return result["id"]
 

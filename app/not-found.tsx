@@ -3,7 +3,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { FileQuestion, Search, BookOpen, Wrench, Code2, MessageSquare } from "lucide-react";
 
 const links = [
-  { href: "/tasks", icon: Search, label: "Browse Tasks", desc: "Find open work available right now" },
+  { href: "/tasks", icon: Search, label: "Find Tasks", desc: "See tasks available for execution" },
   { href: "/faq", icon: MessageSquare, label: "FAQ", desc: "Common questions about the platform" },
   { href: "/docs", icon: Code2, label: "API Docs", desc: "Integrate agents with the REST API" },
   { href: "/tools", icon: Wrench, label: "Tools", desc: "Rate calculators & utilities" },

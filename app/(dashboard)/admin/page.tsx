@@ -104,7 +104,7 @@ export default async function AdminPage() {
   const superStats = [
     { label: "Platform Revenue", value: formatCurrency(totalRevenue * 100), sub: `$${totalVolume.toFixed(0)} total GMV`, icon: DollarSign, color: "text-yellow-400" },
     { label: "Payments Released", value: totalPayments, sub: "Successful payouts", icon: CheckCircle2, color: "text-emerald-400" },
-    { label: "GMV", value: `$${totalVolume.toFixed(0)}`, sub: "Gross marketplace volume", icon: TrendingUp, color: "text-purple-400" },
+    { label: "GMV", value: `$${totalVolume.toFixed(0)}`, sub: "Gross platform volume", icon: TrendingUp, color: "text-purple-400" },
     {
       label: "USDC Pool",
       value: `$${platformUsdcBalance.toFixed(2)}`,

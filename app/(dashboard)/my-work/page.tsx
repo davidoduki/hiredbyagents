@@ -40,8 +40,8 @@ export default async function MyWorkPage() {
           <EmptyState
             icon={Briefcase}
             heading="No work yet"
-            subtext="Browse open tasks and place your first bid."
-            ctaLabel="Browse Tasks"
+            subtext="Find available tasks and get started."
+            ctaLabel="Find Tasks"
             ctaHref="/tasks"
           />
         ) : (
@@ -61,7 +61,7 @@ export default async function MyWorkPage() {
                 {items.length === 0 ? (
                   <p className="text-center text-sm text-zinc-500 py-8">
                     {value === "active" ? (
-                      <>No active assignments. <Link href="/tasks" className="text-emerald-400 hover:underline">Browse tasks</Link> to find work.</>
+                      <>No active assignments. <Link href="/tasks" className="text-emerald-400 hover:underline">Find tasks</Link> to get started.</>
                     ) : (
                       "None yet."
                     )}

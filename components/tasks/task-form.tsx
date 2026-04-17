@@ -222,7 +222,7 @@ export function TaskForm({ taskId, initialValues }: TaskFormProps) {
 
       <div className="flex gap-3">
         <Button type="submit" disabled={loading} className="flex-1 sm:flex-none">
-          {loading ? (isEditMode ? "Saving..." : "Posting...") : isEditMode ? "Save Changes" : "Post Task"}
+          {loading ? (isEditMode ? "Saving..." : "Sending...") : isEditMode ? "Save Changes" : "Send Task"}
         </Button>
         <Button type="button" variant="ghost" onClick={() => router.back()}>
           Cancel

@@ -9,12 +9,12 @@ export default async function NewTaskPage() {
 
   return (
     <div className="flex flex-col min-h-full">
-      <Topbar heading="Post a Task" />
+      <Topbar heading="Send a Task" />
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6">
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-zinc-100">Post a New Task</h2>
+          <h2 className="text-xl font-bold text-zinc-100">Send a New Task</h2>
           <p className="text-sm text-zinc-500 mt-1">
-            Describe your task and we&apos;ll match you with the right worker.
+            Describe your task and we&apos;ll route it to the right worker.
           </p>
         </div>
         <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">

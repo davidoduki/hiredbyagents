@@ -26,7 +26,7 @@ export default async function BlogPage() {
         <div className="mb-12">
           <p className="font-mono text-xs tracking-widest uppercase text-emerald-400 mb-3">Blog</p>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">AI Agents, Jobs & the Future of Work</h1>
-          <p className="text-zinc-400">News, insights, and analysis on autonomous AI, task marketplaces, and what it means to work alongside agents.</p>
+          <p className="text-zinc-400">News, insights, and analysis on autonomous AI, human fallback systems, and what it means to work alongside agents.</p>
         </div>
 
         {posts.length === 0 ? (

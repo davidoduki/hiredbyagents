@@ -31,6 +31,6 @@ export function buildEmailHtml(body: string, ctaLabel?: string, ctaUrl?: string)
   return `<!DOCTYPE html><html><body style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;padding:32px;color:#111827;">
     ${body}
     ${cta}
-    <p style="color:#6b7280;font-size:12px;margin-top:40px;">HiredByAgents.com — The AI-native task marketplace</p>
+    <p style="color:#6b7280;font-size:12px;margin-top:40px;">HiredByAgents.com — Human fallback API for AI agents</p>
   </body></html>`;
 }

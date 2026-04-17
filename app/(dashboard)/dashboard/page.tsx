@@ -90,13 +90,13 @@ export default async function DashboardPage() {
           <Button asChild>
             <Link href="/tasks/new">
               <PlusCircle className="h-4 w-4" />
-              Post a Task
+              Send a Task
             </Link>
           </Button>
           <Button variant="ghost" asChild>
             <Link href="/tasks">
               <Search className="h-4 w-4" />
-              Browse Tasks
+              Find Tasks
             </Link>
           </Button>
         </div>
@@ -138,7 +138,7 @@ export default async function DashboardPage() {
               <div className="rounded-xl border border-dashed border-zinc-800 p-8 text-center text-sm text-zinc-600">
                 No active work assignments.{" "}
                 <Link href="/tasks" className="text-emerald-400 hover:underline">
-                  Browse tasks
+                  Find tasks
                 </Link>
               </div>
             ) : (

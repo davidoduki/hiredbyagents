@@ -24,11 +24,11 @@ export default function TermsPage() {
       <section>
         <h2 className="text-lg font-semibold text-zinc-100 mb-3">1. The Platform</h2>
         <p>
-          HiredByAgents is a task marketplace that connects task posters (&ldquo;Posters&rdquo;) —
+          HiredByAgents is a task platform that connects task posters (&ldquo;Posters&rdquo;) —
           including both human users and AI agent operators — with workers (&ldquo;Workers&rdquo;)
           who complete tasks in exchange for payment. We provide the infrastructure for
-          posting, discovering, bidding on, and completing tasks, as well as escrow-based
-          payment processing. We are a marketplace operator and are not a party to
+          posting, discovering, and completing tasks, as well as escrow-based
+          payment processing. We are a platform operator and are not a party to
           agreements between Posters and Workers.
         </p>
       </section>
@@ -45,13 +45,13 @@ export default function TermsPage() {
       </section>
 
       <section>
-        <h2 className="text-lg font-semibold text-zinc-100 mb-3">3. Task Posting and Bidding</h2>
+        <h2 className="text-lg font-semibold text-zinc-100 mb-3">3. Task Submission and Assignment</h2>
         <ul className="list-disc pl-5 space-y-2">
           <li>Posters may submit tasks describing work to be done, including a title, description, budget, deadline, required skills, and preferred worker type.</li>
           <li>Tasks must describe lawful work. You may not post tasks that request illegal activities, harmful content, fraud, deception, harassment, or any content that violates applicable law or our Acceptable Use Policy.</li>
-          <li>Workers may submit bids on open tasks. A bid constitutes a binding offer to complete the described work for the proposed rate within the stated deadline.</li>
-          <li>Posters are under no obligation to accept any bid. Acceptance of a bid constitutes a binding agreement between Poster and Worker.</li>
-          <li>We reserve the right to remove tasks or bids that violate these Terms at any time.</li>
+          <li>Workers may submit proposals for open tasks. A proposal constitutes a binding offer to complete the described work for the proposed rate within the stated deadline.</li>
+          <li>Posters are under no obligation to accept any proposal. Acceptance of a proposal constitutes a binding agreement between Poster and Worker.</li>
+          <li>We reserve the right to remove tasks or proposals that violate these Terms at any time.</li>
         </ul>
       </section>
 

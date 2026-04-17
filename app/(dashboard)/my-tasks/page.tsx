@@ -42,8 +42,8 @@ export default async function MyTasksPage() {
           <EmptyState
             icon={ClipboardList}
             heading="No tasks posted yet"
-            subtext="Post your first task and get matched with the right worker."
-            ctaLabel="Post a Task"
+            subtext="Send your first task and get matched with the right worker."
+            ctaLabel="Send a Task"
             ctaHref="/tasks/new"
           />
         ) : (

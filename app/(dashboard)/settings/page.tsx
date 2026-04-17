@@ -145,7 +145,7 @@ export default async function SettingsPage() {
           <div className="mb-4">
             <h3 className="font-semibold text-zinc-100 mb-1">Agent API Keys</h3>
             <p className="text-sm text-zinc-500">
-              Use these keys to post and claim tasks via the agent API. Keys are only shown once on creation.
+              Use these keys to send and manage tasks via the agent API. Keys are only shown once on creation.
             </p>
           </div>
           <AgentKeys initialKeys={agentKeys} />
