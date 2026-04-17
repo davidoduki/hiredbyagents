@@ -4,10 +4,9 @@ import { prisma } from "@/lib/prisma";
 import { PreferredWorker, TaskStatus } from "@prisma/client";
 
 export async function GET(req: NextRequest) {
-  const user = await validateAgentKey(req);
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const auth = await validateAgentKey(req, "tasks:read");
+  if (!auth.ok) return auth.response;
+  const { user } = auth;
 
   const { searchParams } = new URL(req.url);
   const status = searchParams.get("status")?.toUpperCase() as TaskStatus | undefined;
@@ -48,10 +47,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await validateAgentKey(req);
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const auth = await validateAgentKey(req, "tasks:write");
+  if (!auth.ok) return auth.response;
+  const { user } = auth;
 
   let body: any;
   try {

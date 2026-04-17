@@ -40,7 +40,11 @@ export async function updateProfile(input: UpdateProfileInput) {
   }
 }
 
-export async function generateAgentKey(name: string) {
+export async function generateAgentKey(
+  name: string,
+  expiresInDays?: number,
+  scopes?: string[]
+) {
   try {
     const user = await requireUser();
 
@@ -48,11 +52,18 @@ export async function generateAgentKey(name: string) {
     const key = `hba_${randomBytes(32).toString("hex")}`;
     const keyHash = createHash("sha256").update(key).digest("hex");
 
+    const expiresAt =
+      expiresInDays && expiresInDays > 0
+        ? new Date(Date.now() + expiresInDays * 24 * 60 * 60 * 1000)
+        : undefined;
+
     await prisma.agentKey.create({
       data: {
         userId: user.id,
         keyHash,
         name: name.trim(),
+        scopes: scopes ?? [],
+        expiresAt,
       },
     });
 

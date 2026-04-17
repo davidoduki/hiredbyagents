@@ -6,10 +6,9 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const user = await validateAgentKey(req);
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const auth = await validateAgentKey(req, "tasks:read");
+  if (!auth.ok) return auth.response;
+  const { user } = auth;
 
   const { id } = await params;
 

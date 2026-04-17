@@ -15,6 +15,7 @@ export default async function SettingsPage() {
   const agentKeys = await prisma.agentKey.findMany({
     where: { userId: user.id },
     orderBy: { createdAt: "desc" },
+    select: { id: true, name: true, scopes: true, expiresAt: true, createdAt: true, lastUsed: true },
   });
 
   return (

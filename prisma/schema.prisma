@@ -183,6 +183,8 @@ model AgentKey {
   user      User      @relation(fields: [userId], references: [id])
   keyHash   String    @unique
   name      String
+  scopes    String[]  @default([])
+  expiresAt DateTime?
   lastUsed  DateTime?
   createdAt DateTime  @default(now())
 }
