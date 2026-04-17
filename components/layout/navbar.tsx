@@ -13,28 +13,31 @@ import {
 import { UserButton, useUser } from "@clerk/nextjs";
 
 type NavDropdown = { label: string; items: { label: string; href: string; desc: string }[] };
-type NavLink = { label: string; href: string };
+type NavLink = { label: string; href: string; secondary?: boolean };
 type NavItem = NavDropdown | NavLink;
 
 const NAV: NavItem[] = [
   {
-    label: "Product",
+    label: "Use Cases",
     items: [
-      { label: "Features", href: "/#features", desc: "What makes us different" },
-      { label: "Pricing", href: "/#pricing", desc: "12% on completion, nothing upfront" },
-      { label: "Reviews", href: "/#reviews", desc: "What our users say" },
+      { label: "Verify a business", href: "/#use-cases", desc: "Confirm it exists, is open, is legitimate" },
+      { label: "Inspect a location", href: "/#use-cases", desc: "Photos, conditions, real-world confirmation" },
+      { label: "Human judgment calls", href: "/#use-cases", desc: "Edge cases your AI can't handle reliably" },
+      { label: "All use cases →", href: "/#use-cases", desc: "See everything we can execute" },
     ],
   },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "API", href: "/docs" },
   {
     label: "Resources",
     items: [
+      { label: "API Docs", href: "/docs", desc: "REST API reference and SDKs" },
       { label: "FAQ", href: "/faq", desc: "Common questions answered" },
       { label: "Blog", href: "/blog", desc: "News and updates" },
-      { label: "Tools", href: "/tools", desc: "Utilities for agents & workers" },
-      { label: "API Docs", href: "/docs", desc: "Integrate agents with the REST API" },
+      { label: "Tools", href: "/tools", desc: "Utilities for agents and teams" },
     ],
   },
-  { label: "API", href: "/docs" },
+  { label: "For Workers", href: "/workers", secondary: true },
 ];
 
 export function Navbar() {
@@ -75,7 +78,7 @@ export function Navbar() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
                     {item.items.map((sub) => (
-                      <DropdownMenuItem key={sub.href} asChild>
+                      <DropdownMenuItem key={sub.label} asChild>
                         <Link href={sub.href} className="block font-code">
                           <span className="block text-xs font-medium text-zinc-200">{sub.label}</span>
                           <span className="block text-[10px] mt-0.5 text-zinc-500">{sub.desc}</span>
@@ -86,9 +89,13 @@ export function Navbar() {
                 </DropdownMenu>
               ) : (
                 <Link
-                  key={item.href}
-                  href={item.href}
-                  className="px-3 py-1.5 font-code text-xs tracking-wide transition-colors text-zinc-400 hover:text-white"
+                  key={item.label}
+                  href={(item as NavLink).href}
+                  className={`px-3 py-1.5 font-code text-xs tracking-wide transition-colors ${
+                    (item as NavLink).secondary
+                      ? "text-zinc-600 hover:text-zinc-400"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -104,7 +111,7 @@ export function Navbar() {
                   <Link href="/sign-in">Sign In</Link>
                 </Button>
                 <Button variant="accent" asChild size="sm" className="font-code text-xs">
-                  <Link href="/sign-up">Get Started →</Link>
+                  <Link href="/tasks/new">Send a Task →</Link>
                 </Button>
               </>
             ) : (
@@ -148,7 +155,7 @@ export function Navbar() {
                     </div>
                     {item.items.map((sub) => (
                       <Link
-                        key={sub.href}
+                        key={sub.label}
                         href={sub.href}
                         onClick={() => setMobileOpen(false)}
                         className="block px-3 py-2 font-code text-xs rounded transition-colors text-zinc-400 hover:bg-zinc-800 hover:text-white"
@@ -159,10 +166,12 @@ export function Navbar() {
                   </div>
                 ) : (
                   <Link
-                    key={item.href}
-                    href={item.href}
+                    key={item.label}
+                    href={(item as NavLink).href}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-2 font-code text-xs rounded transition-colors text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                    className={`block px-3 py-2 font-code text-xs rounded transition-colors hover:bg-zinc-800 hover:text-white ${
+                      (item as NavLink).secondary ? "text-zinc-600" : "text-zinc-400"
+                    }`}
                   >
                     {item.label}
                   </Link>
@@ -175,7 +184,7 @@ export function Navbar() {
                       <Link href="/sign-in" onClick={() => setMobileOpen(false)}>Sign In</Link>
                     </Button>
                     <Button variant="accent" asChild size="sm" className="font-code text-xs w-full">
-                      <Link href="/sign-up" onClick={() => setMobileOpen(false)}>Get Started →</Link>
+                      <Link href="/tasks/new" onClick={() => setMobileOpen(false)}>Send a Task →</Link>
                     </Button>
                   </>
                 ) : (
