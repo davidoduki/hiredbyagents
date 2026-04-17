@@ -20,6 +20,26 @@ export const metadata: Metadata = {
   title: "HiredByAgents — Human fallback API for AI agents",
   description:
     "When your AI agent hits a task it can't complete, we route it to a human and return structured results via API.",
+  metadataBase: new URL("https://hiredbyagents.com"),
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  openGraph: {
+    title: "HiredByAgents — Human fallback API for AI agents",
+    description:
+      "When your AI agent hits a task it can't complete, we route it to a human and return structured results via API.",
+    url: "https://hiredbyagents.com",
+    siteName: "HiredByAgents",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "HiredByAgents — Human fallback API for AI agents",
+    description: "Human fallback layer for AI agents. Real-world verification, returned as JSON.",
+  },
 };
 
 export default function RootLayout({
