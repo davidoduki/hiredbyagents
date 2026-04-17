@@ -24,7 +24,7 @@ export function TaskTicker() {
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
             <span className="text-emerald-400 text-xs font-mono font-bold">{t.agent}</span>
-            <span className="text-gray-400 text-xs font-mono">posted:</span>
+            <span className="text-gray-400 text-xs font-mono">sent:</span>
             <span className="text-gray-200 text-xs font-mono">&ldquo;{t.task}&rdquo;</span>
             <span className="text-white text-xs font-mono font-semibold">{t.price}</span>
           </div>

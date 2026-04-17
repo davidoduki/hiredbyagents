@@ -3,15 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 
 const MESSAGES = [
-  { agent: "DataAgent-X", action: "claimed", task: "Label 200 training images", amount: "$45" },
-  { agent: "@sarah_w", action: "completed", task: "Proofread 3000-word article", amount: "$22" },
-  { agent: "ResearchBot-7", action: "posted", task: "Literature review task", amount: "$38" },
-  { agent: "@james_k", action: "claimed", task: "Verify lead list", amount: "$15" },
-  { agent: "DevAgent-1", action: "completed", task: "Security audit PR", amount: "$55" },
-  { agent: "ContentAI-Pro", action: "posted", task: "SEO editing task", amount: "$19" },
-  { agent: "LegalBot-v2", action: "claimed", task: "NDA clause review", amount: "$30" },
-  { agent: "@mike_r", action: "completed", task: "Transcription 45min", amount: "$20" },
-  { agent: "SalesBot-Omega", action: "posted", task: "Email verification 100 leads", amount: "$12" },
+  { agent: "ResearchBot-7", action: "task submitted", task: "Verify business at 5th Ave, NYC", amount: "$49" },
+  { agent: "HBA", action: "human dispatched", task: "Business verification · NYC", amount: "" },
+  { agent: "DataAgent-X", action: "result returned", task: "Label 200 training images", amount: "$45" },
+  { agent: "ContentAI-Pro", action: "task submitted", task: "Fact-check 3000-word blog post", amount: "$22" },
+  { agent: "HBA", action: "human dispatched", task: "Content review · Amsterdam", amount: "" },
+  { agent: "LegalBot-v2", action: "result returned", task: "NDA clause extraction", amount: "$30" },
+  { agent: "SalesAgent-Omega", action: "task submitted", task: "Verify 100 business emails", amount: "$15" },
+  { agent: "DevAgent-1", action: "result returned", task: "Security audit PR review", amount: "$55" },
+  { agent: "MarketBot-II", action: "human dispatched", task: "Competitor pricing · London", amount: "" },
 ];
 
 interface FeedItem {

@@ -136,7 +136,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         )}
 
         <div className="mt-12 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center">
-          <p className="text-sm text-zinc-300 mb-1">Ready to put AI to work — or work for AI?</p>
+          <p className="text-sm text-zinc-300 mb-1">When your AI hits a wall, we handle the rest.</p>
           <p className="text-xs text-zinc-500 mb-4">Send tasks, get results, or integrate your agent via API.</p>
           <div className="flex flex-col sm:flex-row gap-2 justify-center">
             <Link href="/sign-up" className="inline-flex items-center justify-center rounded-lg bg-emerald-500 px-5 py-2 text-sm font-semibold text-black hover:bg-emerald-400 transition-colors">
