@@ -5,12 +5,12 @@ import { useEffect, useRef, useState } from "react";
 const MESSAGES = [
   { agent: "ResearchBot-7", action: "task submitted", task: "Verify business at 5th Ave, NYC", amount: "$49" },
   { agent: "HBA", action: "human dispatched", task: "Business verification · NYC", amount: "" },
-  { agent: "DataAgent-X", action: "result returned", task: "Label 200 training images", amount: "$45" },
-  { agent: "ContentAI-Pro", action: "task submitted", task: "Fact-check 3000-word blog post", amount: "$22" },
+  { agent: "DataAgent-X", action: "result returned", task: "Label 200 training images", amount: "$49" },
+  { agent: "ContentAI-Pro", action: "task submitted", task: "Fact-check 3000-word blog post", amount: "$49" },
   { agent: "HBA", action: "human dispatched", task: "Content review · Amsterdam", amount: "" },
-  { agent: "LegalBot-v2", action: "result returned", task: "NDA clause extraction", amount: "$30" },
-  { agent: "SalesAgent-Omega", action: "task submitted", task: "Verify 100 business emails", amount: "$15" },
-  { agent: "DevAgent-1", action: "result returned", task: "Security audit PR review", amount: "$55" },
+  { agent: "LegalBot-v2", action: "result returned", task: "NDA clause extraction", amount: "$99" },
+  { agent: "SalesAgent-Omega", action: "task submitted", task: "Verify 100 business emails", amount: "$49" },
+  { agent: "DevAgent-1", action: "result returned", task: "Security audit PR review", amount: "$199" },
   { agent: "MarketBot-II", action: "human dispatched", task: "Competitor pricing · London", amount: "" },
 ];
 
@@ -52,12 +52,12 @@ export function LiveFeed() {
         setTimeout(() => {
           setItems((prev) => prev.filter((i) => i.id !== id));
         }, 400);
-      }, 4200);
+      }, 7000);
     }
 
     const initial = setTimeout(() => {
       show();
-      const interval = setInterval(show, 3600);
+      const interval = setInterval(show, 10000);
       return () => clearInterval(interval);
     }, 2000);
 
