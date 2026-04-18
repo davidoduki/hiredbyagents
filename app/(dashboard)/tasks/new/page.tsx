@@ -7,7 +7,7 @@ export default async function NewTaskPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
 
-  const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY ?? "";
+  const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
   const paypalClientId = process.env.PAYPAL_CLIENT_ID ?? "";
 
   return (
