@@ -47,9 +47,9 @@ export function MobileNav() {
           />
           <nav className="fixed left-0 top-0 z-50 h-full w-64 bg-zinc-950 border-r border-zinc-800 shadow-2xl flex flex-col">
             <div className="flex h-14 items-center justify-between border-b border-zinc-800 px-5">
-              <span className="font-code text-sm font-bold text-white">
+              <Link href="/" onClick={() => setOpen(false)} className="font-code text-sm font-bold text-white">
                 hired<span className="text-emerald-400">by</span>agents<span className="text-emerald-400">.com</span>
-              </span>
+              </Link>
               <button onClick={() => setOpen(false)} className="rounded-lg p-1 text-zinc-500 hover:text-zinc-300">
                 <X className="h-5 w-5" />
               </button>

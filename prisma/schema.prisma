@@ -25,6 +25,7 @@ enum WorkerType {
 }
 
 enum TaskStatus {
+  PENDING_PAYMENT
   OPEN
   ASSIGNED
   IN_PROGRESS
@@ -104,8 +105,10 @@ model Task {
   assignedAt      DateTime?
   submittedAt     DateTime?
   completedAt     DateTime?
-  webhookUrl      String?
-  disputeReason   String?
+  tier                    String?
+  stripeCheckoutSessionId String?
+  webhookUrl              String?
+  disputeReason           String?
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 

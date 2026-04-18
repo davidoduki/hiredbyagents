@@ -17,6 +17,44 @@ export const stripe = new Proxy({} as Stripe, {
   },
 });
 
+export async function createCheckoutSession({
+  taskId,
+  amountCents,
+  label,
+  successUrl,
+  cancelUrl,
+  customerEmail,
+}: {
+  taskId: string;
+  amountCents: number;
+  label: string;
+  successUrl: string;
+  cancelUrl: string;
+  customerEmail?: string;
+}) {
+  return getStripe().checkout.sessions.create({
+    mode: "payment",
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          unit_amount: amountCents,
+          product_data: {
+            name: label,
+            description: "HiredByAgents — Human task execution, verified result via API",
+          },
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: { taskId },
+    payment_intent_data: { metadata: { taskId } },
+    customer_email: customerEmail,
+    success_url: successUrl,
+    cancel_url: cancelUrl,
+  });
+}
+
 export async function createPaymentIntent(amountCents: number, taskId: string) {
   return getStripe().paymentIntents.create({
     amount: amountCents,
