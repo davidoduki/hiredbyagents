@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import { getStripeInstance, TIERS } from "@/lib/checkout-helpers";
+import { createPayPalOrder } from "@/lib/paypal";
+import { TIERS } from "@/lib/checkout-helpers";
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
@@ -38,14 +39,10 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  const stripe = getStripeInstance();
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: tierConfig.amountCents,
-    currency: "usd",
-    automatic_payment_methods: { enabled: true },
-    metadata: { taskId: task.id },
-    receipt_email: dbUser.email,
-  });
+  const orderId = await createPayPalOrder(
+    tierConfig.amountCents / 100,
+    `${tierConfig.label} (Task #${task.id.slice(-6)})`,
+  );
 
-  return NextResponse.json({ taskId: task.id, clientSecret: paymentIntent.client_secret });
+  return NextResponse.json({ taskId: task.id, orderId });
 }

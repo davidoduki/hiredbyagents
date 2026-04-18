@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import { getStripeInstance, TIERS } from "@/lib/checkout-helpers";
+import { getPlatformWalletAddress } from "@/lib/usdc";
+import { TIERS } from "@/lib/checkout-helpers";
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
@@ -21,6 +22,10 @@ export async function POST(req: NextRequest) {
   const tierConfig = TIERS[tier as keyof typeof TIERS];
   if (!tierConfig) return NextResponse.json({ error: "Invalid tier" }, { status: 400 });
 
+  const walletAddress = await getPlatformWalletAddress();
+  if (!walletAddress)
+    return NextResponse.json({ error: "USDC payments temporarily unavailable" }, { status: 503 });
+
   const deadline = deadlineHours && parseInt(deadlineHours) > 0
     ? new Date(Date.now() + parseInt(deadlineHours) * 3_600_000) : null;
 
@@ -38,14 +43,10 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  const stripe = getStripeInstance();
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: tierConfig.amountCents,
-    currency: "usd",
-    automatic_payment_methods: { enabled: true },
-    metadata: { taskId: task.id },
-    receipt_email: dbUser.email,
+  return NextResponse.json({
+    taskId: task.id,
+    walletAddress,
+    amountUsdc: tierConfig.amountCents / 100,
+    network: "Base",
   });
-
-  return NextResponse.json({ taskId: task.id, clientSecret: paymentIntent.client_secret });
 }

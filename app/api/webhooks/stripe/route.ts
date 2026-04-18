@@ -37,6 +37,10 @@ export async function POST(req: NextRequest) {
     case "payment_intent.succeeded": {
       const pi = event.data.object;
       if (pi.metadata?.taskId) {
+        await prisma.task.updateMany({
+          where: { id: pi.metadata.taskId, status: "PENDING_PAYMENT" },
+          data: { status: "OPEN", stripeCheckoutSessionId: pi.id },
+        });
         await prisma.payment.updateMany({
           where: { stripePaymentIntent: pi.id },
           data: { status: "HELD" },
