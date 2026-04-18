@@ -20,10 +20,23 @@ export async function POST(req: NextRequest) {
   }
 
   switch (event.type) {
+    case "checkout.session.completed": {
+      const session = event.data.object;
+      const taskId = session.metadata?.taskId;
+      if (taskId) {
+        await prisma.task.updateMany({
+          where: { id: taskId, status: "PENDING_PAYMENT" },
+          data: {
+            status: "OPEN",
+            stripeCheckoutSessionId: session.id,
+          },
+        });
+      }
+      break;
+    }
     case "payment_intent.succeeded": {
       const pi = event.data.object;
-      const taskId = pi.metadata?.taskId;
-      if (taskId) {
+      if (pi.metadata?.taskId) {
         await prisma.payment.updateMany({
           where: { stripePaymentIntent: pi.id },
           data: { status: "HELD" },
