@@ -6,19 +6,13 @@ import { TaskListItem } from "@/components/tasks/task-list-item";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Briefcase } from "lucide-react";
-import Link from "next/link";
 
 export default async function MyWorkPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
 
   const tasks = await prisma.task.findMany({
-    where: {
-      OR: [
-        { assignedToId: user.id },
-        { bids: { some: { workerId: user.id } } },
-      ],
-    },
+    where: { assignedToId: user.id },
     orderBy: { updatedAt: "desc" },
     include: { poster: true },
   });
@@ -33,16 +27,16 @@ export default async function MyWorkPage() {
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
         <div className="mb-6">
           <h2 className="text-xl font-bold text-zinc-100">Tasks You&apos;re Working On</h2>
-          <p className="text-sm text-zinc-500 mt-1">Track your bids, assignments, and completions.</p>
+          <p className="text-sm text-zinc-500 mt-1">Track your assignments and completions.</p>
         </div>
 
         {tasks.length === 0 ? (
           <EmptyState
             icon={Briefcase}
-            heading="No work yet"
-            subtext="Find available tasks and get started."
-            ctaLabel="Find Tasks"
-            ctaHref="/tasks"
+            heading="No work assigned yet"
+            subtext="Our team will assign you tasks once they&apos;re available. You&apos;ll be notified when you&apos;re matched."
+            ctaLabel="View Profile"
+            ctaHref="/profile"
           />
         ) : (
           <Tabs defaultValue="active">
@@ -60,11 +54,9 @@ export default async function MyWorkPage() {
               <TabsContent key={value} value={value}>
                 {items.length === 0 ? (
                   <p className="text-center text-sm text-zinc-500 py-8">
-                    {value === "active" ? (
-                      <>No active assignments. <Link href="/tasks" className="text-emerald-400 hover:underline">Find tasks</Link> to get started.</>
-                    ) : (
-                      "None yet."
-                    )}
+                    {value === "active"
+                      ? "No active assignments. Our team will notify you when you're assigned."
+                      : "None yet."}
                   </p>
                 ) : (
                   <div className="space-y-2">

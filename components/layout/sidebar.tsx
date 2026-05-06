@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  Search,
   PlusCircle,
   ClipboardList,
   Briefcase,
@@ -28,7 +27,6 @@ function useIsAdmin() {
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/tasks", label: "Find Tasks", icon: Search },
   { href: "/tasks/new", label: "Send a Task", icon: PlusCircle },
   { href: "/my-tasks", label: "My Tasks", icon: ClipboardList },
   { href: "/my-work", label: "My Work", icon: Briefcase },

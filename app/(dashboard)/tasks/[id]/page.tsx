@@ -7,15 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SkillTag } from "@/components/ui/skill-tag";
-import { BidForm } from "@/components/tasks/bid-form";
 import { SubmitForm } from "@/components/tasks/submit-form";
 import { DisputeForm } from "@/components/tasks/dispute-form";
 import { DisputeMessageForm } from "@/components/tasks/dispute-message-form";
 import { TaskStatusTimeline } from "@/components/tasks/task-status-timeline";
 import { formatCurrency, formatDate, timeAgo } from "@/lib/utils";
 import { Calendar, DollarSign, Star, MessageSquareWarning } from "lucide-react";
-import { approveSubmission, rejectSubmission, assignTask } from "@/actions/tasks";
+import { approveSubmission, rejectSubmission } from "@/actions/tasks";
 import Link from "next/link";
+
+const ADMIN_EMAIL = "davidoduki@gmail.com";
 
 export default async function TaskDetailPage({
   params,
@@ -41,9 +42,17 @@ export default async function TaskDetailPage({
 
   if (!task) notFound();
 
+  const isAdmin =
+    currentUser?.email === ADMIN_EMAIL ||
+    currentUser?.adminRole === "SUPER" ||
+    currentUser?.adminRole === "MODERATOR";
   const isPoster = currentUser?.id === task.posterId;
   const isWorker = currentUser?.id === task.assignedToId;
-  const hasAlreadyBid = task.bids.some((b) => b.workerId === currentUser?.id);
+
+  // Only the poster, assigned worker, and admins can view task details
+  if (!isPoster && !isWorker && !isAdmin) {
+    redirect("/dashboard");
+  }
 
   return (
     <div className="flex flex-col min-h-full">
@@ -85,59 +94,8 @@ export default async function TaskDetailPage({
               </div>
             )}
 
-            {/* Bids (poster only) */}
-            {isPoster && task.bids.length > 0 && (
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-                <h2 className="text-base font-semibold text-zinc-100 mb-4">
-                  Bids ({task.bids.length})
-                </h2>
-                <div className="space-y-4">
-                  {task.bids.map((bid) => (
-                    <div
-                      key={bid.id}
-                      className="flex items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-950 p-4"
-                    >
-                      <Avatar className="h-9 w-9 shrink-0">
-                        <AvatarImage src={bid.worker.avatarUrl ?? undefined} />
-                        <AvatarFallback>{bid.worker.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 justify-between flex-wrap">
-                          <div>
-                            <span className="font-medium text-zinc-100 text-sm">{bid.worker.name}</span>
-                            {Number(bid.worker.rating) > 0 && (
-                              <span className="ml-2 text-xs text-zinc-500 inline-flex items-center gap-0.5">
-                                <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-                                {Number(bid.worker.rating).toFixed(1)}
-                              </span>
-                            )}
-                          </div>
-                          <span className="text-sm font-semibold text-zinc-100">
-                            {formatCurrency(Number(bid.proposedRate) * 100)}
-                          </span>
-                        </div>
-                        <p className="mt-1 text-sm text-zinc-400">{bid.message}</p>
-                        {task.status === "OPEN" && (
-                          <form
-                            action={async () => {
-                              "use server";
-                              await assignTask(task.id, bid.workerId);
-                            }}
-                          >
-                            <Button size="sm" className="mt-2" type="submit">
-                              Assign
-                            </Button>
-                          </form>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Submissions */}
-            {task.submissions.length > 0 && (isPoster || isWorker) && (
+            {task.submissions.length > 0 && (isPoster || isWorker || isAdmin) && (
               <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
                 <h2 className="text-base font-semibold text-zinc-100 mb-4">Submissions</h2>
                 <div className="space-y-4">
@@ -298,12 +256,6 @@ export default async function TaskDetailPage({
             {/* Actions */}
             {currentUser && (
               <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5 space-y-2">
-                {task.status === "OPEN" && !isPoster && !hasAlreadyBid && (
-                  <BidForm taskId={task.id} taskBudget={Number(task.budget)} />
-                )}
-                {hasAlreadyBid && !isPoster && (
-                  <p className="text-sm text-zinc-500 text-center">You&apos;ve already bid on this task.</p>
-                )}
                 {isWorker && (task.status === "ASSIGNED" || task.status === "IN_PROGRESS") && (
                   <SubmitForm taskId={task.id} />
                 )}

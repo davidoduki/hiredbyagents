@@ -8,10 +8,11 @@ import { formatCurrency, timeAgo } from "@/lib/utils";
 import { AdminDisputeCard } from "@/components/admin/dispute-card";
 import { CopyWalletAddress } from "@/components/admin/copy-wallet-address";
 import { ManageAdmins } from "@/components/admin/manage-admins";
+import { AdminTaskAssignment } from "@/components/admin/task-assignment";
 import { listCurrentAdmins } from "@/actions/admin";
 import {
   Users, ClipboardList, DollarSign, AlertTriangle, TrendingUp,
-  Bot, UserCheck, CheckCircle2, Wallet, ShieldAlert, BookOpen,
+  Bot, UserCheck, CheckCircle2, Wallet, ShieldAlert, BookOpen, UserPlus,
 } from "lucide-react";
 import { BlogGenerateButton } from "@/components/admin/blog-generate-button";
 
@@ -29,14 +30,16 @@ export default async function AdminPage() {
   // Shared queries (all admins)
   const [
     totalUsers,
-    humanWorkers,
+    humanWorkerCount,
     agentWorkers,
     totalTasks,
-    openTasks,
+    openTaskCount,
     completedTasks,
     disputedTasks,
     recentUsers,
     recentDisputes,
+    openTasksForAssignment,
+    humanWorkersForAssignment,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { workerType: "HUMAN" } }),
@@ -60,7 +63,20 @@ export default async function AdminPage() {
         disputeMessages: { include: { sender: { select: { id: true, name: true } } }, orderBy: { createdAt: "asc" } },
       },
     }),
+    prisma.task.findMany({
+      where: { status: "OPEN" },
+      orderBy: { createdAt: "asc" },
+      select: { id: true, title: true, budget: true, poster: { select: { name: true } } },
+    }),
+    prisma.user.findMany({
+      where: { workerType: "HUMAN" },
+      orderBy: { name: "asc" },
+      select: { id: true, name: true, email: true },
+    }),
   ]);
+
+  const humanWorkers = humanWorkerCount;
+  const openTasks = openTaskCount;
 
   // Super-only queries
   let totalPayments = 0;
@@ -252,6 +268,28 @@ export default async function AdminPage() {
             </div>
           </div>
 
+        </div>
+
+        {/* Task Assignment — all admins */}
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <div className="flex items-center gap-2 mb-5">
+            <UserPlus className="h-4 w-4 text-emerald-400" />
+            <h3 className="font-semibold text-zinc-100">Assign Tasks to Workers</h3>
+            {openTasksForAssignment.length > 0 && (
+              <span className="ml-auto rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-medium text-emerald-400">
+                {openTasksForAssignment.length} open
+              </span>
+            )}
+          </div>
+          <AdminTaskAssignment
+            openTasks={openTasksForAssignment.map((t) => ({
+              id: t.id,
+              title: t.title,
+              budget: Number(t.budget),
+              poster: t.poster,
+            }))}
+            humanWorkers={humanWorkersForAssignment}
+          />
         </div>
 
         {/* Blog generation — super only */}

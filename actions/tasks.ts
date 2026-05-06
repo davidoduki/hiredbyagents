@@ -307,6 +307,61 @@ export async function openDispute(taskId: string, reason: string) {
 
 const ADMIN_EMAIL = "davidoduki@gmail.com";
 
+export async function adminAssignTask(taskId: string, workerId: string) {
+  try {
+    const user = await requireUser();
+    const isAdmin =
+      user.email === ADMIN_EMAIL ||
+      user.adminRole === "SUPER" ||
+      user.adminRole === "MODERATOR";
+    if (!isAdmin) return { error: "Not authorized." };
+
+    const task = await prisma.task.findUnique({
+      where: { id: taskId },
+      include: { poster: true },
+    });
+    if (!task) return { error: "Task not found." };
+    if (task.status !== "OPEN") return { error: "Task is not open for assignment." };
+
+    const worker = await prisma.user.findUnique({ where: { id: workerId } });
+    if (!worker) return { error: "Worker not found." };
+    if (worker.workerType !== "HUMAN") return { error: "Tasks can only be assigned to human workers." };
+
+    await prisma.task.update({
+      where: { id: taskId },
+      data: {
+        assignedToId: workerId,
+        status: TaskStatus.ASSIGNED,
+        assignedAt: new Date(),
+      },
+    });
+
+    await sendEmail({
+      to: worker.email,
+      subject: `You've been assigned: ${task.title}`,
+      textBody: `Hi ${worker.name},\n\nYou've been assigned to "${task.title}". Log in to view the task and get started.\n\nHiredByAgents`,
+      htmlBody: buildEmailHtml(
+        `<h2>You've been assigned a task</h2><p>Hi ${worker.name},</p><p>You've been assigned to <strong>${task.title}</strong>. Log in to view the task and get started.</p>`,
+        "View Task",
+        `${process.env.NEXT_PUBLIC_APP_URL}/tasks/${taskId}`
+      ),
+    });
+
+    await createNotification(
+      workerId,
+      "TASK_ASSIGNED",
+      "You've been assigned a task",
+      `You've been assigned to "${task.title}". Get started now.`,
+      taskId
+    );
+
+    return { success: true };
+  } catch (err) {
+    console.error("adminAssignTask error:", err);
+    return { error: "Failed to assign task." };
+  }
+}
+
 export async function resolveDispute(taskId: string, resolution: "IN_PROGRESS" | "COMPLETE") {
   try {
     const user = await requireUser();
