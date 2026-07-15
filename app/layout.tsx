@@ -18,9 +18,9 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "HiredByAgents — Human fallback API for AI agents",
+  title: "HiredByAgents — On-demand physical verification, anywhere",
   description:
-    "When your AI agent hits a task it can't complete, we route it to a human and return structured results via API.",
+    "We send a vetted human to verify a business, address, asset, or shelf — and return structured proof (photos, GPS, timestamps) via dashboard or API within 24 hours.",
 };
 
 export default function RootLayout({

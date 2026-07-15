@@ -3,7 +3,6 @@ import { Navbar } from "@/components/layout/navbar";
 import { Button } from "@/components/ui/button";
 import { NetworkCanvas } from "@/components/landing/network-canvas";
 import { TaskTicker } from "@/components/landing/task-ticker";
-import { LiveFeed } from "@/components/landing/live-feed";
 import { HeroVisual } from "@/components/landing/hero-visual";
 
 // ── Shared primitives ──────────────────────────────────────────────────────
@@ -50,7 +49,7 @@ export default function LandingPage() {
               <div className="anim-1 mb-7 flex items-center gap-3">
                 <span className="inline-block w-6 h-px bg-emerald-400" />
                 <span className="font-code text-xs tracking-[0.2em] uppercase text-emerald-400">
-                  API for real-world human verification and action
+                  On-demand physical verification · Photo + GPS proof
                 </span>
               </div>
 
@@ -59,26 +58,27 @@ export default function LandingPage() {
                 className="anim-2 font-display font-black leading-none tracking-tight mb-7"
                 style={{ fontSize: "clamp(32px, 5vw, 62px)" }}
               >
-                <span className="text-white">Your AI can&apos;t</span>
+                <span className="text-white">The database says</span>
                 <br />
-                <span className="text-white">do everything.</span>
+                <span className="text-white">it exists.</span>
                 <br />
-                <span className="text-emerald-400">We handle the rest.</span>
+                <span className="text-emerald-400">We go and check.</span>
               </h1>
 
               {/* Subheadline */}
               <p className="anim-3 font-code text-sm sm:text-base text-zinc-400 leading-relaxed max-w-lg mb-10">
-                When your agent hits a task it can&apos;t complete, we route it to a
-                human and return structured results via API.
+                We send a vetted human to verify a business, address, asset, or
+                shelf — and return structured proof (photos, GPS, timestamps)
+                to your dashboard or API within 24 hours.
               </p>
 
               {/* CTAs */}
               <div className="anim-4 flex flex-col sm:flex-row gap-3 mb-14">
                 <Button size="lg" variant="accent" asChild className="font-code text-sm tracking-wide">
-                  <Link href="/tasks/new">Send a task →</Link>
+                  <Link href="/tasks/new">Request a verification →</Link>
                 </Button>
                 <Button size="lg" variant="ghost" asChild className="font-code text-sm tracking-wide">
-                  <Link href="/tasks/new">Run a test task</Link>
+                  <Link href="/#pricing">See pricing</Link>
                 </Button>
               </div>
 
@@ -86,7 +86,7 @@ export default function LandingPage() {
               <div className="anim-5 pt-8 border-t border-zinc-800 grid grid-cols-3 gap-6">
                 {[
                   { value: "24h", label: "Avg. turnaround" },
-                  { value: "100%", label: "Human-verified" },
+                  { value: "GPS", label: "Tagged photo proof" },
                   { value: "JSON", label: "Structured results" },
                 ].map((s) => (
                   <div key={s.label}>
@@ -114,48 +114,48 @@ export default function LandingPage() {
 
       {/* ── USE CASES ───────────────────────────────────────────────────── */}
       <section id="use-cases" className="py-24 px-6 sm:px-10 max-w-6xl mx-auto w-full">
-        <Eyebrow>What can you do with us</Eyebrow>
+        <Eyebrow>Who pays for ground truth</Eyebrow>
         <SectionHeading>
-          Send a human anywhere
+          Before you wire the money,
           <br />
-          to <span className="text-emerald-400">verify anything.</span>
+          <span className="text-emerald-400">put eyes on it.</span>
         </SectionHeading>
         <p className="font-code text-sm text-zinc-500 leading-relaxed max-w-lg mb-14">
-          AI hallucinates. We verify reality. Tasks your agent can&apos;t complete
-          alone — we execute them in the physical world and return proof.
+          Registries go stale. Uploaded photos lie. When the decision is
+          expensive, we send a human to check — and return proof you can file.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-zinc-800">
           {[
             {
               glyph: "◈",
-              title: "Verify a business exists",
-              body: "Confirm a company is real, trading, and at the address listed. Photo evidence included.",
+              title: "Merchant & KYB verification",
+              body: "Onboarding a merchant or vendor? We visit the address, confirm the business is real and trading, and return photo evidence for your compliance file.",
             },
             {
               glyph: "⬡",
-              title: "Inspect any location",
-              body: "Send a human to photograph, assess, and report on a property, site, or venue.",
+              title: "Loan & collateral checks",
+              body: "Verify a borrower's shop, stock, or asset exists before you disburse. Timestamped, GPS-tagged photos included.",
             },
             {
               glyph: "◉",
-              title: "Check inventory",
-              body: "Physically count stock, verify SKUs, and confirm warehouse conditions.",
+              title: "Supplier & warehouse audits",
+              body: "Confirm a supplier is real, count inventory, verify SKUs and conditions — before the deposit leaves your account.",
             },
             {
               glyph: "▲",
-              title: "Call a business",
-              body: "Have a human place a call, ask specific questions, and return a structured transcript.",
+              title: "Retail shelf audits",
+              body: "Is your product on shelf, priced right, displayed right? Store-level photo reports across cities.",
             },
             {
               glyph: "●",
-              title: "Review AI outputs",
-              body: "Human eyes on AI-generated content — fact-check, quality-assess, flag hallucinations.",
+              title: "Property & site checks",
+              body: "Photograph, assess, and report on a property, site, or venue before you commit remotely.",
             },
             {
               glyph: "→",
-              title: "Handle edge cases",
-              body: "When your agent hits an exception it can&apos;t resolve, we step in and get it done.",
+              title: "Human review for AI pipelines",
+              body: "Your agent's outputs fact-checked by people — verification, QA, and judgment on the edge cases automation can't call.",
             },
           ].map((uc) => (
             <div
@@ -176,14 +176,14 @@ export default function LandingPage() {
 
         <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900/50 px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="font-code text-xs text-zinc-500 leading-relaxed">
-            <span className="text-zinc-300">Your AI can think.</span>
-            {" "}We make it act in the real world.
+            <span className="text-zinc-300">One bad merchant costs more than a thousand checks.</span>
+            {" "}Verify before you trust.
           </p>
           <Link
             href="/tasks/new"
             className="shrink-0 font-code text-xs text-emerald-400 hover:text-emerald-300 transition-colors whitespace-nowrap"
           >
-            Send your first task →
+            Request your first verification →
           </Link>
         </div>
       </section>
@@ -192,7 +192,7 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-24 px-6 sm:px-10 max-w-6xl mx-auto w-full">
         <Eyebrow>How it works</Eyebrow>
         <SectionHeading>
-          From API call
+          From request
           <br />
           to <span className="text-emerald-400">verified result.</span>
         </SectionHeading>
@@ -206,26 +206,26 @@ export default function LandingPage() {
             {
               icon: "⬡",
               num: "01 / SUBMIT",
-              title: "Submit task",
-              body: "Your agent sends a request via REST API or dashboard — description, budget, deadline, and an optional webhook URL.",
+              title: "Submit a request",
+              body: "Via dashboard or REST API — what to verify, where, by when, and an optional webhook URL for the result.",
             },
             {
               icon: "◈",
               num: "02 / ASSIGN",
-              title: "We assign a human",
-              body: "Platform dispatches internally. You don't browse workers or wait for bids. We handle it.",
+              title: "We dispatch a human",
+              body: "Our team assigns a vetted local. You don't browse workers or wait for bids. We handle it.",
             },
             {
               icon: "◉",
               num: "03 / EXECUTE",
-              title: "Human executes",
-              body: "A verified human carries out the task in the real world — physically, on a call, or at a location.",
+              title: "On-site verification",
+              body: "They visit the location, make the call, count the stock — and document everything as they go.",
             },
             {
               icon: "▲",
               num: "04 / RESULT",
-              title: "Structured result",
-              body: "JSON + proof (photos, notes, timestamps) returned via webhook. Your agent picks up where it left off.",
+              title: "Structured proof",
+              body: "JSON + evidence (photos, GPS, notes, timestamps) delivered to your dashboard or webhook. File it, act on it.",
             },
           ].map((step) => (
             <div
@@ -250,20 +250,20 @@ export default function LandingPage() {
       <div className="bg-zinc-900 border-y border-zinc-800">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <Eyebrow>Agent API</Eyebrow>
+            <Eyebrow>Built for automation</Eyebrow>
             <SectionHeading>
-              When your AI fails,
+              Verification as
               <br />
-              <span className="text-emerald-400">call this endpoint.</span>
+              <span className="text-emerald-400">an API call.</span>
             </SectionHeading>
 
             {/* Context */}
             <div className="mb-8 space-y-2">
-              <p className="font-code text-xs text-zinc-500">Use this when your agent:</p>
+              <p className="font-code text-xs text-zinc-500">Wire it into your workflow:</p>
               {[
-                "Needs real-world verification it can't do digitally",
-                "Gets stuck on an edge case requiring human judgment",
-                "Must confirm physical conditions before proceeding",
+                "Trigger a check from your onboarding or loan pipeline",
+                "Your AI agent can order verifications autonomously",
+                "Results land in your system via webhook — no inbox, no PDFs",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-2.5">
                   <span className="text-emerald-500 font-code text-xs mt-0.5 shrink-0">→</span>
@@ -424,45 +424,45 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-6 sm:px-10 py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
             <div>
-              <Eyebrow>Why not just use AI</Eyebrow>
+              <Eyebrow>Why not just trust the data</Eyebrow>
               <SectionHeading>
-                AI hallucinates.
+                Databases go stale.
                 <br />
-                <span className="text-emerald-400">We verify reality.</span>
+                <span className="text-emerald-400">We check reality.</span>
               </SectionHeading>
               <p className="font-code text-sm text-zinc-500 leading-relaxed">
-                Language models are powerful — but they cannot physically verify
-                reality, handle true uncertainty, or take accountability for outcomes.
-                That&apos;s what humans are for.
+                Registry lookups, uploaded documents, and AI summaries all describe
+                the world as it was — or as someone claimed it was. When money is
+                on the line, someone has to look.
               </p>
             </div>
 
             <div className="space-y-0.5 bg-zinc-800">
               {[
                 {
-                  problem: "AI cannot physically verify reality",
-                  solution: "We send a human to the location",
+                  problem: "The registry says the company is active",
+                  solution: "We confirm it's actually trading at that address",
                 },
                 {
-                  problem: "AI hallucinates facts it should confirm",
-                  solution: "We check primary sources in person",
+                  problem: "The merchant uploaded photos of their shop",
+                  solution: "Our vetted human takes their own — GPS-tagged, timestamped",
                 },
                 {
-                  problem: "AI can't be held accountable",
-                  solution: "Every task has a named, rated human",
+                  problem: "The phone number rings out",
+                  solution: "A human visits, asks questions, and reports back",
                 },
                 {
-                  problem: "AI fails on ambiguous edge cases",
-                  solution: "Humans apply judgment and context",
+                  problem: "AI summarises stale web data",
+                  solution: "Ground truth collected this week, signed by a named human",
                 },
               ].map((row) => (
                 <div key={row.problem} className="grid grid-cols-2 gap-0.5 bg-zinc-800">
                   <div className="bg-zinc-900 p-5">
-                    <span className="font-code text-xs text-red-400 block mb-1">✗ AI</span>
+                    <span className="font-code text-xs text-red-400 block mb-1">✗ On file</span>
                     <p className="font-code text-xs text-zinc-500 leading-relaxed">{row.problem}</p>
                   </div>
                   <div className="bg-zinc-900 p-5">
-                    <span className="font-code text-xs text-emerald-400 block mb-1">✓ Us</span>
+                    <span className="font-code text-xs text-emerald-400 block mb-1">✓ Verified</span>
                     <p className="font-code text-xs text-zinc-400 leading-relaxed">{row.solution}</p>
                   </div>
                 </div>
@@ -477,11 +477,11 @@ export default function LandingPage() {
         <Eyebrow>Pricing</Eyebrow>
         <SectionHeading>
           From{" "}
-          <span className="text-emerald-400">$49 per task.</span>
+          <span className="text-emerald-400">$49 per verification.</span>
         </SectionHeading>
         <p className="font-code text-sm text-zinc-500 leading-relaxed max-w-md mb-16">
-          Pay only for what you send. No subscriptions, no setup fees.
-          First task free to try.
+          Pay per check. No subscriptions, no setup fees.
+          First verification free to try.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5 bg-zinc-800 mb-10">
@@ -489,35 +489,35 @@ export default function LandingPage() {
             {
               tier: "Basic",
               price: "$49",
-              description: "Quick verifications, single-location photos, short calls.",
+              description: "Single-location check: business exists, address confirmed, photo proof.",
               features: [
-                "1 human assigned within 2h",
-                "Photo evidence included",
+                "Human dispatched within 2h",
+                "GPS-tagged photo evidence",
                 "Structured JSON result",
                 "Webhook delivery",
               ],
-              cta: "Send a task →",
+              cta: "Request a check →",
               highlight: false,
             },
             {
               tier: "Standard",
               price: "$99",
-              description: "Multi-step inspections, document review, detailed reports.",
+              description: "Detailed on-site report: inspections, stock counts, document collection.",
               features: [
-                "Priority human assignment",
+                "Priority dispatch",
                 "Detailed written report",
                 "Photo + video evidence",
                 "Same-day in major cities",
               ],
-              cta: "Send a task →",
+              cta: "Request a check →",
               highlight: true,
             },
             {
               tier: "Premium",
               price: "$199+",
-              description: "Complex execution, specialist tasks, multi-location.",
+              description: "Specialist or multi-location jobs, recurring audit programs.",
               features: [
-                "Specialist human matched",
+                "Specialist matched to the job",
                 "Full audit trail",
                 "24/7 availability",
                 "Custom SLA available",
@@ -571,8 +571,8 @@ export default function LandingPage() {
 
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="font-code text-xs text-zinc-500 leading-relaxed max-w-lg">
-            <span className="text-zinc-300 font-medium">Bulk pricing available.</span>
-            {" "}Sending more than 20 tasks/month? We&apos;ll build a custom plan around your volume.
+            <span className="text-zinc-300 font-medium">Verifying at volume?</span>
+            {" "}Onboarding merchants or auditing stores at 20+ checks/month? We&apos;ll build custom per-verification pricing around your pipeline.
           </p>
           <a
             href="mailto:info@hiredbyagents.com"
@@ -592,23 +592,24 @@ export default function LandingPage() {
               className="bg-zinc-950 border border-zinc-800 p-10 hover:border-blue-500/40 transition-colors duration-300"
               style={{ borderTop: "2px solid #3b82f6" }}
             >
-              <p className="font-code text-xs tracking-[0.2em] uppercase text-blue-400 mb-5">▲ For AI Agent Builders</p>
+              <p className="font-code text-xs tracking-[0.2em] uppercase text-blue-400 mb-5">▲ For risk, ops & platform teams</p>
               <h3 className="font-display font-black text-2xl sm:text-3xl tracking-tight text-zinc-100 mb-4">
-                Human fallback layer
+                Verification built
                 <br />
-                for your pipeline.
+                into your pipeline.
               </h3>
               <p className="font-code text-sm text-zinc-500 leading-relaxed mb-8">
-                Drop in one API call. When your agent hits a wall, we handle
-                execution and return structured results so your pipeline continues.
+                One API call from your onboarding, lending, or audit workflow.
+                We handle dispatch and return structured proof so your process
+                keeps moving — no spreadsheets, no field-team management.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
-                  "REST API — route tasks in milliseconds",
+                  "REST API — trigger checks programmatically",
                   "Webhook callbacks with JSON + proof",
-                  "Works with LangChain, CrewAI, AutoGPT",
-                  "Batch endpoint for high-volume agents",
-                  "SDK available for Python and JavaScript",
+                  "Batch endpoint for high-volume pipelines",
+                  "Agent-ready: your AI can order checks autonomously",
+                  "Works with LangChain, CrewAI, and MCP-based agents",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-3 font-code text-xs text-zinc-400 leading-relaxed">
                     <span className="text-emerald-500 mt-0.5 shrink-0">→</span>
@@ -672,19 +673,19 @@ export default function LandingPage() {
             className="font-display font-black text-zinc-100 mb-5 leading-tight"
             style={{ fontSize: "clamp(36px, 6vw, 60px)" }}
           >
-            Send your first task
+            Your first verification
             <br />
-            <span className="text-emerald-400">today.</span>
+            <span className="text-emerald-400">is free.</span>
           </h2>
           <p className="font-code text-sm text-zinc-400 leading-relaxed mb-3 max-w-xl mx-auto">
-            No contracts. Fast turnaround. Human-verified results your agent can act on.
+            No contracts. 24-hour turnaround. Proof you can file, from a named human on the ground.
           </p>
           <p className="font-code text-xs text-zinc-600 mb-12">
-            We let AI systems execute tasks in the physical world.
+            Stop trusting what&apos;s on file. Verify what&apos;s on the ground.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button size="lg" variant="accent" asChild className="font-code text-sm tracking-wide">
-              <Link href="/tasks/new">Send a task →</Link>
+              <Link href="/tasks/new">Request a verification →</Link>
             </Button>
             <Button size="lg" variant="ghost" asChild className="font-code text-sm tracking-wide">
               <Link href="/docs">Read the API Docs</Link>
@@ -730,8 +731,6 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* ── LIVE FEED ───────────────────────────────────────────────────── */}
-      <LiveFeed />
     </div>
   );
 }

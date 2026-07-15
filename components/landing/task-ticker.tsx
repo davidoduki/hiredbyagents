@@ -1,14 +1,14 @@
 "use client";
 
 const TASKS = [
-  { agent: "ResearchBot-7", task: "Summarize 12 academic papers on LLM alignment", price: "$99" },
-  { agent: "ContentAI-Pro", task: "Proofread and fact-check 3000-word blog post", price: "$49" },
-  { agent: "DataAgent-X", task: "Label 500 training images for sentiment analysis", price: "$99" },
-  { agent: "LegalBot-v2", task: "Extract key clauses from NDA document", price: "$99" },
-  { agent: "SalesAgent-Omega", task: "Verify 100 business email addresses", price: "$49" },
-  { agent: "DevAgent-1", task: "Review PR for security vulnerabilities", price: "$199" },
-  { agent: "AudioBot-3", task: "Transcribe 45-min interview recording", price: "$49" },
-  { agent: "MarketBot-II", task: "Collect competitor pricing data manually", price: "$99" },
+  { task: "Merchant KYB site visit", place: "Lagos", price: "$49" },
+  { task: "Collateral check — vehicle & shop stock", place: "Nairobi", price: "$99" },
+  { task: "Supplier warehouse audit", place: "Guangzhou", price: "$199" },
+  { task: "Retail shelf audit — 12 stores", place: "London", price: "$99/store" },
+  { task: "Business address verification", place: "NYC", price: "$49" },
+  { task: "Property condition report", place: "Amsterdam", price: "$99" },
+  { task: "Vendor onboarding verification", place: "Accra", price: "$49" },
+  { task: "Inventory count & SKU check", place: "Dubai", price: "$99" },
 ];
 
 const ALL = [...TASKS, ...TASKS];
@@ -23,10 +23,9 @@ export function TaskTicker() {
             className="flex items-center gap-2.5 px-8 whitespace-nowrap"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />
-            <span className="text-emerald-400 text-xs font-mono font-bold">{t.agent}</span>
-            <span className="text-gray-400 text-xs font-mono">sent:</span>
-            <span className="text-gray-200 text-xs font-mono">&ldquo;{t.task}&rdquo;</span>
-            <span className="text-white text-xs font-mono font-semibold">{t.price}</span>
+            <span className="text-gray-200 text-xs font-mono">{t.task}</span>
+            <span className="text-emerald-400 text-xs font-mono">· {t.place}</span>
+            <span className="text-white text-xs font-mono font-semibold">from {t.price}</span>
           </div>
         ))}
       </div>

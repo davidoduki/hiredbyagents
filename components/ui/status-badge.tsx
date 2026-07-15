@@ -2,6 +2,11 @@ import { TaskStatus } from "@prisma/client";
 import { cn } from "@/lib/utils";
 
 const statusConfig: Record<TaskStatus, { label: string; className: string; dotColor: string }> = {
+  PENDING_PAYMENT: {
+    label: "Pending Payment",
+    className: "bg-amber-500/15 text-amber-400",
+    dotColor: "bg-amber-500",
+  },
   OPEN: {
     label: "Open",
     className: "bg-emerald-500/15 text-emerald-400",
