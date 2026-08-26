@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
+
+# design canvas build output (regenerate with the design skill seeder)
+design/*.html
+!design/*.dc.html

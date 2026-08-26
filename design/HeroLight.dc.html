@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <style>
+    body { margin: 0; background: #FBFBFA; }
+    * { box-sizing: border-box; }
+    a { color: #047857; text-decoration: none; }
+    a:hover { color: #065F46; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; background: #FBFBFA; font-family: 'Instrument Sans', -apple-system, 'Segoe UI', sans-serif; color: #0B0C0E; -webkit-font-smoothing: antialiased;">
+
+  <!-- NAV -->
+  <div style="height: 72px; border-bottom: 1px solid rgba(9,9,11,0.08); display: flex; align-items: center; padding: 0 130px;">
+    <div style="max-width: 1180px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+      <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 14px; font-weight: 700; letter-spacing: -0.02em; color: #0B0C0E;">hired<span style="color: #059669;">by</span>agents<span style="color: #059669;">.com</span></div>
+      <div style="display: flex; align-items: center; gap: 34px;">
+        <a href="#" style="font-size: 14px; font-weight: 500; color: #52525B;">What we verify</a>
+        <a href="#" style="font-size: 14px; font-weight: 500; color: #52525B;">How it works</a>
+        <a href="#" style="font-size: 14px; font-weight: 500; color: #52525B;">Pricing</a>
+        <a href="#" style="font-size: 14px; font-weight: 500; color: #52525B;">Docs</a>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <a href="#" style="font-size: 14px; font-weight: 500; color: #52525B;">Sign in</a>
+        <a href="#" style="display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 8px; background: #0B0C0E; color: #FFFFFF; font-size: 14px; font-weight: 600;">Request a verification</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div style="padding: 88px 130px 80px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px; align-items: center;">
+
+      <div style="grid-column: span 7;">
+        <div style="display: inline-flex; align-items: center; gap: 9px; height: 30px; padding: 0 14px; border-radius: 999px; background: rgba(5,150,105,0.08); border: 1px solid rgba(5,150,105,0.16); margin-bottom: 28px;">
+          <span style="width: 5px; height: 5px; border-radius: 50%; background: #059669;"></span>
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #047857;">Physical verification, on demand</span>
+        </div>
+
+        <h1 style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 66px; font-weight: 800; line-height: 0.98; letter-spacing: -0.035em; margin: 0 0 28px; text-wrap: balance;">
+          <span style="color: #9CA1A8; display: block;">The database says it exists.</span>
+          <span style="color: #0B0C0E; display: block;">We go and check.</span>
+        </h1>
+
+        <p style="font-size: 18px; line-height: 1.65; color: #52525B; margin: 0 0 38px; max-width: 520px; text-wrap: pretty;">
+          We dispatch a vetted human to verify a business, address, asset or shelf — and return structured proof with photos, GPS and timestamps inside 24 hours.
+        </p>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 44px;">
+          <a href="#" style="display: inline-flex; align-items: center; height: 52px; padding: 0 28px; border-radius: 8px; background: #0B0C0E; color: #FFFFFF; font-size: 15px; font-weight: 600;">Request a verification</a>
+          <a href="#" style="display: inline-flex; align-items: center; height: 52px; padding: 0 24px; border-radius: 8px; border: 1px solid rgba(9,9,11,0.14); background: #FFFFFF; color: #27272A; font-size: 15px; font-weight: 500;">See pricing</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 24px; padding-top: 26px; border-top: 1px solid rgba(9,9,11,0.08);">
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #71717A;">24h median turnaround</span>
+          <span style="width: 3px; height: 3px; border-radius: 50%; background: #D4D4D8;"></span>
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #71717A;">GPS-tagged evidence</span>
+          <span style="width: 3px; height: 3px; border-radius: 50%; background: #D4D4D8;"></span>
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #71717A;">JSON + webhook</span>
+        </div>
+      </div>
+
+      <!-- Evidence card, light -->
+      <div style="grid-column: span 5; display: flex; flex-direction: column; align-items: flex-end; gap: 12px;">
+        <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #A1A1AA;">Sample result</span>
+        <div style="width: 100%; background: #FFFFFF; border: 1px solid rgba(9,9,11,0.09); border-radius: 16px; padding: 20px; box-shadow: 0 18px 44px rgba(9,9,11,0.08), 0 2px 6px rgba(9,9,11,0.04);">
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+            <span style="display: inline-flex; align-items: center; gap: 7px; height: 26px; padding: 0 11px; border-radius: 999px; background: rgba(5,150,105,0.09); border: 1px solid rgba(5,150,105,0.20);">
+              <span style="width: 5px; height: 5px; border-radius: 50%; background: #059669;"></span>
+              <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: #047857;">VERIFIED</span>
+            </span>
+            <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 11px; color: #A1A1AA;">HBA-2291</span>
+          </div>
+
+          <div style="position: relative; height: 200px; border-radius: 10px; overflow: hidden; background: linear-gradient(150deg, #F1F2F0 0%, #E8EAE7 100%); border: 1px solid rgba(9,9,11,0.06); margin-bottom: 18px;">
+            <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(9,9,11,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(9,9,11,0.035) 1px, transparent 1px); background-size: 26px 26px;"></div>
+            <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#B4B8B2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="12" cy="12" r="3.2"></circle><path d="M8 5l1.4-2h5.2L16 5"></path></svg>
+              <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A8ADA5;">On-site photo</span>
+            </div>
+            <div style="position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: 6px; background: #FFFFFF; border: 1px solid rgba(9,9,11,0.08);">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+              <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; color: #52525B;">6.4531°N 3.3958°E</span>
+            </div>
+          </div>
+
+          <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A1A1AA; margin-bottom: 6px;">Merchant</div>
+          <div style="font-size: 17px; font-weight: 600; color: #0B0C0E; margin-bottom: 3px;">Sample Merchant Ltd</div>
+          <div style="font-size: 14px; color: #71717A; margin-bottom: 18px;">14 Marina Road, Lagos</div>
+
+          <div style="display: flex; flex-direction: column; gap: 11px; padding-top: 16px; border-top: 1px solid rgba(9,9,11,0.07);">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 14px; color: #52525B;">Business trading</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #047857;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5L20 6.5"></path></svg>Confirmed</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 14px; color: #52525B;">Signage matches record</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #047857;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5L20 6.5"></path></svg>Confirmed</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 14px; color: #52525B;">Address as filed</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #047857;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5L20 6.5"></path></svg>Confirmed</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(9,9,11,0.07); font-family: 'Space Mono', ui-monospace, monospace; font-size: 10.5px; color: #A1A1AA;">Captured 24 Aug 2026 · 14:22 UTC · Verifier #4417</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIENCE BAND -->
+  <div style="border-top: 1px solid rgba(9,9,11,0.08); background: #F4F4F2; padding: 34px 130px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px;">
+      <span style="font-size: 15px; color: #71717A; white-space: nowrap;">Built for the teams that carry the risk</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; border: 1px solid rgba(9,9,11,0.09); font-size: 14px; color: #52525B;">Fintech &amp; lending</span>
+        <span style="display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; border: 1px solid rgba(9,9,11,0.09); font-size: 14px; color: #52525B;">Marketplaces</span>
+        <span style="display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; border: 1px solid rgba(9,9,11,0.09); font-size: 14px; color: #52525B;">Trade &amp; supply chain</span>
+        <span style="display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 999px; background: #FFFFFF; border: 1px solid rgba(9,9,11,0.09); font-size: 14px; color: #52525B;">Insurance &amp; property</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

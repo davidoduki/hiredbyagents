@@ -1,0 +1,25 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "Landing page — desktop", "x": 0, "y": 0, "w": 1440, "h": 6000, "print": "flow" },
+    { "file": "Mobile.dc.html", "title": "Landing page — mobile", "x": 1560, "y": 0, "w": 390, "h": 3850, "print": "flow" },
+    { "file": "System.dc.html", "title": "Design system", "x": 2070, "y": 0, "w": 1100, "h": 1300 },
+    { "file": "HeroLight.dc.html", "title": "Alternate — light institutional", "x": 2070, "y": 1420, "w": 1440, "h": 950 }
+  ],
+  "annotations": [
+    {
+      "id": "direction-note",
+      "x": 0,
+      "y": -270,
+      "w": 620,
+      "text": "Direction: same brand DNA, dressed for a compliance buyer.\n\nKept exactly: the Space Mono wordmark, the emerald accent (#34D399 / #059669), the near-black base, 8px radii and 44px+ controls.\n\nChanged: Instrument Sans added for body copy so Space Mono goes back to being a label face; the 2px brutalist gutters replaced with real 20px gaps and hairline-edged cards; emerald used at roughly a fifth of its old frequency; section rhythm opened to 120px; the abstract network graphic replaced with a sample result card, so the hero shows the actual deliverable."
+    },
+    {
+      "id": "alt-note",
+      "x": 3580,
+      "y": 1420,
+      "w": 300,
+      "text": "Alternate direction.\n\nSame layout and copy, light institutional palette — the register procurement and risk teams tend to expect.\n\nTradeoff: safer and more legible in a boardroom, but it gives up the technical distinctiveness the dark build has. Logo is unchanged, just rendered on light."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}
