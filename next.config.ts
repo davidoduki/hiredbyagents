@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.clerk.dev" },
     ],
   },
+  // build: 2026-04-18
 };
 
 export default nextConfig;

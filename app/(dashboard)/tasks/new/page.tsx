@@ -7,6 +7,9 @@ export default async function NewTaskPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
 
+  const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
+  const paypalClientId = process.env.PAYPAL_CLIENT_ID ?? "";
+
   return (
     <div className="flex flex-col min-h-full">
       <Topbar heading="Send a Task" />
@@ -18,7 +21,10 @@ export default async function NewTaskPage() {
           </p>
         </div>
         <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 sm:p-8">
-          <TaskCheckoutForm />
+          <TaskCheckoutForm
+            stripePublishableKey={stripePublishableKey}
+            paypalClientId={paypalClientId}
+          />
         </div>
       </div>
     </div>

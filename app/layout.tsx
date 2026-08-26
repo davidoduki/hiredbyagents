@@ -27,6 +27,26 @@ export const metadata: Metadata = {
   title: "HiredByAgents — On-demand physical verification, anywhere",
   description:
     "We send a vetted human to verify a business, address, asset, or shelf — and return structured proof (photos, GPS, timestamps) via dashboard or API. Coverage confirmed before you pay.",
+  metadataBase: new URL("https://hiredbyagents.com"),
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  openGraph: {
+    title: "HiredByAgents — On-demand physical verification, anywhere",
+    description:
+      "We send a vetted human to verify a business, address, asset, or shelf — and return structured proof (photos, GPS, timestamps) via dashboard or API.",
+    url: "https://hiredbyagents.com",
+    siteName: "HiredByAgents",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "HiredByAgents — On-demand physical verification, anywhere",
+    description: "Send a vetted human to verify a business, address, asset or shelf. Structured proof, returned as JSON.",
+  },
 };
 
 export default function RootLayout({

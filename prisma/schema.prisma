@@ -107,6 +107,11 @@ model Task {
   completedAt     DateTime?
   tier                    String?
   stripeCheckoutSessionId String?
+  category                String?
+  location                String?
+  expectedOutput          String?
+  referenceMaterials      String?
+  acceptanceCriteria      String?
   webhookUrl              String?
   disputeReason           String?
   createdAt       DateTime        @default(now())

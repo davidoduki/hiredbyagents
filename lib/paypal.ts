@@ -36,6 +36,38 @@ async function getAccessToken(): Promise<string> {
   return data.access_token as string;
 }
 
+// ── Orders API (accepting payments from customers) ────────────────────────────
+
+export async function createPayPalOrder(amountUsd: number, label: string): Promise<string> {
+  const token = await getAccessToken();
+  const res = await fetch(`${PAYPAL_BASE}/v2/checkout/orders`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      intent: "CAPTURE",
+      purchase_units: [{ amount: { currency_code: "USD", value: amountUsd.toFixed(2) }, description: label }],
+    }),
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`PayPal createOrder failed: ${await res.text()}`);
+  const data = await res.json();
+  return data.id as string;
+}
+
+export async function capturePayPalOrder(orderId: string): Promise<{ status: string }> {
+  const token = await getAccessToken();
+  const res = await fetch(`${PAYPAL_BASE}/v2/checkout/orders/${orderId}/capture`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`PayPal capture failed: ${await res.text()}`);
+  const data = await res.json();
+  return { status: data.status as string };
+}
+
+// ── Payouts API (paying workers) ──────────────────────────────────────────────
+
 export interface PaypalPayoutResult {
   batchId: string;
   status: string;
