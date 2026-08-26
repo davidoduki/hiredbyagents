@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <style>
+    body { margin: 0; background: #09090B; }
+    * { box-sizing: border-box; }
+    a { color: #34D399; text-decoration: none; }
+    a:hover { color: #6EE7B7; }
+  </style>
+</helmet>
+
+<div style="width: 1440px; min-height: 860px; background: #09090B; font-family: 'Instrument Sans', -apple-system, 'Segoe UI', sans-serif; color: #F2F3F5; display: flex; -webkit-font-smoothing: antialiased;">
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+  <div style="width: 240px; flex-shrink: 0; border-right: 1px solid rgba(255,255,255,0.06); background: #09090B; display: flex; flex-direction: column;">
+    <div style="height: 64px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+      <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 14px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF;">hired<span style="color: #34D399;">by</span>agents<span style="color: #34D399;">.com</span></span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px 8px;">
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; background: rgba(255,255,255,0.07); color: #F2F3F5;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"></rect><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"></rect></svg>
+        <span style="font-size: 14px; font-weight: 500;">Dashboard</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>
+        <span style="font-size: 14px; font-weight: 500;">New request</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"></rect><path d="M9 8h6M9 12h6M9 16h3"></path></svg>
+        <span style="font-size: 14px; font-weight: 500;">My requests</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg>
+        <span style="font-size: 14px; font-weight: 500;">Assigned to me</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"></circle><path d="M3.5 19a5.5 5.5 0 0 1 11 0"></path><path d="M16 11.2a3 3 0 0 0 0-6"></path><path d="M17.5 19a5.5 5.5 0 0 0-2.2-4.4"></path></svg>
+        <span style="font-size: 14px; font-weight: 500;">Verifiers</span>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8.5a6 6 0 1 0-12 0c0 6-2 7.5-2 7.5h16s-2-1.5-2-7.5z"></path><path d="M10.5 19.5a2 2 0 0 0 3 0"></path></svg>
+          <span style="font-size: 14px; font-weight: 500;">Notifications</span>
+        </div>
+        <span style="display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: rgba(16,185,129,0.14); font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; color: #34D399;">3</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg>
+        <span style="font-size: 14px; font-weight: 500;">Profile</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7.5 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1.6a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 3.3 7.5"></path></svg>
+        <span style="font-size: 14px; font-weight: 500;">Settings</span>
+      </div>
+
+      <div style="padding: 20px 12px 6px;">
+        <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #62676F;">Admin</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.4-3 8.2-7.5 9.5-4.5-1.3-7.5-5.1-7.5-9.5V6z"></path><path d="M12 9v3.5M12 15.5h.01"></path></svg>
+        <span style="font-size: 14px; font-weight: 500;">Admin panel</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MAIN ═════════════════════════════════════════════════ -->
+  <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column;">
+
+    <!-- Topbar -->
+    <div style="height: 64px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; padding: 0 28px;">
+      <span style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: #F2F3F5;">Dashboard</span>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="position: relative; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.07);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9BA0A8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8.5a6 6 0 1 0-12 0c0 6-2 7.5-2 7.5h16s-2-1.5-2-7.5z"></path><path d="M10.5 19.5a2 2 0 0 0 3 0"></path></svg>
+          <span style="position: absolute; top: 6px; right: 6px; width: 6px; height: 6px; border-radius: 50%; background: #34D399; border: 2px solid #09090B;"></span>
+        </div>
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(140deg, #1F2937, #111418); border: 1px solid rgba(255,255,255,0.10); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #C9CDD3;">D</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div style="padding: 36px 28px 48px;">
+      <div style="max-width: 1040px; margin: 0 auto;">
+
+        <!-- Greeting -->
+        <div style="margin-bottom: 32px;">
+          <h1 style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: #F2F3F5; margin: 0 0 6px;">Welcome back, David</h1>
+          <p style="font-size: 15px; color: #83888F; margin: 0;">Three verifications are in the field right now.</p>
+        </div>
+
+        <!-- Stats -->
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px;">
+
+          <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">Open requests</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2C2E33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"></rect><path d="M9 8h6M9 12h6"></path></svg>
+            </div>
+            <div style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #F2F3F5; line-height: 1;">4</div>
+            <div style="font-size: 12.5px; color: #62676F; margin-top: 7px;">Awaiting dispatch</div>
+          </div>
+
+          <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">In the field</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2C2E33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+            </div>
+            <div style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #F2F3F5; line-height: 1;">3</div>
+            <div style="font-size: 12.5px; color: #34D399; margin-top: 7px;">Verifier on site</div>
+          </div>
+
+          <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">Spend this month</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2C2E33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M16.5 7H10a2.75 2.75 0 0 0 0 5.5h4a2.75 2.75 0 0 1 0 5.5H7"></path></svg>
+            </div>
+            <div style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #F2F3F5; line-height: 1;">$594</div>
+            <div style="font-size: 12.5px; color: #62676F; margin-top: 7px;">Across 8 checks</div>
+          </div>
+
+          <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">Median return</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2C2E33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5.2l3.2 2"></path></svg>
+            </div>
+            <div style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #F2F3F5; line-height: 1;">19<span style="font-size: 18px; color: #83888F;">h</span></div>
+            <div style="font-size: 12.5px; color: #62676F; margin-top: 7px;">Your last 8 checks</div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 40px;">
+          <a href="#" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 8px; background: #059669; color: #FFFFFF; font-size: 14px; font-weight: 600;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg>
+            Request a verification
+          </a>
+          <a href="#" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14); color: #C9CDD3; font-size: 14px; font-weight: 500;">View all requests</a>
+        </div>
+
+        <!-- Two columns -->
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px;">
+
+          <!-- Your requests -->
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <h2 style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.015em; color: #F2F3F5; margin: 0;">Your requests</h2>
+              <a href="#" style="font-size: 13px; font-weight: 500; color: #83888F;">View all</a>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+
+              <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 16px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px;">
+                  <span style="font-size: 14.5px; font-weight: 600; color: #F2F3F5; line-height: 1.4;">Merchant KYB — 14 Marina Rd, Lagos</span>
+                  <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 13px; color: #C9CDD3; flex-shrink: 0;">$49</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; background: rgba(59,130,246,0.12); border: 1px solid rgba(96,165,250,0.20);">
+                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #60A5FA;"></span>
+                    <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #93C5FD;">IN FIELD</span>
+                  </span>
+                  <span style="font-size: 12.5px; color: #62676F;">Assigned 4h ago</span>
+                </div>
+              </div>
+
+              <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 16px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px;">
+                  <span style="font-size: 14.5px; font-weight: 600; color: #F2F3F5; line-height: 1.4;">Shelf audit — 12 stores, London</span>
+                  <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 13px; color: #C9CDD3; flex-shrink: 0;">$99</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; background: rgba(245,158,11,0.12); border: 1px solid rgba(251,191,36,0.20);">
+                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #FBBF24;"></span>
+                    <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #FCD34D;">IN REVIEW</span>
+                  </span>
+                  <span style="font-size: 12.5px; color: #62676F;">Result submitted</span>
+                </div>
+              </div>
+
+              <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 16px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px;">
+                  <span style="font-size: 14.5px; font-weight: 600; color: #F2F3F5; line-height: 1.4;">Supplier warehouse audit — Guangzhou</span>
+                  <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 13px; color: #C9CDD3; flex-shrink: 0;">$199</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);">
+                    <span style="width: 4px; height: 4px; border-radius: 50%; background: #83888F;"></span>
+                    <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #9BA0A8;">AWAITING DISPATCH</span>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Assigned to you -->
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+              <h2 style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.015em; color: #F2F3F5; margin: 0;">Assigned to you</h2>
+              <a href="#" style="font-size: 13px; font-weight: 500; color: #83888F;">View all</a>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="background: #0C0D10; border: 1px solid rgba(52,211,153,0.22); border-radius: 14px; padding: 16px;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px;">
+                  <span style="font-size: 14.5px; font-weight: 600; color: #F2F3F5; line-height: 1.4;">Business address check — 9 Broad St</span>
+                  <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 13px; color: #34D399; flex-shrink: 0;">$49</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                  <span style="font-size: 12.5px; color: #62676F;">Due in 6 hours</span>
+                  <a href="#" style="display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 7px; background: #059669; color: #FFFFFF; font-size: 12.5px; font-weight: 600;">Submit result</a>
+                </div>
+              </div>
+
+              <!-- Empty state, once the list runs out -->
+              <div style="border: 1px dashed rgba(255,255,255,0.10); border-radius: 14px; padding: 28px 20px; text-align: center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2C2E33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg>
+                <p style="font-size: 13px; line-height: 1.6; color: #62676F; margin: 0;">Nothing else assigned right now.<br>Our team will notify you when you are matched.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

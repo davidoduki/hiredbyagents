@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&amp;family=Instrument+Sans:wght@400;500;600&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <style>
+    body { margin: 0; background: #09090B; }
+    * { box-sizing: border-box; }
+    a { color: #34D399; text-decoration: none; }
+    a:hover { color: #6EE7B7; }
+  </style>
+</helmet>
+
+<div style="width: 1100px; background: #09090B; font-family: 'Instrument Sans', -apple-system, 'Segoe UI', sans-serif; color: #F2F3F5; padding: 44px; -webkit-font-smoothing: antialiased;">
+
+  <div style="padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,0.10); margin-bottom: 36px;">
+    <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #34D399; margin-bottom: 12px;">App patterns</div>
+    <h1 style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.03em; color: #F2F3F5; margin: 0 0 8px;">What the app adds</h1>
+    <p style="font-size: 14px; line-height: 1.65; color: #83888F; margin: 0; max-width: 620px;">Same tokens as the marketing system. These are the pieces the signed-in screens need on top of it — denser, and built for scanning rather than reading.</p>
+  </div>
+
+  <!-- NAV STATES -->
+  <div style="margin-bottom: 36px;">
+    <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #62676F; margin-bottom: 16px;">Sidebar item · 40px</div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+      <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; background: rgba(255,255,255,0.07); color: #F2F3F5;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"></rect><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"></rect></svg>
+          <span style="font-size: 14px; font-weight: 500;">Active</span>
+        </div>
+        <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10.5px; color: #62676F; margin-top: 10px;">bg white 7%</div>
+      </div>
+      <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; color: #83888F;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"></rect><path d="M9 8h6M9 12h6"></path></svg>
+          <span style="font-size: 14px; font-weight: 500;">Rest</span>
+        </div>
+        <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10.5px; color: #62676F; margin-top: 10px;">#83888F</div>
+      </div>
+      <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 8px; background: rgba(239,68,68,0.10); color: #F87171;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.4-3 8.2-7.5 9.5-4.5-1.3-7.5-5.1-7.5-9.5V6z"></path></svg>
+          <span style="font-size: 14px; font-weight: 500;">Admin</span>
+        </div>
+        <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10.5px; color: #62676F; margin-top: 10px;">red 10%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAT + ROW -->
+  <div style="margin-bottom: 36px;">
+    <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #62676F; margin-bottom: 16px;">Stat card and list row</div>
+    <div style="display: grid; grid-template-columns: 260px 1fr; gap: 16px; align-items: start;">
+      <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">In the field</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2C2E33" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+        </div>
+        <div style="font-family: 'Syne', 'Helvetica Neue', Arial, sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #F2F3F5; line-height: 1;">3</div>
+        <div style="font-size: 12.5px; color: #34D399; margin-top: 7px;">Verifier on site</div>
+      </div>
+
+      <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 16px;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 14.5px; font-weight: 600; color: #F2F3F5; line-height: 1.4;">Merchant KYB — 14 Marina Rd, Lagos</span>
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 13px; color: #C9CDD3; flex-shrink: 0;">$49</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px; border-radius: 999px; background: rgba(59,130,246,0.12); border: 1px solid rgba(96,165,250,0.20);">
+            <span style="width: 4px; height: 4px; border-radius: 50%; background: #60A5FA;"></span>
+            <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #93C5FD;">IN FIELD</span>
+          </span>
+          <span style="font-size: 12.5px; color: #62676F;">Assigned 4h ago</span>
+        </div>
+        <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10.5px; color: #2C2E33; margin-top: 12px;">Money is always mono. Prose is never mono.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS PILLS -->
+  <div style="margin-bottom: 36px;">
+    <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #62676F; margin-bottom: 16px;">Status</div>
+    <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 20px; display: flex; flex-wrap: wrap; gap: 9px;">
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);"><span style="width: 4px; height: 4px; border-radius: 50%; background: #83888F;"></span><span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #9BA0A8;">AWAITING DISPATCH</span></span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: 999px; background: rgba(59,130,246,0.12); border: 1px solid rgba(96,165,250,0.20);"><span style="width: 4px; height: 4px; border-radius: 50%; background: #60A5FA;"></span><span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #93C5FD;">IN FIELD</span></span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: 999px; background: rgba(245,158,11,0.12); border: 1px solid rgba(251,191,36,0.22);"><span style="width: 4px; height: 4px; border-radius: 50%; background: #FBBF24;"></span><span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #FCD34D;">IN REVIEW</span></span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: 999px; background: rgba(16,185,129,0.12); border: 1px solid rgba(52,211,153,0.24);"><span style="width: 4px; height: 4px; border-radius: 50%; background: #34D399;"></span><span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #34D399;">VERIFIED</span></span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: 999px; background: rgba(239,68,68,0.10); border: 1px solid rgba(248,113,113,0.22);"><span style="width: 4px; height: 4px; border-radius: 50%; background: #F87171;"></span><span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: #FCA5A5;">DISPUTED</span></span>
+    </div>
+  </div>
+
+  <!-- TABLE + EMPTY -->
+  <div>
+    <div style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #62676F; margin-bottom: 16px;">Table header, control, empty state</div>
+    <div style="display: grid; grid-template-columns: 1fr 300px; gap: 16px; align-items: start;">
+      <div style="background: #0C0D10; border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 1fr 100px 130px; gap: 14px; padding: 11px 18px; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.015);">
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">Request</span>
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">Budget</span>
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #62676F;">Assign</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 100px 130px; gap: 14px; align-items: center; padding: 14px 18px;">
+          <span style="font-size: 14px; font-weight: 500; color: #F2F3F5;">Address check — 9 Broad St</span>
+          <span style="font-family: 'Space Mono', ui-monospace, monospace; font-size: 13.5px; color: #C9CDD3;">$49.00</span>
+          <div style="display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 11px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: #0E1013;">
+            <span style="font-size: 13px; color: #62676F;">Select…</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#62676F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <div style="border: 1px dashed rgba(255,255,255,0.10); border-radius: 14px; padding: 28px 20px; text-align: center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2C2E33" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg>
+        <p style="font-size: 13px; line-height: 1.6; color: #62676F; margin: 0;">Dashed border, never a filled card — an empty slot should read as absence, not content.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

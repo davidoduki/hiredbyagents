@@ -1,0 +1,58 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "Dashboard",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 860,
+      "print": "flow"
+    },
+    {
+      "file": "Verification.dc.html",
+      "title": "Verification detail",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 1150,
+      "print": "flow"
+    },
+    {
+      "file": "Admin.dc.html",
+      "title": "Admin \u2014 operations",
+      "x": 3120,
+      "y": 0,
+      "w": 1440,
+      "h": 1420,
+      "print": "flow"
+    },
+    {
+      "file": "AppSystem.dc.html",
+      "title": "App patterns",
+      "x": 0,
+      "y": 980,
+      "w": 1100,
+      "h": 960
+    }
+  ],
+  "annotations": [
+    {
+      "id": "app-direction",
+      "x": 0,
+      "y": -280,
+      "w": 660,
+      "text": "Same system as the marketing site, tuned for density: Syne for headings and figures, Instrument Sans for everything readable, Space Mono confined to labels, IDs, coordinates and money.\n\nThree structural changes beyond restyling:\n\n1. Dashboard stats now answer \"what is happening to my requests\" \u2014 open, in the field, spend, median return \u2014 instead of mixing poster and worker metrics in one row.\n\n2. Admin is reorganised around the work: dispatch queue and disputes first, money and people below. The assignment step becomes a proper queue table rather than a list of cards.\n\n3. The verification detail screen shows the evidence \u2014 photo slots, GPS distance from the filed address, per-check answers \u2014 where today it prints the submission as a paragraph of text. This is the screen the product is actually selling."
+    },
+    {
+      "id": "vocab-note",
+      "x": 1560,
+      "y": -280,
+      "w": 420,
+      "text": "Copy assumption to confirm.\n\nI carried the site's verification vocabulary into the app: \"New request\", \"My requests\", \"Assigned to me\", \"Verifiers\". Today the nav still says \"Send a Task\", \"My Tasks\", \"My Work\", \"Workers\".\n\nThe screens work either way \u2014 say the word if you would rather keep task language inside the product."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}
