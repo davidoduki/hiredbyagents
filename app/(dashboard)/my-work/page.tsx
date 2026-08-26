@@ -23,10 +23,10 @@ export default async function MyWorkPage() {
 
   return (
     <div className="flex flex-col min-h-full">
-      <Topbar heading="My Work" />
+      <Topbar heading="Assigned to me" />
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
         <div className="mb-6">
-          <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100">Tasks You&apos;re Working On</h2>
+          <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100">Assigned to you</h2>
           <p className="text-sm text-zinc-500 mt-1">Track your assignments and completions.</p>
         </div>
 

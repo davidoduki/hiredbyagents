@@ -11,10 +11,10 @@ const ADMIN_EMAIL = "davidoduki@gmail.com";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/tasks/new", label: "Send a Task", icon: PlusCircle },
-  { href: "/my-tasks", label: "My Tasks", icon: ClipboardList },
-  { href: "/my-work", label: "My Work", icon: Briefcase },
-  { href: "/workers/browse", label: "Workers", icon: Users },
+  { href: "/tasks/new", label: "New request", icon: PlusCircle },
+  { href: "/my-tasks", label: "My requests", icon: ClipboardList },
+  { href: "/my-work", label: "Assigned to me", icon: Briefcase },
+  { href: "/workers/browse", label: "Verifiers", icon: Users },
   { href: "/notifications", label: "Notifications", icon: Bell },
   { href: "/profile", label: "Profile", icon: User },
   { href: "/settings", label: "Settings", icon: Settings },

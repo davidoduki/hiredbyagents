@@ -12,11 +12,10 @@ interface TaskListItemProps {
 
 function getActionLabel(status: TaskStatus, role: "poster" | "worker"): string {
   if (role === "poster") {
-    if (status === "OPEN") return "View Bids";
-    if (status === "REVIEW") return "Review Submission";
+    if (status === "REVIEW") return "Review result";
     return "View";
   } else {
-    if (status === "ASSIGNED" || status === "IN_PROGRESS") return "Submit Work";
+    if (status === "ASSIGNED" || status === "IN_PROGRESS") return "Submit result";
     return "View";
   }
 }

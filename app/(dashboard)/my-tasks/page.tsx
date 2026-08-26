@@ -26,14 +26,14 @@ export default async function MyTasksPage() {
 
   return (
     <div className="flex flex-col min-h-full">
-      <Topbar heading="My Tasks" />
+      <Topbar heading="My requests" />
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100">Tasks You Posted</h2>
+          <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100">Verifications you requested</h2>
           <Button asChild>
             <Link href="/tasks/new">
               <PlusCircle className="h-4 w-4" />
-              New Task
+              New request
             </Link>
           </Button>
         </div>
