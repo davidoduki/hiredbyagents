@@ -13,7 +13,7 @@ export default async function TasksPage() {
             <ClipboardList className="h-10 w-10 text-zinc-500" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-zinc-100 mb-2">Tasks are assigned by our team</h2>
+            <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100 mb-2">Tasks are assigned by our team</h2>
             <p className="text-sm text-zinc-500 max-w-md">
               Tasks are not publicly listed. Once you sign up, our team will match you with
               suitable work and notify you when you&apos;re assigned.

@@ -150,12 +150,12 @@ export default async function AdminPage() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+              <div key={stat.label} className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Icon className={`h-4 w-4 ${stat.color}`} />
                   <span className="text-xs text-zinc-500">{stat.label}</span>
                 </div>
-                <div className="text-2xl font-bold text-zinc-100">{stat.value}</div>
+                <div className="font-display text-2xl font-bold tracking-tight text-zinc-100">{stat.value}</div>
                 <div className="text-xs text-zinc-600 mt-0.5">{stat.sub}</div>
               </div>
             );
@@ -181,7 +181,7 @@ export default async function AdminPage() {
         )}
 
         {/* Disputes — all admins */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+        <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
           <div className="flex items-center gap-2 mb-5">
             <AlertTriangle className="h-4 w-4 text-red-400" />
             <h3 className="font-semibold text-zinc-100">Open Disputes</h3>
@@ -204,7 +204,7 @@ export default async function AdminPage() {
 
           {/* Recent payouts — super only */}
           {isSuper && (
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+            <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
               <div className="flex items-center gap-2 mb-4">
                 <DollarSign className="h-4 w-4 text-emerald-400" />
                 <h3 className="font-semibold text-zinc-100">Recent Payouts</h3>
@@ -231,7 +231,7 @@ export default async function AdminPage() {
           )}
 
           {/* Recent sign-ups — all admins */}
-          <div className={`rounded-xl border border-zinc-800 bg-zinc-900 p-6 ${!isSuper ? "lg:col-span-2" : ""}`}>
+          <div className={`rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 ${!isSuper ? "lg:col-span-2" : ""}`}>
             <div className="flex items-center gap-2 mb-4">
               <UserCheck className="h-4 w-4 text-blue-400" />
               <h3 className="font-semibold text-zinc-100">Recent Sign-ups</h3>
@@ -271,7 +271,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Task Assignment — all admins */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+        <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
           <div className="flex items-center gap-2 mb-5">
             <UserPlus className="h-4 w-4 text-emerald-400" />
             <h3 className="font-semibold text-zinc-100">Assign Tasks to Workers</h3>
@@ -294,7 +294,7 @@ export default async function AdminPage() {
 
         {/* Blog generation — super only */}
         {isSuper && (
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
                 <BookOpen className="h-4 w-4 text-blue-400" />
@@ -314,7 +314,7 @@ export default async function AdminPage() {
 
         {/* Manage Admins — super only */}
         {isSuper && (
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
             <div className="flex items-center gap-2 mb-5">
               <ShieldAlert className="h-4 w-4 text-red-400" />
               <h3 className="font-semibold text-zinc-100">Manage Admins</h3>

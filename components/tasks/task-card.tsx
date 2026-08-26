@@ -24,7 +24,7 @@ export function TaskCard({
 
   return (
     <Link href={`/tasks/${id}`} className="block group">
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5 transition-colors hover:border-zinc-700 hover:bg-zinc-800/50">
+      <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-5 transition-colors hover:border-zinc-700 hover:bg-zinc-800/50">
         <div className="mb-3 flex items-start justify-between gap-3">
           <div className="flex items-center gap-2 flex-wrap">
             <StatusBadge status={status} />

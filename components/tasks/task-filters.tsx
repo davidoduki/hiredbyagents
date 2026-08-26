@@ -66,7 +66,7 @@ export function TaskFilters() {
       </div>
 
       {showFilters && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 rounded-2xl border border-white/[0.07] bg-zinc-900 p-4">
           <div className="space-y-1.5">
             <Label>Worker Type</Label>
             <Select value={worker} onValueChange={setWorker}>

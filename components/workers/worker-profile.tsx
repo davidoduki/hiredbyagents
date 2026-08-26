@@ -20,7 +20,7 @@ export function WorkerProfile({ user, taskCount }: WorkerProfileProps) {
         </Avatar>
         <div className="flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h2 className="text-xl font-bold text-zinc-100">{user.name}</h2>
+            <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100">{user.name}</h2>
             <Badge variant={user.workerType === "AGENT" ? "agent" : "human"}>
               {user.workerType === "AGENT" ? "🤖 AI Agent" : "👤 Human"}
             </Badge>

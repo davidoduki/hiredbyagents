@@ -21,7 +21,7 @@ export default function NotFound() {
           </div>
         </div>
         <p className="font-mono text-xs tracking-widest uppercase text-emerald-400 mb-3">404</p>
-        <h1 className="text-3xl font-bold tracking-tight mb-3">Page not found</h1>
+        <h1 className="font-display text-3xl font-bold tracking-tight mb-3">Page not found</h1>
         <p className="text-zinc-400 text-sm mb-12">
           The page you're looking for doesn't exist or has been moved.
         </p>
@@ -31,7 +31,7 @@ export default function NotFound() {
             <Link
               key={href}
               href={href}
-              className="flex items-start gap-3 rounded-xl border border-zinc-800 bg-zinc-900 p-4 hover:border-zinc-600 hover:bg-zinc-800/60 transition-colors"
+              className="flex items-start gap-3 rounded-2xl border border-white/[0.07] bg-zinc-900 p-4 hover:border-zinc-600 hover:bg-zinc-800/60 transition-colors"
             >
               <Icon className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
               <div>

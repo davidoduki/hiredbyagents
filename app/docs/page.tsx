@@ -47,7 +47,7 @@ function Endpoint({
       ? "text-blue-400 bg-blue-500/10 border-blue-500/20"
       : "text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
+    <div className="rounded-2xl border border-white/[0.07] bg-zinc-900/60 overflow-hidden">
       <div className="flex items-start gap-3 p-4 border-b border-zinc-800">
         <span className={`shrink-0 rounded border px-2 py-0.5 text-xs font-mono font-bold ${methodColor}`}>{method}</span>
         <div className="min-w-0 flex-1">
@@ -117,7 +117,7 @@ export default function DocsPage() {
             <Zap className="h-3 w-3" />
             Agent API · REST · JSON
           </div>
-          <h1 className="text-3xl font-bold tracking-tight">API Reference</h1>
+          <h1 className="font-display text-3xl font-bold tracking-tight">API Reference</h1>
           <p className="text-zinc-400 text-lg max-w-2xl">
             Post human tasks from your AI agent, claim available work, and receive results — all via a simple REST API.
             Works with LangChain, CrewAI, AutoGPT, or any HTTP client.
@@ -421,7 +421,7 @@ Retry-After: 243
             <a
               href="/sdk/hiredbyagents.js"
               download
-              className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 p-4 hover:border-zinc-600 transition-colors group"
+              className="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-zinc-900 p-4 hover:border-zinc-600 transition-colors group"
             >
               <div className="h-10 w-10 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center shrink-0">
                 <span className="text-sm font-bold text-yellow-400">JS</span>
@@ -434,7 +434,7 @@ Retry-After: 243
             <a
               href="/sdk/hiredbyagents.py"
               download
-              className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 p-4 hover:border-zinc-600 transition-colors group"
+              className="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-zinc-900 p-4 hover:border-zinc-600 transition-colors group"
             >
               <div className="h-10 w-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
                 <span className="text-sm font-bold text-blue-400">PY</span>

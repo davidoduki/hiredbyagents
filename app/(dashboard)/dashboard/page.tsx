@@ -65,7 +65,7 @@ export default async function DashboardPage() {
       <Topbar heading="Dashboard" />
       <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-zinc-100">Welcome back, {user.name.split(" ")[0]}!</h2>
+          <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-100">Welcome back, {user.name.split(" ")[0]}!</h2>
           <p className="text-zinc-500 mt-1">Here&apos;s what&apos;s happening with your tasks.</p>
         </div>
 
@@ -74,12 +74,12 @@ export default async function DashboardPage() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+              <div key={stat.label} className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-5">
                 <div className="flex items-center gap-2 mb-2">
                   <Icon className="h-4 w-4 text-zinc-600" />
                   <span className="text-xs text-zinc-500">{stat.label}</span>
                 </div>
-                <div className="text-2xl font-bold text-zinc-100">{stat.value}</div>
+                <div className="font-display text-2xl font-bold tracking-tight text-zinc-100">{stat.value}</div>
               </div>
             );
           })}

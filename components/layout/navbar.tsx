@@ -18,26 +18,26 @@ type NavItem = NavDropdown | NavLink;
 
 const NAV: NavItem[] = [
   {
-    label: "Use Cases",
+    label: "What we verify",
     items: [
-      { label: "Verify a business", href: "/#use-cases", desc: "Confirm it exists, is open, is legitimate" },
-      { label: "Inspect a location", href: "/#use-cases", desc: "Photos, conditions, real-world confirmation" },
-      { label: "Human judgment calls", href: "/#use-cases", desc: "Edge cases your AI can't handle reliably" },
-      { label: "All use cases →", href: "/#use-cases", desc: "See everything we can execute" },
+      { label: "Merchant & KYB checks", href: "/#use-cases", desc: "Confirm a business is real and trading" },
+      { label: "Loan & collateral checks", href: "/#use-cases", desc: "Verify the asset exists before you disburse" },
+      { label: "Supplier & warehouse audits", href: "/#use-cases", desc: "Stock counts, SKUs and conditions on site" },
+      { label: "All use cases →", href: "/#use-cases", desc: "See everything we verify" },
     ],
   },
+  { label: "How it works", href: "/#how-it-works" },
   { label: "Pricing", href: "/#pricing" },
-  { label: "API", href: "/docs" },
   {
-    label: "Resources",
+    label: "Developers",
     items: [
-      { label: "API Docs", href: "/docs", desc: "REST API reference and SDKs" },
+      { label: "API docs", href: "/docs", desc: "REST API reference and webhooks" },
       { label: "FAQ", href: "/faq", desc: "Common questions answered" },
       { label: "Blog", href: "/blog", desc: "News and updates" },
-      { label: "Tools", href: "/tools", desc: "Utilities for agents and teams" },
+      { label: "Tools", href: "/tools", desc: "Utilities for teams and agents" },
     ],
   },
-  { label: "For Workers", href: "/workers", secondary: true },
+  { label: "Work with us", href: "/workers", secondary: true },
 ];
 
 export function Navbar() {
@@ -52,13 +52,13 @@ export function Navbar() {
   }, []);
 
   const navBg = scrolled
-    ? "bg-zinc-950/95 border-b border-zinc-800 backdrop-blur-md"
+    ? "bg-zinc-950/90 border-b border-white/[0.06] backdrop-blur-xl"
     : "bg-transparent border-b border-transparent";
 
   return (
     <>
       <nav className={`sticky top-0 z-40 w-full transition-all duration-300 ${navBg}`}>
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-[72px] max-w-[1180px] items-center justify-between px-6 sm:px-10 lg:px-0">
           {/* Logo */}
           <Link href="/" className="font-code text-sm font-bold tracking-tight text-white">
             hired<span className="text-emerald-400">by</span>agents
@@ -71,7 +71,7 @@ export function Navbar() {
               "items" in item ? (
                 <DropdownMenu key={item.label}>
                   <DropdownMenuTrigger asChild>
-                    <button className="flex items-center gap-0.5 px-3 py-1.5 font-code text-xs tracking-wide transition-colors text-zinc-400 hover:text-white outline-none">
+                    <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-zinc-100 outline-none">
                       {item.label}
                       <ChevronDown className="h-3 w-3 mt-px opacity-60" />
                     </button>
@@ -79,9 +79,9 @@ export function Navbar() {
                   <DropdownMenuContent align="start">
                     {item.items.map((sub) => (
                       <DropdownMenuItem key={sub.label} asChild>
-                        <Link href={sub.href} className="block font-code">
-                          <span className="block text-xs font-medium text-zinc-200">{sub.label}</span>
-                          <span className="block text-[10px] mt-0.5 text-zinc-500">{sub.desc}</span>
+                        <Link href={sub.href} className="block">
+                          <span className="block text-sm font-medium text-zinc-200">{sub.label}</span>
+                          <span className="block text-xs mt-0.5 text-zinc-500">{sub.desc}</span>
                         </Link>
                       </DropdownMenuItem>
                     ))}
@@ -91,10 +91,10 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={(item as NavLink).href}
-                  className={`px-3 py-1.5 font-code text-xs tracking-wide transition-colors ${
+                  className={`px-3 py-2 text-sm font-medium transition-colors ${
                     (item as NavLink).secondary
                       ? "text-zinc-600 hover:text-zinc-400"
-                      : "text-zinc-400 hover:text-white"
+                      : "text-zinc-400 hover:text-zinc-100"
                   }`}
                 >
                   {item.label}
@@ -107,16 +107,16 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-2">
             {!isSignedIn ? (
               <>
-                <Button variant="ghost" asChild size="sm" className="font-code text-xs">
-                  <Link href="/sign-in">Sign In</Link>
+                <Button variant="ghost" asChild size="sm">
+                  <Link href="/sign-in">Sign in</Link>
                 </Button>
-                <Button variant="accent" asChild size="sm" className="font-code text-xs">
-                  <Link href="/tasks/new">Send a Task →</Link>
+                <Button variant="accent" asChild size="sm">
+                  <Link href="/tasks/new">Request a verification</Link>
                 </Button>
               </>
             ) : (
               <>
-                <Button variant="ghost" asChild size="sm" className="font-code text-xs">
+                <Button variant="ghost" asChild size="sm">
                   <Link href="/dashboard">
                     <LayoutDashboard className="h-3.5 w-3.5" />
                     Dashboard
@@ -129,7 +129,7 @@ export function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden rounded p-1.5 transition-colors text-zinc-400 hover:bg-zinc-800 hover:text-white"
+            className="lg:hidden rounded-lg p-2 transition-colors text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -145,12 +145,12 @@ export function Navbar() {
             className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="fixed top-14 left-0 right-0 z-40 lg:hidden border-b border-zinc-800 bg-zinc-950 overflow-y-auto max-h-[calc(100vh-56px)]">
+          <div className="fixed top-[72px] left-0 right-0 z-40 lg:hidden border-b border-white/[0.06] bg-zinc-950 overflow-y-auto max-h-[calc(100vh-72px)]">
             <div className="px-4 py-4 space-y-1">
               {NAV.map((item) =>
                 "items" in item ? (
                   <div key={item.label}>
-                    <div className="px-3 py-1.5 font-code text-[10px] tracking-widest uppercase text-zinc-600">
+                    <div className="px-3 py-1.5 eyebrow text-zinc-600">
                       {item.label}
                     </div>
                     {item.items.map((sub) => (
@@ -158,7 +158,7 @@ export function Navbar() {
                         key={sub.label}
                         href={sub.href}
                         onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2 font-code text-xs rounded transition-colors text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                        className="block px-3 py-2.5 text-sm rounded-lg transition-colors text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
                       >
                         {sub.label}
                       </Link>
@@ -169,7 +169,7 @@ export function Navbar() {
                     key={item.label}
                     href={(item as NavLink).href}
                     onClick={() => setMobileOpen(false)}
-                    className={`block px-3 py-2 font-code text-xs rounded transition-colors hover:bg-zinc-800 hover:text-white ${
+                    className={`block px-3 py-2.5 text-sm rounded-lg transition-colors hover:bg-zinc-800 hover:text-zinc-100 ${
                       (item as NavLink).secondary ? "text-zinc-600" : "text-zinc-400"
                     }`}
                   >
@@ -177,18 +177,18 @@ export function Navbar() {
                   </Link>
                 )
               )}
-              <div className="pt-3 border-t border-zinc-800 flex flex-col gap-2">
+              <div className="pt-3 mt-2 border-t border-white/[0.06] flex flex-col gap-2">
                 {!isSignedIn ? (
                   <>
-                    <Button variant="ghost" asChild size="sm" className="font-code text-xs w-full">
-                      <Link href="/sign-in" onClick={() => setMobileOpen(false)}>Sign In</Link>
+                    <Button variant="ghost" asChild size="sm" className="w-full">
+                      <Link href="/sign-in" onClick={() => setMobileOpen(false)}>Sign in</Link>
                     </Button>
-                    <Button variant="accent" asChild size="sm" className="font-code text-xs w-full">
-                      <Link href="/tasks/new" onClick={() => setMobileOpen(false)}>Send a Task →</Link>
+                    <Button variant="accent" asChild size="sm" className="w-full">
+                      <Link href="/tasks/new" onClick={() => setMobileOpen(false)}>Request a verification</Link>
                     </Button>
                   </>
                 ) : (
-                  <Button variant="ghost" asChild size="sm" className="font-code text-xs w-full">
+                  <Button variant="ghost" asChild size="sm" className="w-full">
                     <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
                       <LayoutDashboard className="h-3.5 w-3.5" />
                       Dashboard

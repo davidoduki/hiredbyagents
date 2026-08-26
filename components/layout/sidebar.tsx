@@ -41,8 +41,8 @@ export function Sidebar() {
   const isAdmin = useIsAdmin();
 
   return (
-    <aside className="hidden w-60 shrink-0 border-r border-zinc-800 bg-zinc-950 md:flex md:flex-col">
-      <div className="flex h-14 items-center border-b border-zinc-800 px-5">
+    <aside className="hidden w-60 shrink-0 border-r border-white/[0.06] bg-zinc-950 md:flex md:flex-col">
+      <div className="flex h-16 items-center border-b border-white/[0.06] px-5">
         <Link href="/" className="font-code text-sm font-bold tracking-tight text-white">
           hired<span className="text-emerald-400">by</span>agents<span className="text-emerald-400">.com</span>
         </Link>
@@ -59,7 +59,7 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-zinc-800 text-white"
+                  ? "bg-white/[0.07] text-zinc-100"
                   : "text-zinc-500 hover:bg-zinc-900 hover:text-zinc-200"
               )}
             >
@@ -72,7 +72,7 @@ export function Sidebar() {
         {isAdmin && (
           <>
             <div className="px-3 pt-4 pb-1">
-              <span className="text-[10px] font-medium tracking-widest uppercase text-zinc-600">Admin</span>
+              <span className="eyebrow text-zinc-600">Admin</span>
             </div>
             <Link
               href="/admin"

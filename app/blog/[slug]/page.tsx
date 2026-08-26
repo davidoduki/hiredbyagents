@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {new Date(post.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-snug mb-5">{post.title}</h1>
+          <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-snug mb-5">{post.title}</h1>
           <p className="text-lg text-zinc-400 leading-relaxed">{post.excerpt}</p>
         </div>
 
@@ -70,7 +70,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="prose-custom space-y-5">
           {(paragraphs as string[]).map((para: string, i: number) => {
             if (para.startsWith("## ")) {
-              return <h2 key={i} className="text-xl font-bold text-zinc-100 mt-8 mb-2">{para.slice(3)}</h2>;
+              return <h2 key={i} className="font-display text-xl font-bold tracking-tight text-zinc-100 mt-8 mb-2">{para.slice(3)}</h2>;
             }
             if (para.startsWith("### ")) {
               return <h3 key={i} className="text-lg font-semibold text-zinc-200 mt-6 mb-1">{para.slice(4)}</h3>;

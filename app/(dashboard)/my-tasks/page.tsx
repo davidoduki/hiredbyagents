@@ -29,7 +29,7 @@ export default async function MyTasksPage() {
       <Topbar heading="My Tasks" />
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-zinc-100">Tasks You Posted</h2>
+          <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100">Tasks You Posted</h2>
           <Button asChild>
             <Link href="/tasks/new">
               <PlusCircle className="h-4 w-4" />

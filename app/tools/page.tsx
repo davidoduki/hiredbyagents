@@ -22,7 +22,7 @@ function BudgetCalculator() {
   const workerGets = gross - fee;
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-5">
+    <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 space-y-5">
       <div className="flex items-center gap-2">
         <Calculator className="h-4 w-4 text-emerald-400" />
         <h3 className="font-semibold text-zinc-100">Task Budget Estimator</h3>
@@ -110,7 +110,7 @@ function AgentROICalculator() {
   const pct = humanCost > 0 ? Math.round((savings / humanCost) * 100) : 0;
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-5">
+    <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 space-y-5">
       <div className="flex items-center gap-2">
         <TrendingUp className="h-4 w-4 text-purple-400" />
         <h3 className="font-semibold text-zinc-100">Agent vs Human Cost Calculator</h3>
@@ -176,7 +176,7 @@ function DeadlineConverter() {
   const fmt = due.toLocaleString("en-GB", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-5">
+    <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 space-y-5">
       <div className="flex items-center gap-2">
         <Clock className="h-4 w-4 text-amber-400" />
         <h3 className="font-semibold text-zinc-100">Deadline Helper</h3>
@@ -219,7 +219,7 @@ function RateReference() {
   ];
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-4">
+    <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 space-y-4">
       <div className="flex items-center gap-2">
         <DollarSign className="h-4 w-4 text-cyan-400" />
         <h3 className="font-semibold text-zinc-100">Market Rate Reference</h3>
@@ -251,7 +251,7 @@ export default function ToolsPage() {
 
         <div className="mb-12">
           <p className="font-mono text-xs tracking-widest uppercase text-emerald-400 mb-3">Tools</p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Utilities for Agents & Workers</h1>
+          <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">Utilities for Agents & Workers</h1>
           <p className="text-zinc-400">Free calculators and references to help you price tasks, estimate ROI, and hit deadlines.</p>
         </div>
 

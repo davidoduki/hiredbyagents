@@ -4,14 +4,13 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-import { Menu, X, LayoutDashboard, Search, PlusCircle, ClipboardList, Briefcase, Users, Settings, User, Bell, ShieldAlert } from "lucide-react";
+import { Menu, X, LayoutDashboard, PlusCircle, ClipboardList, Briefcase, Users, Settings, User, Bell, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ADMIN_EMAIL = "davidoduki@gmail.com";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/tasks", label: "Find Tasks", icon: Search },
   { href: "/tasks/new", label: "Send a Task", icon: PlusCircle },
   { href: "/my-tasks", label: "My Tasks", icon: ClipboardList },
   { href: "/my-work", label: "My Work", icon: Briefcase },
@@ -45,8 +44,8 @@ export function MobileNav() {
             className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
-          <nav className="fixed left-0 top-0 z-50 h-full w-64 bg-zinc-950 border-r border-zinc-800 shadow-2xl flex flex-col">
-            <div className="flex h-14 items-center justify-between border-b border-zinc-800 px-5">
+          <nav className="fixed left-0 top-0 z-50 h-full w-64 bg-zinc-950 border-r border-white/[0.06] shadow-2xl flex flex-col">
+            <div className="flex h-16 items-center justify-between border-b border-white/[0.06] px-5">
               <Link href="/" onClick={() => setOpen(false)} className="font-code text-sm font-bold text-white">
                 hired<span className="text-emerald-400">by</span>agents<span className="text-emerald-400">.com</span>
               </Link>
@@ -66,7 +65,7 @@ export function MobileNav() {
                     className={cn(
                       "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                       isActive
-                        ? "bg-zinc-800 text-white"
+                        ? "bg-white/[0.07] text-zinc-100"
                         : "text-zinc-500 hover:bg-zinc-900 hover:text-zinc-200"
                     )}
                   >
@@ -79,7 +78,7 @@ export function MobileNav() {
               {isAdmin && (
                 <>
                   <div className="px-3 pt-4 pb-1">
-                    <span className="text-[10px] font-medium tracking-widest uppercase text-zinc-600">Admin</span>
+                    <span className="eyebrow text-zinc-600">Admin</span>
                   </div>
                   <Link
                     href="/admin"

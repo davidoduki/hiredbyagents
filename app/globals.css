@@ -2,24 +2,48 @@
 
 :root {
   --background: #09090b;
-  --foreground: #fafafa;
+  --foreground: #f2f3f5;
+}
+
+/*
+ * Refined neutral scale.
+ * The platform styles everything with raw `zinc-*` utilities, so overriding the
+ * scale here re-skins every surface, hairline and label at once. The shift is
+ * deliberate: darker, cooler card surfaces and much softer hairlines than
+ * Tailwind's stock zinc, which read as heavy borders in a dark UI.
+ */
+@theme {
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f2f3f5;
+  --color-zinc-200: #e3e5e8;
+  --color-zinc-300: #c9cdd3;
+  --color-zinc-400: #9ba0a8;
+  --color-zinc-500: #83888f;
+  --color-zinc-600: #62676f;
+  --color-zinc-700: #2c2e33;
+  --color-zinc-800: #1a1b1e;
+  --color-zinc-900: #0c0d10;
+  --color-zinc-950: #09090b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #fafafa;
+  --color-primary: #f2f3f5;
   --color-accent: #10b981;
-  --color-muted: #71717a;
-  --color-surface: #18181b;
-  --color-border: #27272a;
+  --color-muted: #83888f;
+  --color-surface: #0c0d10;
+  --color-border: #1a1b1e;
   --color-destructive: #ef4444;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-instrument-sans), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ── Custom font utilities ── */
@@ -28,6 +52,52 @@ body {
 }
 .font-display {
   font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.03em;
+}
+
+/* ── Type helpers ──
+   Eyebrow labels: the one place Space Mono still earns its keep. */
+.eyebrow {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Surfaces ──
+   Card hover lift used across dashboard lists and marketing grids. */
+.surface-hover {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.surface-hover:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  background-color: #101115;
+}
+
+/* ── Details ── */
+::selection {
+  background: rgba(16, 185, 129, 0.28);
+  color: #f2f3f5;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2c2e33 transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #2c2e33;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #3d4046;
+  background-clip: content-box;
 }
 
 /* ── Keyframes ── */
@@ -53,3 +123,10 @@ body {
 .anim-3 { opacity: 0; animation: fadeUp 0.65s 0.45s ease forwards; }
 .anim-4 { opacity: 0; animation: fadeUp 0.65s 0.6s ease forwards; }
 .anim-5 { opacity: 0; animation: fadeUp 0.65s 0.78s ease forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-1, .anim-2, .anim-3, .anim-4, .anim-5 {
+    opacity: 1;
+    animation: none;
+  }
+}

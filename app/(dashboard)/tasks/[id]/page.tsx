@@ -70,21 +70,21 @@ export default async function TaskDetailPage({
                 </Badge>
                 <span className="text-xs text-zinc-600">{timeAgo(task.createdAt)}</span>
               </div>
-              <h1 className="text-2xl font-bold text-zinc-100 mb-4">{task.title}</h1>
+              <h1 className="font-display text-2xl font-bold tracking-tight text-zinc-100 mb-4">{task.title}</h1>
 
               {/* Timeline */}
               <TaskStatusTimeline status={task.status} />
             </div>
 
             {/* Description */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+            <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
               <h2 className="text-base font-semibold text-zinc-100 mb-3">Description</h2>
               <p className="text-sm text-zinc-400 whitespace-pre-wrap">{task.description}</p>
             </div>
 
             {/* Skills */}
             {task.requiredSkills.length > 0 && (
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+              <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
                 <h2 className="text-base font-semibold text-zinc-100 mb-3">Required Skills</h2>
                 <div className="flex flex-wrap gap-1.5">
                   {task.requiredSkills.map((skill) => (
@@ -96,7 +96,7 @@ export default async function TaskDetailPage({
 
             {/* Submissions */}
             {task.submissions.length > 0 && (isPoster || isWorker || isAdmin) && (
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+              <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
                 <h2 className="text-base font-semibold text-zinc-100 mb-4">Submissions</h2>
                 <div className="space-y-4">
                   {task.submissions.map((sub) => (
@@ -195,7 +195,7 @@ export default async function TaskDetailPage({
 
             {/* Reviews */}
             {task.reviews.length > 0 && (
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+              <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
                 <h2 className="text-base font-semibold text-zinc-100 mb-4">Reviews</h2>
                 <div className="space-y-3">
                   {task.reviews.map((review) => (
@@ -229,12 +229,12 @@ export default async function TaskDetailPage({
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Budget & Deadline */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5 space-y-3">
+            <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-5 space-y-3">
               <div className="flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-emerald-500" />
                 <div>
                   <div className="text-xs text-zinc-500">Budget</div>
-                  <div className="text-xl font-bold text-zinc-100">
+                  <div className="font-display text-xl font-bold tracking-tight text-zinc-100">
                     {formatCurrency(Number(task.budget) * 100)}
                   </div>
                 </div>
@@ -255,7 +255,7 @@ export default async function TaskDetailPage({
 
             {/* Actions */}
             {currentUser && (
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5 space-y-2">
+              <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-5 space-y-2">
                 {isWorker && (task.status === "ASSIGNED" || task.status === "IN_PROGRESS") && (
                   <SubmitForm taskId={task.id} />
                 )}
@@ -271,7 +271,7 @@ export default async function TaskDetailPage({
             )}
 
             {/* Poster info */}
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+            <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-5">
               <h3 className="text-sm font-semibold text-zinc-400 mb-3">Posted by</h3>
               <div className="flex items-center gap-3">
                 <Avatar>
@@ -294,7 +294,7 @@ export default async function TaskDetailPage({
 
             {/* Assigned worker */}
             {task.assignedTo && (
-              <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+              <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-5">
                 <h3 className="text-sm font-semibold text-zinc-400 mb-3">Assigned to</h3>
                 <div className="flex items-center gap-3">
                   <Avatar>

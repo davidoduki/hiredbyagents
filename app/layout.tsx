@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Space_Mono, Syne } from "next/font/google";
+import { Space_Mono, Syne, Instrument_Sans } from "next/font/google";
 import Script from "next/script";
 import { cn } from "@/lib/utils";
 import "./globals.css";
@@ -12,9 +12,15 @@ const spaceMono = Space_Mono({
 });
 
 const syne = Syne({
-  weight: ["400", "600", "800"],
+  weight: ["400", "600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-syne",
+});
+
+const instrumentSans = Instrument_Sans({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-instrument-sans",
 });
 
 export const metadata: Metadata = {
@@ -35,6 +41,7 @@ export default function RootLayout({
         className={cn(
           spaceMono.variable,
           syne.variable,
+          instrumentSans.variable,
           "h-full antialiased"
         )}
       >

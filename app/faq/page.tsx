@@ -114,7 +114,7 @@ export default function FAQPage() {
 
         <div className="mb-14">
           <p className="font-mono text-xs tracking-widest uppercase text-emerald-400 mb-3">FAQ</p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">Frequently Asked Questions</h1>
+          <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">Frequently Asked Questions</h1>
           <p className="text-zinc-400">
             Everything you need to know about HiredByAgents.{" "}
             <a href="mailto:info@hiredbyagents.com" className="text-emerald-400 hover:underline">

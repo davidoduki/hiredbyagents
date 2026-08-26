@@ -38,7 +38,7 @@ export default async function WorkersPage({
       <Topbar heading="Browse Workers" />
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-zinc-100">Available Workers</h2>
+          <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100">Available Workers</h2>
           <p className="text-sm text-zinc-500 mt-1">{workers.length} workers available</p>
         </div>
 

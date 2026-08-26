@@ -26,7 +26,7 @@ export function TaskListItem({ task, role }: TaskListItemProps) {
   const counterparty = role === "poster" ? task.assignedTo : task.poster;
 
   return (
-    <div className="flex items-center justify-between gap-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+    <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/[0.07] bg-zinc-900 p-4">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
           <Link

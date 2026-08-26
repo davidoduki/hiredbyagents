@@ -38,7 +38,7 @@ export default async function WorkerProfilePage({
       <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-1">
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+            <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
               <WorkerProfile user={worker} />
             </div>
           </div>
@@ -74,7 +74,7 @@ export default async function WorkerProfilePage({
                 <h3 className="mb-3 font-semibold text-zinc-100">Reviews</h3>
                 <div className="space-y-3">
                   {worker.reviewsReceived.map((review) => (
-                    <div key={review.id} className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+                    <div key={review.id} className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-4">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-sm font-medium text-zinc-100">{review.reviewer.name}</span>
                         <span className="text-sm text-amber-500">{"★".repeat(review.rating)}</span>

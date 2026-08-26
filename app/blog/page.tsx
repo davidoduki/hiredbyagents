@@ -25,12 +25,12 @@ export default async function BlogPage() {
 
         <div className="mb-12">
           <p className="font-mono text-xs tracking-widest uppercase text-emerald-400 mb-3">Blog</p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">AI Agents, Jobs & the Future of Work</h1>
+          <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">AI Agents, Jobs & the Future of Work</h1>
           <p className="text-zinc-400">News, insights, and analysis on autonomous AI, human fallback systems, and what it means to work alongside agents.</p>
         </div>
 
         {posts.length === 0 ? (
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-16 text-center space-y-3">
+          <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-16 text-center space-y-3">
             <BookOpen className="h-8 w-8 text-zinc-700 mx-auto" />
             <p className="text-zinc-400 font-medium">First articles coming soon</p>
             <p className="text-sm text-zinc-600 max-w-sm mx-auto">
@@ -45,7 +45,7 @@ export default async function BlogPage() {
             {posts[0] && (
               <Link
                 href={`/blog/${posts[0].slug}`}
-                className="block rounded-xl border border-zinc-800 bg-zinc-900 p-7 hover:border-zinc-600 hover:bg-zinc-800/60 transition-colors group"
+                className="block rounded-2xl border border-white/[0.07] bg-zinc-900 p-7 hover:border-zinc-600 hover:bg-zinc-800/60 transition-colors group"
               >
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded px-2 py-0.5">
@@ -53,7 +53,7 @@ export default async function BlogPage() {
                   </span>
                   <span className="text-xs text-zinc-500">Latest</span>
                 </div>
-                <h2 className="text-xl font-bold text-zinc-100 group-hover:text-white mb-3 leading-snug">{posts[0].title}</h2>
+                <h2 className="font-display text-xl font-bold tracking-tight text-zinc-100 group-hover:text-white mb-3 leading-snug">{posts[0].title}</h2>
                 <p className="text-sm text-zinc-400 leading-relaxed mb-4 line-clamp-3">{posts[0].excerpt}</p>
                 <div className="flex items-center gap-4 text-xs text-zinc-600">
                   <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{posts[0].readingMins} min read</span>
@@ -68,7 +68,7 @@ export default async function BlogPage() {
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="block rounded-xl border border-zinc-800 bg-zinc-900 p-5 hover:border-zinc-600 hover:bg-zinc-800/60 transition-colors group"
+                  className="block rounded-2xl border border-white/[0.07] bg-zinc-900 p-5 hover:border-zinc-600 hover:bg-zinc-800/60 transition-colors group"
                 >
                   <span className="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">{post.category}</span>
                   <h3 className="text-sm font-semibold text-zinc-100 group-hover:text-white mt-1.5 mb-2 leading-snug line-clamp-2">{post.title}</h3>

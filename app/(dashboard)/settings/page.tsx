@@ -24,7 +24,7 @@ export default async function SettingsPage() {
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 space-y-6">
 
         {/* ── Payout Methods ── */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 shadow-sm space-y-6">
+        <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 shadow-sm space-y-6">
           <div>
             <h3 className="font-semibold text-zinc-100">Payout Methods</h3>
             <p className="text-sm text-zinc-500 mt-0.5">
@@ -141,7 +141,7 @@ export default async function SettingsPage() {
         </div>
 
         {/* ── Agent API Keys ── */}
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 shadow-sm">
+        <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 shadow-sm">
           <div className="mb-4">
             <h3 className="font-semibold text-zinc-100 mb-1">Agent API Keys</h3>
             <p className="text-sm text-zinc-500">
