@@ -94,60 +94,145 @@ export default async function TaskDetailPage({
               </div>
             )}
 
-            {/* Submissions */}
+            {/* Results — the evidence is the product, so it leads */}
             {task.submissions.length > 0 && (isPoster || isWorker || isAdmin) && (
-              <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
-                <h2 className="text-base font-semibold text-zinc-100 mb-4">Submissions</h2>
-                <div className="space-y-4">
-                  {task.submissions.map((sub) => (
-                    <div key={sub.id} className="rounded-lg border border-zinc-800 bg-zinc-950 p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-zinc-500">{formatDate(sub.submittedAt)}</span>
-                        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                          sub.status === "APPROVED" ? "bg-emerald-500/15 text-emerald-400" :
-                          sub.status === "REJECTED" ? "bg-red-500/15 text-red-400" :
-                          "bg-amber-500/15 text-amber-400"
-                        }`}>
-                          {sub.status}
+              <div className="space-y-4">
+                <h2 className="eyebrow text-zinc-600">
+                  {task.submissions.length > 1 ? "Results" : "Result"}
+                </h2>
+                {task.submissions.map((sub) => {
+                  const attachments = Array.isArray(sub.attachments)
+                    ? (sub.attachments as unknown[]).filter(
+                        (a): a is string => typeof a === "string"
+                      )
+                    : [];
+                  const approved = sub.status === "APPROVED";
+                  const rejected = sub.status === "REJECTED";
+                  return (
+                    <div
+                      key={sub.id}
+                      className={`overflow-hidden rounded-2xl border bg-zinc-900 ${
+                        approved
+                          ? "border-emerald-400/[0.22]"
+                          : rejected
+                          ? "border-red-400/[0.22]"
+                          : "border-white/[0.07]"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-4">
+                        <span
+                          className={`inline-flex h-6 items-center gap-[7px] rounded-full border px-2.5 ${
+                            approved
+                              ? "border-emerald-400/25 bg-emerald-500/10"
+                              : rejected
+                              ? "border-red-400/25 bg-red-500/10"
+                              : "border-amber-400/25 bg-amber-500/10"
+                          }`}
+                        >
+                          <span
+                            className={`h-1 w-1 rounded-full ${
+                              approved
+                                ? "bg-emerald-400"
+                                : rejected
+                                ? "bg-red-400"
+                                : "bg-amber-400"
+                            }`}
+                          />
+                          <span
+                            className={`font-code text-[9.5px] font-bold tracking-[0.1em] ${
+                              approved
+                                ? "text-emerald-400"
+                                : rejected
+                                ? "text-red-400"
+                                : "text-amber-300"
+                            }`}
+                          >
+                            {approved ? "VERIFIED" : rejected ? "REJECTED" : "IN REVIEW"}
+                          </span>
+                        </span>
+                        <span className="font-code text-[11.5px] text-zinc-600">
+                          {formatDate(sub.submittedAt)}
                         </span>
                       </div>
-                      <p className="text-sm text-zinc-300 whitespace-pre-wrap">{sub.content}</p>
-                      {sub.notes && (
-                        <p className="mt-2 text-xs text-zinc-500 italic">Notes: {sub.notes}</p>
-                      )}
-                      {sub.feedback && (
-                        <div className="mt-2 rounded border-l-2 border-amber-500/50 pl-3 text-xs text-zinc-400">
-                          Feedback: {sub.feedback}
-                        </div>
-                      )}
+
+                      <div className="p-5">
+                        {attachments.length > 0 && (
+                          <div className="mb-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                            {attachments.map((src, i) => (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                key={i}
+                                src={src}
+                                alt={`Evidence ${i + 1}`}
+                                className="h-[150px] w-full rounded-[10px] border border-white/[0.05] bg-zinc-950 object-cover"
+                              />
+                            ))}
+                          </div>
+                        )}
+
+                        <p className="whitespace-pre-wrap text-[15px] leading-[1.7] text-zinc-300">
+                          {sub.content}
+                        </p>
+
+                        {sub.notes && (
+                          <div className="mt-5">
+                            <span className="eyebrow mb-2 block text-zinc-600">
+                              Verifier note
+                            </span>
+                            <p className="whitespace-pre-wrap text-sm leading-[1.7] text-zinc-400">
+                              {sub.notes}
+                            </p>
+                          </div>
+                        )}
+
+                        {sub.feedback && (
+                          <div className="mt-5 border-l-2 border-amber-500/40 pl-3.5">
+                            <span className="eyebrow mb-1.5 block text-zinc-600">
+                              Changes requested
+                            </span>
+                            <p className="text-sm leading-relaxed text-zinc-400">
+                              {sub.feedback}
+                            </p>
+                          </div>
+                        )}
+                      </div>
 
                       {isPoster && sub.status === "PENDING" && task.status === "REVIEW" && (
-                        <div className="mt-3 flex gap-2">
-                          <form
-                            action={async () => {
-                              "use server";
-                              await approveSubmission(task.id, sub.id);
-                            }}
-                          >
-                            <Button size="sm" variant="accent" type="submit">
-                              Approve
-                            </Button>
-                          </form>
-                          <form
-                            action={async () => {
-                              "use server";
-                              await rejectSubmission(task.id, sub.id, "Please revise and resubmit.");
-                            }}
-                          >
-                            <Button size="sm" variant="destructive" type="submit">
-                              Request Changes
-                            </Button>
-                          </form>
+                        <div className="flex flex-col items-start justify-between gap-3 border-t border-white/[0.06] bg-white/[0.015] px-5 py-4 sm:flex-row sm:items-center">
+                          <span className="text-[13px] text-zinc-600">
+                            Approving releases payment to the verifier.
+                          </span>
+                          <div className="flex items-center gap-2.5">
+                            <form
+                              action={async () => {
+                                "use server";
+                                await rejectSubmission(
+                                  task.id,
+                                  sub.id,
+                                  "Please revise and resubmit."
+                                );
+                              }}
+                            >
+                              <Button size="sm" variant="ghost" type="submit">
+                                Request changes
+                              </Button>
+                            </form>
+                            <form
+                              action={async () => {
+                                "use server";
+                                await approveSubmission(task.id, sub.id);
+                              }}
+                            >
+                              <Button size="sm" variant="accent" type="submit">
+                                Approve and release
+                              </Button>
+                            </form>
+                          </div>
                         </div>
                       )}
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
             )}
 

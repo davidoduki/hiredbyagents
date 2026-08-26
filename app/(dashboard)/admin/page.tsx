@@ -66,7 +66,7 @@ export default async function AdminPage() {
     prisma.task.findMany({
       where: { status: "OPEN" },
       orderBy: { createdAt: "asc" },
-      select: { id: true, title: true, budget: true, poster: { select: { name: true } } },
+      select: { id: true, title: true, budget: true, createdAt: true, poster: { select: { name: true } } },
     }),
     prisma.user.findMany({
       where: { workerType: "HUMAN" },
@@ -162,9 +162,32 @@ export default async function AdminPage() {
           })}
         </div>
 
+        {/* Dispatch queue — all admins */}
+        <div>
+          <div className="mb-3.5 flex items-center gap-2.5">
+            <UserPlus className="h-4 w-4 text-emerald-400" />
+            <h3 className="font-display font-bold tracking-tight text-zinc-100">Dispatch queue</h3>
+            {openTasksForAssignment.length > 0 && (
+              <span className="ml-auto font-code text-[11px] text-zinc-500">
+                {openTasksForAssignment.length} awaiting
+              </span>
+            )}
+          </div>
+          <AdminTaskAssignment
+            openTasks={openTasksForAssignment.map((t) => ({
+              id: t.id,
+              title: t.title,
+              budget: Number(t.budget),
+              createdAt: t.createdAt.toISOString(),
+              poster: t.poster,
+            }))}
+            humanWorkers={humanWorkersForAssignment}
+          />
+        </div>
+
         {/* USDC wallet — super only */}
         {isSuper && (
-          <div className="rounded-xl border border-cyan-900/30 bg-zinc-900 p-5 flex items-center justify-between gap-4 flex-wrap">
+          <div className="rounded-2xl border border-cyan-400/[0.18] bg-zinc-900 p-5 flex items-center justify-between gap-4 flex-wrap">
             <div className="min-w-0">
               <p className="text-sm font-medium text-zinc-200">Platform USDC Pool · Base Network</p>
               <p className="text-xs text-zinc-500 mt-0.5">
@@ -173,7 +196,7 @@ export default async function AdminPage() {
                   : "Not yet funded — send USDC on Base to the address below"}
               </p>
               {platformWalletAddress && (
-                <p className="text-xs font-mono text-zinc-400 mt-1 truncate">{platformWalletAddress}</p>
+                <p className="font-code text-xs text-zinc-400 mt-1 truncate">{platformWalletAddress}</p>
               )}
             </div>
             {platformWalletAddress && <CopyWalletAddress address={platformWalletAddress} />}
@@ -184,7 +207,7 @@ export default async function AdminPage() {
         <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
           <div className="flex items-center gap-2 mb-5">
             <AlertTriangle className="h-4 w-4 text-red-400" />
-            <h3 className="font-semibold text-zinc-100">Open Disputes</h3>
+            <h3 className="font-display font-bold tracking-tight text-zinc-100">Open disputes</h3>
             {disputedTasks > 0 && (
               <span className="ml-auto rounded-full bg-red-500/20 px-2 py-0.5 text-xs font-medium text-red-400">
                 {disputedTasks} active
@@ -207,7 +230,7 @@ export default async function AdminPage() {
             <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
               <div className="flex items-center gap-2 mb-4">
                 <DollarSign className="h-4 w-4 text-emerald-400" />
-                <h3 className="font-semibold text-zinc-100">Recent Payouts</h3>
+                <h3 className="font-display font-bold tracking-tight text-zinc-100">Recent payouts</h3>
               </div>
               {recentPayments.length === 0 ? (
                 <p className="text-sm text-zinc-600 text-center py-6">No payouts yet.</p>
@@ -234,7 +257,7 @@ export default async function AdminPage() {
           <div className={`rounded-2xl border border-white/[0.07] bg-zinc-900 p-6 ${!isSuper ? "lg:col-span-2" : ""}`}>
             <div className="flex items-center gap-2 mb-4">
               <UserCheck className="h-4 w-4 text-blue-400" />
-              <h3 className="font-semibold text-zinc-100">Recent Sign-ups</h3>
+              <h3 className="font-display font-bold tracking-tight text-zinc-100">Recent sign-ups</h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -270,35 +293,13 @@ export default async function AdminPage() {
 
         </div>
 
-        {/* Task Assignment — all admins */}
-        <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
-          <div className="flex items-center gap-2 mb-5">
-            <UserPlus className="h-4 w-4 text-emerald-400" />
-            <h3 className="font-semibold text-zinc-100">Assign Tasks to Workers</h3>
-            {openTasksForAssignment.length > 0 && (
-              <span className="ml-auto rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-medium text-emerald-400">
-                {openTasksForAssignment.length} open
-              </span>
-            )}
-          </div>
-          <AdminTaskAssignment
-            openTasks={openTasksForAssignment.map((t) => ({
-              id: t.id,
-              title: t.title,
-              budget: Number(t.budget),
-              poster: t.poster,
-            }))}
-            humanWorkers={humanWorkersForAssignment}
-          />
-        </div>
-
         {/* Blog generation — super only */}
         {isSuper && (
           <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
                 <BookOpen className="h-4 w-4 text-blue-400" />
-                <h3 className="font-semibold text-zinc-100">Blog Auto-Generation</h3>
+                <h3 className="font-display font-bold tracking-tight text-zinc-100">Blog auto-generation</h3>
               </div>
               <Link href="/blog" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
                 View blog →
@@ -317,7 +318,7 @@ export default async function AdminPage() {
           <div className="rounded-2xl border border-white/[0.07] bg-zinc-900 p-6">
             <div className="flex items-center gap-2 mb-5">
               <ShieldAlert className="h-4 w-4 text-red-400" />
-              <h3 className="font-semibold text-zinc-100">Manage Admins</h3>
+              <h3 className="font-display font-bold tracking-tight text-zinc-100">Manage admins</h3>
             </div>
             <ManageAdmins currentAdmins={currentAdmins} />
           </div>
