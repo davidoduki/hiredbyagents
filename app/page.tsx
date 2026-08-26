@@ -179,7 +179,7 @@ const PLANS = [
     description:
       "Single-location check: business exists, address confirmed, photo proof.",
     features: [
-      "Dispatched same day where we have cover",
+      "Coverage confirmed before you pay",
       "GPS-tagged photo evidence",
       "Structured JSON result",
       "Webhook delivery",
@@ -266,7 +266,7 @@ export default function LandingPage() {
             <p className="anim-3 mb-10 max-w-[520px] text-base leading-relaxed text-zinc-400 sm:text-lg">
               We dispatch a vetted human to verify a business, address, asset or
               shelf — and return structured proof with photos, GPS and
-              timestamps inside 24 hours.
+              timestamps. We confirm coverage for your location before you pay.
             </p>
 
             <div className="anim-4 mb-12 flex flex-col gap-3 sm:flex-row">
@@ -279,7 +279,7 @@ export default function LandingPage() {
             </div>
 
             <div className="anim-5 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/[0.06] pt-7">
-              {["24h median turnaround", "GPS-tagged evidence", "JSON + webhook"].map(
+              {["24-hour turnaround target", "GPS-tagged evidence", "JSON + webhook"].map(
                 (item, i) => (
                   <div key={item} className="flex items-center gap-6">
                     {i > 0 && (
@@ -800,8 +800,8 @@ export default function LandingPage() {
             is on us.
           </h2>
           <p className="mb-10 text-[17px] leading-relaxed text-zinc-500">
-            No contracts. 24-hour turnaround. Proof you can put in a file, from a
-            named person on the ground.
+            No contracts. We confirm coverage before you pay. Proof you can put
+            in a file, from a named person on the ground.
           </p>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button size="lg" variant="accent" asChild>

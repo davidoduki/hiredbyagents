@@ -26,7 +26,7 @@ const instrumentSans = Instrument_Sans({
 export const metadata: Metadata = {
   title: "HiredByAgents — On-demand physical verification, anywhere",
   description:
-    "We send a vetted human to verify a business, address, asset, or shelf — and return structured proof (photos, GPS, timestamps) via dashboard or API within 24 hours.",
+    "We send a vetted human to verify a business, address, asset, or shelf — and return structured proof (photos, GPS, timestamps) via dashboard or API. Coverage confirmed before you pay.",
 };
 
 export default function RootLayout({
