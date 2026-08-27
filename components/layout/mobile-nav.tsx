@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
@@ -22,22 +23,38 @@ const navItems = [
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
   const { user } = useUser();
   const email = user?.primaryEmailAddress?.emailAddress;
   const role = user?.publicMetadata?.adminRole as string | undefined;
   const isAdmin = email === ADMIN_EMAIL || role === "SUPER" || role === "MODERATOR";
 
-  return (
-    <div className="md:hidden">
-      <button
-        onClick={() => setOpen(!open)}
-        className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-800 hover:text-white"
-        aria-label="Toggle navigation"
-      >
-        {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      </button>
+  React.useEffect(() => setMounted(true), []);
 
+  // Close on Escape, and stop the page scrolling underneath the open drawer.
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  /*
+   * The drawer is rendered into document.body rather than in place. The topbar
+   * that hosts this button uses backdrop-blur, which makes it the containing
+   * block for position:fixed descendants — so an inline drawer gets clipped to
+   * the 64px header instead of covering the viewport.
+   */
+  const drawer = (
+    <>
       {open && (
         <>
           <div
@@ -99,6 +116,20 @@ export function MobileNav() {
           </nav>
         </>
       )}
+    </>
+  );
+
+  return (
+    <div className="md:hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="rounded-lg p-2 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
+        aria-label="Toggle navigation"
+        aria-expanded={open}
+      >
+        {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </button>
+      {mounted ? createPortal(drawer, document.body) : null}
     </div>
   );
 }
